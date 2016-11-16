@@ -32,31 +32,4 @@
       <version>9.4.1208</version>
     </dependency>
   </dependencies>
-  
-  <build>
-  	<plugins>
-  		<plugin>
-  			<groupId>io.numis</groupId>
-  			<artifactId>service</artifactId>
-  			<version>0.0.1</version>
-  			<configuration>
-  				<assembleDirectory>target</assembleDirectory>
-  				<programs>
-  					<program>
-  						<mainClass>io.numis.service.App</mainClass>
-  						<main>app</main>
-  					</program>
-  				</programs>
-  			</configuration>
-  			<executions>
-  				<execution>
-  					<phase>package</phase>
-  					<goals>
-  						<goal>assemble</goal>
-  					</goals>
-  				</execution>
-  			</executions>
-  		</plugin>
-  	</plugins>
-  </build>
 </project>
