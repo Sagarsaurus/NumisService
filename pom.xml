@@ -34,29 +34,10 @@
   </dependencies>
   
   <build>
+  	<finalName>Numis</finalName>
+  	<!-- Config: Maven Tomcat Plugin (Test) -->
   	<plugins>
-  		<plugin>
-  			<groupId>io.numis</groupId>
-  			<artifactId>service</artifactId>
-  			<version>0.0.1</version>
-  			<configuration>
-  				<assembleDirectory>target</assembleDirectory>
-  				<programs>
-  					<program>
-  						<mainClass>io.numis.service.App</mainClass>
-  						<main>app</main>
-  					</program>
-  				</programs>
-  			</configuration>
-  			<executions>
-  				<execution>
-  					<phase>package</phase>
-  					<goals>
-  						<goal>assemble</goal>
-  					</goals>
-  				</execution>
-  			</executions>
-  		</plugin>
+  		
   	</plugins>
   </build>
 </project>
