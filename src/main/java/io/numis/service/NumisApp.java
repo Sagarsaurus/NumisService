@@ -41,8 +41,8 @@ public class NumisApp {
      * @throws SQLException
      */
     private static Connection getConnection() throws URISyntaxException, SQLException {
-    	String uri = "qwnftoedixnoiy:mPElNOqHA_kY9hIR0HdDvCeC_t@ec2-23-21-55-25."
-    			+ "compute-1.amazonaws.com:5432/da4sj8g02keohe";
+    	String uri = "qwnftoedixnoiy:mPElNOqHA_kY9hIR0HdDvCeC_t@ec2-23-21-"
+    			+ "55-25.compute-1.amazonaws.com:5432/da4sj8g02keohe";
     	URI numisDbUri = new URI(System.getenv(uri));
     	
     	String username = numisDbUri.getUserInfo().split(":")[0];
