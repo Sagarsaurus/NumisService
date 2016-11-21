@@ -39,11 +39,10 @@ public class Application implements SparkApplication {
 	public void init() {
 		Connection connection;
 		try {
-			LOGGER.info("<string here>");
-			connection = getConnection();
-			
-			handler = new FileHandler("/home/sunny/Documents/numis_logging.txt");
+			handler = new FileHandler("/numis_logging.txt");
 			LOGGER.addHandler(handler);
+			LOGGER.info("Attempting to estab a connection");
+			connection = getConnection();
 			
 			Statement stmt = connection.createStatement();
 	    	ResultSet rs = stmt.executeQuery("SELECT * from SAMPLE");
