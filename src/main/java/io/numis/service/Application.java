@@ -3,6 +3,8 @@ package io.numis.service;
 import static spark.Spark.*;
 
 import java.io.IOException;
+import java.io.PrintWriter;
+import java.io.StringWriter;
 import java.net.URI;
 import java.net.URISyntaxException;
 import java.sql.Connection;
@@ -52,13 +54,10 @@ public class Application implements SparkApplication {
 	    	}
 	    	get("/", (request, response) -> str);
 		} catch (URISyntaxException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		} catch (SecurityException | IOException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 	}
@@ -74,21 +73,52 @@ public class Application implements SparkApplication {
      * @return Connection to JDBC_DATABASE_URL
      * @throws URISyntaxException
      * @throws SQLException
+	 * @throws ClassNotFoundException 
      */
+//    private static Connection getConnection() throws URISyntaxException, SQLException, ClassNotFoundException {
+//    	String uri = "qwnftoedixnoiy:mPElNOqHA_kY9hIR0HdDvCeC_t@ec2-23-21-"
+//    			+ "55-25.compute-1.amazonaws.com:5432/da4sj8g02keohe";
+//    	URI numisDbUri = new URI(uri);
+//    	Class.forName("org.postgresql.Driver");
+//    	LOGGER.info("Created URI object");
+//    	try {
+//    		LOGGER.info("in the try");
+//    		LOGGER.info(numisDbUri.getUserInfo());
+//    	} catch (Exception e) {
+//    		LOGGER.info("in the catch");
+//			StringWriter sw = new StringWriter();
+//			e.printStackTrace(new PrintWriter(sw));
+//			LOGGER.info(sw.toString());
+//		}
+//    	String username = numisDbUri.getUserInfo().split(":")[0];
+//    	String password = numisDbUri.getUserInfo().split(":")[1];
+//    	LOGGER.info("username: " + username + ", password: " + password);
+//    	String numisDbUrl = "jdbc:postgresql://" + numisDbUri.getHost() + ':' 
+//    			+ numisDbUri.getPort() + numisDbUri.getPath();
+//    	
+//    	return DriverManager.getConnection(numisDbUrl, username, password);
+//    }
+    
     private static Connection getConnection() throws URISyntaxException, SQLException {
-    	String uri = "qwnftoedixnoiy:mPElNOqHA_kY9hIR0HdDvCeC_t@ec2-23-21-"
-    			+ "55-25.compute-1.amazonaws.com:5432/da4sj8g02keohe";
-    	URI numisDbUri = new URI(System.getenv(uri));
-    	
-    	LOGGER.info("Created URI object");
-    	
-    	String username = numisDbUri.getUserInfo().split(":")[0];
-    	String password = numisDbUri.getUserInfo().split(":")[1];
-    	LOGGER.info("username: " + username + ", password: " + password);
-    	String numisDbUrl = "jdbc:postgresql://" + numisDbUri.getHost() + ':' 
-    			+ numisDbUri.getPort() + numisDbUri.getPath();
-    	
-    	return DriverManager.getConnection(numisDbUrl, username, password);
+
+        String username = "qwnftoedixnoiy";
+        String password = "mPElNOqHA_kY9hIR0HdDvCeC_t";
+        String dbUrl = "jdbc:postgresql://ec2-23-21-55-25.compute-1.amazonaws.com:5432/da4sj8g02keohe?sslmode=require&"
+        		+ "user=qwnftoedixnoiy&"
+        		+ "password=mPElNOqHA_kY9hIR0HdDvCeC_t";
+        
+        LOGGER.info("Trying to connect");
+        
+        try {
+        	Class.forName("org.postgresql.Driver");
+            Connection conn = DriverManager.getConnection(dbUrl);
+            LOGGER.info("established a connection in line 112");
+            return conn;
+        } catch (Exception e) {
+			LOGGER.info(e.getMessage());
+		}
+ 
+        return null;
     }
 
 }
