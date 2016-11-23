@@ -42,7 +42,7 @@ public class Application implements SparkApplication {
 		try {
 			handler = new FileHandler("/home/sunny/Documents/numis_logging.txt");
 			LOGGER.addHandler(handler);
-			LOGGER.info("Attempting to estab a connection");
+			LOGGER.info("Attempting to establish a connection");
 			connection = getConnection();
 			
 			Statement stmt = connection.createStatement();
@@ -60,25 +60,31 @@ public class Application implements SparkApplication {
 			e.printStackTrace();
 		} catch (ClassNotFoundException e) {
 			e.printStackTrace();
+		} catch (InstantiationException e) {
+			e.printStackTrace();
+		} catch (IllegalAccessException e) {
+			e.printStackTrace();
 		}
 	}
 	
 	/**
      * Provides a connection to numis.io database on heroku platform.
      * <p>
-     * There are two versions of this method. One for when we use
-     * the JDBC_DATABASE_URL variable or the Uri directly.
      * 
      * @return Connection to JDBC_DATABASE_URL
      * @throws URISyntaxException
      * @throws SQLException
 	 * @throws ClassNotFoundException 
+	 * @throws IllegalAccessException 
+	 * @throws InstantiationException 
      */
-	private static Connection getConnection() throws URISyntaxException, SQLException, ClassNotFoundException {
+	private static Connection getConnection() throws URISyntaxException, SQLException, 
+								ClassNotFoundException, InstantiationException, IllegalAccessException {
 		String url = "postgres://qwnftoedixnoiy:mPElNOqHA_kY9hIR0HdDvCeC_t@ec2-"
 				+ "23-21-55-25.compute-1.amazonaws.com:5432/da4sj8g02keohe";
-		URI numisDbUri = new URI(url);
-		Class.forName("org.postgresql.Driver");
+		
+		URI numisDbUri = new URI(System.getenv(url));
+		Class.forName("org.postgresql.Driver").newInstance();
 
 		
 		String username = numisDbUri.getUserInfo().split(":")[0];
@@ -90,6 +96,6 @@ public class Application implements SparkApplication {
 		String numisUrl = "jdbc:postgresql://" + numisDbUri.getHost() + ':' 
 				+ numisDbUri.getPort() + numisDbUri.getPath();
 		
-		return DriverManager.getConnection(numisUrl,props);
+		return DriverManager.getConnection(numisUrl, props);
 	}
 }
