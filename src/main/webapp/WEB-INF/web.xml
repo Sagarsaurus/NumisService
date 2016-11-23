@@ -19,38 +19,4 @@
 	<welcome-file-list>
     	<welcome-file>index.html</welcome-file>
 	</welcome-file-list>
-	<!--  <error-page>
-		<exception-type>java.lang.Exception</exception-type>
-		<location>/error.jsp</location>
-	</error-page>  
-	<filter>
-        <filter-name>struts2</filter-name>
-        <filter-class>org.apache.struts2.dispatcher.ng.filter.StrutsPrepareAndExecuteFilter</filter-class>
-    </filter>
-     
-     <filter-mapping>
-        <filter-name>struts2</filter-name>
-        <url-pattern>/*</url-pattern>
-    </filter-mapping>
-    
-    <servlet>
-      <servlet-name>NumisRegistrationServlet</servlet-name>
-      <servlet-class>presentation.NumisInitServlet</servlet-class>
-      <load-on-startup>1</load-on-startup>
-    </servlet>
-    
-    <jsp-config>      
-	     <taglib>
-	        <taglib-uri>http://displaytag.sourceforge.net/</taglib-uri>
-	        <taglib-location>/WEB-INF/displaytag-11.tld</taglib-location>
-	    </taglib>
-		<taglib>
-			<taglib-uri>http://java.sun.com/jsp/jstl/core</taglib-uri>
-			<taglib-location>/WEB-INF/c.tld</taglib-location>
-		</taglib>    
-    </jsp-config>
-    -->  
-
-   
-
 </web-app>

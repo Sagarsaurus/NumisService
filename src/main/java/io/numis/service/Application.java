@@ -2,7 +2,6 @@ package io.numis.service;
 
 import static spark.Spark.*;
 
-import java.io.IOException;
 import java.net.URI;
 import java.net.URISyntaxException;
 import java.sql.Connection;
@@ -11,9 +10,9 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.Properties;
-import java.util.logging.FileHandler;
 import java.util.logging.Logger;
 
+import io.numis.formatter.FormatHTML;
 import spark.servlet.SparkApplication;
 
 /**
@@ -29,34 +28,32 @@ import spark.servlet.SparkApplication;
  */
 public class Application implements SparkApplication {
 	
-	private static String str;
+	private static String str = "";
 	
 	// Logger info
 	private final static Logger LOGGER = Logger.getLogger(Application.class.getName());
-	
-	// FileHandler
-	private static FileHandler handler;
 
 	public void init() {
 		Connection connection;
 		try {
-			handler = new FileHandler("/home/sunny/Documents/numis_logging.txt");
-			LOGGER.addHandler(handler);
 			LOGGER.info("Attempting to establish a connection");
 			connection = getConnection();
 			
 			Statement stmt = connection.createStatement();
 	    	ResultSet rs = stmt.executeQuery("SELECT * from SAMPLE");
+	    	
 	    	while (rs.next()) {
 	    		LOGGER.info(rs.getString("name"));
-	    		str += "\nread from db: " + rs.getString("name");
+	    		str = "\nread from db: " + rs.getString("name") + str;
 	    	}
-	    	get("/", (request, response) -> str);
+	    	
+	    	String formattedString = FormatHTML.getFormattedString(str);
+	    	get("/", (request, response) -> formattedString);
 		} catch (URISyntaxException e) {
 			e.printStackTrace();
 		} catch (SQLException e) {
 			e.printStackTrace();
-		} catch (SecurityException | IOException e) {
+		} catch (SecurityException e) {
 			e.printStackTrace();
 		} catch (ClassNotFoundException e) {
 			e.printStackTrace();
@@ -71,7 +68,7 @@ public class Application implements SparkApplication {
      * Provides a connection to numis.io database on heroku platform.
      * <p>
      * 
-     * @return Connection to JDBC_DATABASE_URL
+     * @return Connection to JDBC_DATABASE_URL environment url variable
      * @throws URISyntaxException
      * @throws SQLException
 	 * @throws ClassNotFoundException 
@@ -80,12 +77,9 @@ public class Application implements SparkApplication {
      */
 	private static Connection getConnection() throws URISyntaxException, SQLException, 
 								ClassNotFoundException, InstantiationException, IllegalAccessException {
-		String url = "postgres://qwnftoedixnoiy:mPElNOqHA_kY9hIR0HdDvCeC_t@ec2-"
-				+ "23-21-55-25.compute-1.amazonaws.com:5432/da4sj8g02keohe";
 		
-		URI numisDbUri = new URI(System.getenv(url));
+		URI numisDbUri = new URI(System.getenv("JDBC_DATABASE_URL"));
 		Class.forName("org.postgresql.Driver").newInstance();
-
 		
 		String username = numisDbUri.getUserInfo().split(":")[0];
 		String password = numisDbUri.getUserInfo().split(":")[1];
