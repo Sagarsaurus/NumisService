@@ -3,8 +3,6 @@ package io.numis.service;
 import static spark.Spark.*;
 
 import java.io.IOException;
-import java.io.PrintWriter;
-import java.io.StringWriter;
 import java.net.URI;
 import java.net.URISyntaxException;
 import java.sql.Connection;
@@ -12,6 +10,7 @@ import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.Properties;
 import java.util.logging.FileHandler;
 import java.util.logging.Logger;
 
@@ -41,7 +40,7 @@ public class Application implements SparkApplication {
 	public void init() {
 		Connection connection;
 		try {
-			handler = new FileHandler("/numis_logging.txt");
+			handler = new FileHandler("/home/sunny/Documents/numis_logging.txt");
 			LOGGER.addHandler(handler);
 			LOGGER.info("Attempting to estab a connection");
 			connection = getConnection();
@@ -50,7 +49,7 @@ public class Application implements SparkApplication {
 	    	ResultSet rs = stmt.executeQuery("SELECT * from SAMPLE");
 	    	while (rs.next()) {
 	    		LOGGER.info(rs.getString("name"));
-	    		str = "\nread from db: " + rs.getString("name");
+	    		str += "\nread from db: " + rs.getString("name");
 	    	}
 	    	get("/", (request, response) -> str);
 		} catch (URISyntaxException e) {
@@ -58,6 +57,8 @@ public class Application implements SparkApplication {
 		} catch (SQLException e) {
 			e.printStackTrace();
 		} catch (SecurityException | IOException e) {
+			e.printStackTrace();
+		} catch (ClassNotFoundException e) {
 			e.printStackTrace();
 		}
 	}
@@ -75,50 +76,22 @@ public class Application implements SparkApplication {
      * @throws SQLException
 	 * @throws ClassNotFoundException 
      */
-//    private static Connection getConnection() throws URISyntaxException, SQLException, ClassNotFoundException {
-//    	String uri = "qwnftoedixnoiy:mPElNOqHA_kY9hIR0HdDvCeC_t@ec2-23-21-"
-//    			+ "55-25.compute-1.amazonaws.com:5432/da4sj8g02keohe";
-//    	URI numisDbUri = new URI(uri);
-//    	Class.forName("org.postgresql.Driver");
-//    	LOGGER.info("Created URI object");
-//    	try {
-//    		LOGGER.info("in the try");
-//    		LOGGER.info(numisDbUri.getUserInfo());
-//    	} catch (Exception e) {
-//    		LOGGER.info("in the catch");
-//			StringWriter sw = new StringWriter();
-//			e.printStackTrace(new PrintWriter(sw));
-//			LOGGER.info(sw.toString());
-//		}
-//    	String username = numisDbUri.getUserInfo().split(":")[0];
-//    	String password = numisDbUri.getUserInfo().split(":")[1];
-//    	LOGGER.info("username: " + username + ", password: " + password);
-//    	String numisDbUrl = "jdbc:postgresql://" + numisDbUri.getHost() + ':' 
-//    			+ numisDbUri.getPort() + numisDbUri.getPath();
-//    	
-//    	return DriverManager.getConnection(numisDbUrl, username, password);
-//    }
-    
-    private static Connection getConnection() throws URISyntaxException, SQLException {
+	private static Connection getConnection() throws URISyntaxException, SQLException, ClassNotFoundException {
+		String url = "postgres://qwnftoedixnoiy:mPElNOqHA_kY9hIR0HdDvCeC_t@ec2-"
+				+ "23-21-55-25.compute-1.amazonaws.com:5432/da4sj8g02keohe";
+		URI numisDbUri = new URI(url);
+		Class.forName("org.postgresql.Driver");
 
-        String username = "qwnftoedixnoiy";
-        String password = "mPElNOqHA_kY9hIR0HdDvCeC_t";
-        String dbUrl = "jdbc:postgresql://ec2-23-21-55-25.compute-1.amazonaws.com:5432/da4sj8g02keohe?sslmode=require&"
-        		+ "user=qwnftoedixnoiy&"
-        		+ "password=mPElNOqHA_kY9hIR0HdDvCeC_t";
-        
-        LOGGER.info("Trying to connect");
-        
-        try {
-        	Class.forName("org.postgresql.Driver");
-            Connection conn = DriverManager.getConnection(dbUrl);
-            LOGGER.info("established a connection in line 112");
-            return conn;
-        } catch (Exception e) {
-			LOGGER.info(e.getMessage());
-		}
- 
-        return null;
-    }
-
+		
+		String username = numisDbUri.getUserInfo().split(":")[0];
+		String password = numisDbUri.getUserInfo().split(":")[1];
+		Properties props = new Properties();
+		props.setProperty("user", username);
+		props.setProperty("password", password);
+		props.setProperty("sslmode", "require");
+		String numisUrl = "jdbc:postgresql://" + numisDbUri.getHost() + ':' 
+				+ numisDbUri.getPort() + numisDbUri.getPath();
+		
+		return DriverManager.getConnection(numisUrl,props);
+	}
 }
