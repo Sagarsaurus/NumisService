@@ -68,8 +68,6 @@ public class Application implements SparkApplication {
      * <p>
      * There are two versions of this method. One for when we use
      * the JDBC_DATABASE_URL variable or the Uri directly.
-     * (see {@link https://devcenter.heroku.com/articles/connecting-to-relational-databases-on-heroku-with-java}})
-     * <b>Note:</b> Plans to update. Only for Testing
      * 
      * @return Connection to JDBC_DATABASE_URL
      * @throws URISyntaxException
