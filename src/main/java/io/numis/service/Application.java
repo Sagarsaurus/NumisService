@@ -12,6 +12,11 @@ import java.sql.Statement;
 import java.util.Properties;
 import java.util.logging.Logger;
 
+import org.neo4j.driver.v1.AuthTokens;
+import org.neo4j.driver.v1.Driver;
+import org.neo4j.driver.v1.GraphDatabase;
+import org.neo4j.driver.v1.Session;
+
 import io.numis.formatter.FormatHTML;
 import spark.servlet.SparkApplication;
 
@@ -34,21 +39,17 @@ public class Application implements SparkApplication {
 	private final static Logger LOGGER = Logger.getLogger(Application.class.getName());
 
 	public void init() {
-		Connection connection;
+		Session session;
 		try {
 			LOGGER.info("Attempting to establish a connection");
-			connection = getConnection();
 			
-			Statement stmt = connection.createStatement();
-	    	ResultSet rs = stmt.executeQuery("SELECT * from SAMPLE");
-	    	
-	    	while (rs.next()) {
-	    		LOGGER.info(rs.getString("name"));
-	    		str = "\nread from db: " + rs.getString("name") + str;
-	    	}
-	    	
+			session = getConnection();
+			LOGGER.info("Established connection");
+	    	String str = "hello world";
 	    	String formattedString = FormatHTML.getFormattedString(str);
 	    	get("/", (request, response) -> formattedString);
+	    	session.close();
+	    	LOGGER.info("session closed");
 		} catch (URISyntaxException e) {
 			e.printStackTrace();
 		} catch (SQLException e) {
@@ -75,21 +76,19 @@ public class Application implements SparkApplication {
 	 * @throws IllegalAccessException 
 	 * @throws InstantiationException 
      */
-	private static Connection getConnection() throws URISyntaxException, SQLException, 
+	private static Session getConnection() throws URISyntaxException, SQLException, 
 								ClassNotFoundException, InstantiationException, IllegalAccessException {
 		
-		URI numisDbUri = new URI(System.getenv("JDBC_DATABASE_URL"));
-		Class.forName("org.postgresql.Driver").newInstance();
+		Class.forName("org.neo4j.jdbc.Driver");
 		
-		String username = numisDbUri.getUserInfo().split(":")[0];
-		String password = numisDbUri.getUserInfo().split(":")[1];
-		Properties props = new Properties();
-		props.setProperty("user", username);
-		props.setProperty("password", password);
-		props.setProperty("sslmode", "require");
-		String numisUrl = "jdbc:postgresql://" + numisDbUri.getHost() + ':' 
-				+ numisDbUri.getPort() + numisDbUri.getPath();
-		
-		return DriverManager.getConnection(numisUrl, props);
+		String graphenedbURL = System.getenv("GRAPHENEDB_TEAL_BOLT_URL");
+		LOGGER.info("graphene db url: " + graphenedbURL);
+	    String graphenedbUser = System.getenv("GRAPHENEDB_TEAL_BOLT_USER");
+	    LOGGER.info("Graphene db user: " + graphenedbUser);
+	    String graphenedbPass = System.getenv("GRAPHENEDB_TEAL_BOLT_PASSWORD");
+	    LOGGER.info("Graphene db pass: " + graphenedbPass);
+	    Driver driver = GraphDatabase.driver( graphenedbURL, AuthTokens.basic( graphenedbUser, graphenedbPass ) );
+	    LOGGER.info("Successfully created Driver");
+		return driver.session();
 	}
 }
