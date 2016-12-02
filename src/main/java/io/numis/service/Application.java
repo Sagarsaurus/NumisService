@@ -15,7 +15,9 @@ import java.util.logging.Logger;
 import org.neo4j.driver.v1.AuthTokens;
 import org.neo4j.driver.v1.Driver;
 import org.neo4j.driver.v1.GraphDatabase;
+import org.neo4j.driver.v1.Record;
 import org.neo4j.driver.v1.Session;
+import org.neo4j.driver.v1.StatementResult;
 
 import io.numis.formatter.FormatHTML;
 import spark.servlet.SparkApplication;
@@ -45,8 +47,19 @@ public class Application implements SparkApplication {
 			
 			session = getConnection();
 			LOGGER.info("Established connection");
-	    	String str = "hello world";
+			session.run("CREATE (n:Person {name:'Hello,'})");
+			session.run("CREATE (n:Person {name:'Im'})");
+			session.run("CREATE (n:Person {name:'Birik'})");
+			session.run("CREATE (n:Person {name:'Ibimia'})");
+			StatementResult result = session.run("MATCH (n:Person) RETURN n.name AS name");
+			String str = "";
+			while ( result.hasNext() ){
+				Record record = result.next();
+				str += "\n" + record.get("name").asString();
+			}
+
 	    	String formattedString = FormatHTML.getFormattedString(str);
+	    	LOGGER.info(formattedString);
 	    	get("/", (request, response) -> formattedString);
 	    	session.close();
 	    	LOGGER.info("session closed");
