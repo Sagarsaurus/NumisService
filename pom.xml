@@ -21,32 +21,38 @@
       <version>3.8.1</version>
       <scope>test</scope>
     </dependency>
+    <!-- tag::spark-core-dependency -->
     <dependency>
       <groupId>com.sparkjava</groupId>
       <artifactId>spark-core</artifactId>
       <version>2.5.2</version>
     </dependency>
+    <!-- end::spark-core-dependency -->
+    <!-- tag::bolt-dependency -->
     <dependency>
     	<groupId>org.neo4j.driver</groupId>
     	<artifactId>neo4j-java-driver</artifactId>
     	<version>1.0.6</version>
     </dependency>
+    <!-- end::bolt-dependency -->
+    
     <!-- https://mvnrepository.com/artifact/org.neo4j/neo4j -->
-		<dependency>
-		    <groupId>org.neo4j</groupId>
-		    <artifactId>neo4j</artifactId>
-		    <version>3.0.7</version>
-		</dependency>
+	<dependency>
+	    <groupId>org.neo4j</groupId>
+	    <artifactId>neo4j</artifactId>
+	    <version>3.0.7</version>
+	</dependency>
     
     <dependency>
     	<groupId>org.neo4j</groupId>
     	<artifactId>neo4j-jdbc-driver</artifactId>
     	<version>3.0.1</version>
 	</dependency>
+    
     <dependency>
-    	<groupId>org.postgresql</groupId>
-    	<artifactId>postgresql</artifactId>
-    	<version>9.4.1212</version>
+    	<groupId>org.slf4j</groupId>
+    	<artifactId>slf4j-simple</artifactId>
+    	<version>1.7.21</version>
     </dependency>
   </dependencies>
   

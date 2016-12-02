@@ -2,14 +2,8 @@ package io.numis.service;
 
 import static spark.Spark.*;
 
-import java.net.URI;
 import java.net.URISyntaxException;
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.sql.Statement;
-import java.util.Properties;
 import java.util.logging.Logger;
 
 import org.neo4j.driver.v1.AuthTokens;
@@ -34,8 +28,6 @@ import spark.servlet.SparkApplication;
  *
  */
 public class Application implements SparkApplication {
-	
-	private static String str = "";
 	
 	// Logger info
 	private final static Logger LOGGER = Logger.getLogger(Application.class.getName());
