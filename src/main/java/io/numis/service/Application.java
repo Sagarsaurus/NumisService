@@ -41,11 +41,12 @@ public class Application implements SparkApplication {
 	private final static Logger LOGGER = Logger.getLogger(Application.class.getName());
 
 	public void init() {
+		Driver driver;
 		Session session;
 		try {
 			LOGGER.info("Attempting to establish a connection");
-			
-			session = getConnection();
+			driver = getConnection();
+			session = driver.session();
 			LOGGER.info("Established connection");
 			session.run("CREATE (n:Person {name:'Hello,'})");
 			session.run("CREATE (n:Person {name:'Im'})");
@@ -63,6 +64,8 @@ public class Application implements SparkApplication {
 	    	get("/", (request, response) -> formattedString);
 	    	session.close();
 	    	LOGGER.info("session closed");
+	    	driver.close();
+	    	LOGGER.info("driver closed");
 		} catch (URISyntaxException e) {
 			e.printStackTrace();
 		} catch (SQLException e) {
@@ -89,7 +92,7 @@ public class Application implements SparkApplication {
 	 * @throws IllegalAccessException 
 	 * @throws InstantiationException 
      */
-	private static Session getConnection() throws URISyntaxException, SQLException, 
+	private static Driver getConnection() throws URISyntaxException, SQLException, 
 								ClassNotFoundException, InstantiationException, IllegalAccessException {
 		
 		Class.forName("org.neo4j.jdbc.Driver");
@@ -102,6 +105,6 @@ public class Application implements SparkApplication {
 	    LOGGER.info("Graphene db pass: " + graphenedbPass);
 	    Driver driver = GraphDatabase.driver( graphenedbURL, AuthTokens.basic( graphenedbUser, graphenedbPass ) );
 	    LOGGER.info("Successfully created Driver");
-		return driver.session();
+		return driver;
 	}
 }
