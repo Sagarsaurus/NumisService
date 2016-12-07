@@ -2,6 +2,8 @@ package io.numis.domain;
 
 import java.lang.reflect.Field;
 
+import io.numis.domain.interfaces.DomainNode;
+
 /**
  * <h1>AbstractDomainNode</h1>
  * AbstractDomainNode class 

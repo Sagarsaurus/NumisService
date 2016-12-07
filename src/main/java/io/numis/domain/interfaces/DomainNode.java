@@ -1,4 +1,4 @@
-package io.numis.domain;
+package io.numis.domain.interfaces;
 
 /**
  * <h1>DomainNode</h1>
