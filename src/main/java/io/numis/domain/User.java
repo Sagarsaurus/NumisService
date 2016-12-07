@@ -23,7 +23,6 @@ public class User extends AbstractDomainNode {
 		return id;
 	}
 	
-
 	/**
 	 * @return the username
 	 */
