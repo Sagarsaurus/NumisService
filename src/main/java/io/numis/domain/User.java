@@ -4,7 +4,6 @@ import java.util.Date;
 
 public class User extends AbstractDomainNode {
 	
-	private int id;
 	private String username;
 	private String encrypted_password;
 	private String email;
@@ -15,14 +14,6 @@ public class User extends AbstractDomainNode {
 	private int account_number;
 	private int routing_number;
 	private double account_balance;
-	
-	/**
-	 * @return the id
-	 */
-	public int getId() {
-		return id;
-	}
-	
 
 	/**
 	 * @return the username
@@ -181,8 +172,4 @@ public class User extends AbstractDomainNode {
 	public void setAccountBalance(double account_balance) {
 		this.account_balance = account_balance;
 	}
-	
-	
-	
-	
 }
