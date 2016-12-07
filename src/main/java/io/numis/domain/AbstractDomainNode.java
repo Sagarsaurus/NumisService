@@ -4,9 +4,9 @@ import java.lang.reflect.Field;
 
 /**
  * <h1>AbstractDomainNode</h1>
- * This AbstractDomainNode class 
- * implements DomainNode interface
- * to handle handle basic Node behavior.
+ * AbstractDomainNode class 
+ * implements {@link DomainNode} interface
+ * to handle basic Node behavior.
  * <p>
  * 
  * @author Numis
@@ -18,14 +18,23 @@ public abstract class AbstractDomainNode implements DomainNode {
 	
 	private int id;
 	
+	/**
+	 * @return the id
+	 */
 	public int getId() {
 		return id;
 	}
 	
+	/**
+	 * @param id the id to set
+	 */
 	public void setId(int id) {
 		this.id = id;
 	}
 	
+	/**
+	 * @return boolean
+	 */
 	public boolean equals(Object o)	{
 		if (this == o)		{
 			return true;
@@ -36,6 +45,9 @@ public abstract class AbstractDomainNode implements DomainNode {
 		}
 	}
 	
+	/**
+	 * @return int
+	 */
 	public int compareTo(DomainNode o) {
 		return ((Integer)this.getId()).compareTo((Integer)(o.getId()));
 	}

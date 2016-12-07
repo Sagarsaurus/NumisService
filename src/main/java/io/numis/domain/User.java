@@ -2,6 +2,18 @@ package io.numis.domain;
 
 import java.util.Date;
 
+/**
+ * <h1>User</h1>
+ * User class extends 
+ * {@link AbstractDomainNode} abstract class.
+ * User model for User node in the database.
+ * <p>
+ * 
+ * @author Numis
+ * @version 0.0.1
+ * @since 2016-12-06
+ *
+ */
 public class User extends AbstractDomainNode {
 	
 	private String username;
