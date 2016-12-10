@@ -30,6 +30,7 @@ public class User extends AbstractDomainNode {
 	private int routing_number;
 	private double account_balance;
 	
+	private final int NO_ACCOUNT_NUMBER = -1;
 	
 	public User(){}
 	
@@ -46,8 +47,8 @@ public class User extends AbstractDomainNode {
 		setLastName(properties.getProperty("last_name"));
 		setPhoneNumber(properties.getProperty("phone_number"));
 		setAccountBalance(0);
-		setRoutingNumber(-1);
-		setAccountNumber(-1);
+		setRoutingNumber(NO_ACCOUNT_NUMBER);
+		setAccountNumber(NO_ACCOUNT_NUMBER);
 	}
 	
 	
