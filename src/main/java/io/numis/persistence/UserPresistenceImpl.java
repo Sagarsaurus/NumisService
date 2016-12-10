@@ -44,15 +44,15 @@ public class UserPresistenceImpl {
 	    String last_name = user.getLastName();
 	    String phone_number = user.getPhoneNumber();
 	    
-	    String create_statement = "CREATE (n:Person {"
-	    		+ "username:" + username
-	    		+ ", encrypted_password:" + encrypted_password
-	    		+ ", email:" + email
-	    		+ ", birth_date:" + birth_date
-	    		+ ", first_name:" + first_name
-	    		+ ", list_name:" + last_name
-	    		+ ", phone_number:" + phone_number
-	    		+ ", account_number:0, routing_number:0, account_balance:0})";
+	    String create_statement = "CREATE (u:User {"
+	    		+ "username: '" + username + "'"
+	    		+ ", encrypted_password: '" + encrypted_password + "'"
+	    		+ ", email: '" + email + "'"
+	    		+ ", birth_date: '" + birth_date + "'"
+	    		+ ", first_name: '" + first_name + "'"
+	    		+ ", list_name: '" + last_name + "'"
+	    		+ ", phone_number: '" + phone_number + "'"
+	    		+ ", account_number:-1, routing_number:-1, account_balance:0})";
 	    
 	    return create_statement;
 	  }
