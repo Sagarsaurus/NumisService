@@ -1,5 +1,11 @@
 package io.numis.persistence;
 
+import java.util.Date;
+import java.util.Properties;
+
+import org.neo4j.driver.v1.Driver;
+import org.neo4j.driver.v1.Session;
+
 import io.numis.domain.User;
 
 public class UserPresistenceImpl {
@@ -7,9 +13,38 @@ public class UserPresistenceImpl {
 		return null;
 	}
 	
-	public boolean saveUser() {
-		return true;
+	public boolean saveUser(Properties properties) {
+		User user = new User(properties);
+	    try {
+	    	Driver driver = DriverFactory.getInstance();
+	    	Session session = driver.session();
+	    	session.run(getInsertStatement(user));
+	    	session.close();
+	    	return true;
+	    } catch (Exception e) {
+	    	return false;
+	    }
 	}
 	
-	
+	private String getInsertStatement(User user) {
+	    String username = user.getUsername();
+	    String encrypted_password = user.getEncryptedPassword();
+	    String email = user.getEmail();
+	    Date birth_date = user.getBirthDate(); 
+	    String first_name = user.getFirstName();
+	    String last_name = user.getLastName();
+	    String phone_number = user.getPhoneNumber();
+	    
+	    String create_statement = "CREATE (n:Person {"
+	    		+ "username=" + username
+	    		+ ", encrypted_password=" + encrypted_password
+	    		+ ", email=" + email
+	    		+ ", birth_date=" + birth_date
+	    		+ ", first_name=" + first_name
+	    		+ ", list_name=" + last_name
+	    		+ ", phone_number" + phone_number
+	    		+ ", account_number=0, routing_number=0, account_balance=0})";
+	    
+	    return create_statement;
+	  }
 }

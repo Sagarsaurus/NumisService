@@ -1,7 +1,7 @@
 package io.numis.domain;
 
 import java.util.Date;
-
+import java.util.Properties;
 /**
  * <h1>User</h1>
  * User class extends 
@@ -27,6 +27,14 @@ public class User extends AbstractDomainNode {
 	private int routing_number;
 	private double account_balance;
 
+	public User(){
+		
+	}
+	
+	public User(Properties properties) {
+		
+	}
+	
 	/**
 	 * @return the username
 	 */
