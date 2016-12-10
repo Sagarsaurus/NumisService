@@ -20,14 +20,18 @@ public class UserPresistenceImpl {
 	
 	public boolean saveUser(Properties properties) {
 		User user = new User(properties);
+		Session session = null;
 	    try {
 	    	Driver driver = DriverFactory.getInstance();
-	    	Session session = driver.session();
+	    	session = driver.session();
 	    	session.run(getInsertStatement(user));
-	    	session.close();
 	    	return true;
 	    } catch (Exception e) {
 	    	return false;
+	    } finally {
+	    	if (session != null) {
+	    		session.close();	
+	    	} 
 	    }
 	}
 	

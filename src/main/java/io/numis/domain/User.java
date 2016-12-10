@@ -1,5 +1,8 @@
 package io.numis.domain;
 
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Properties;
 /**
@@ -26,12 +29,28 @@ public class User extends AbstractDomainNode {
 	private int account_number;
 	private int routing_number;
 	private double account_balance;
-
+	
+	
 	public User(){}
 	
 	public User(Properties properties) {
-		
+		setUsername(properties.getProperty("username"));
+		setEncryptedPassword(properties.getProperty("encrypted_password"));
+		setEmail(properties.getProperty("email"));
+		try {
+			setBirthDate(formatBirthDate(properties.getProperty("encrypted_password")));
+		} catch (ParseException e) {
+			e.printStackTrace();
+		}
+		setFirstName(properties.getProperty("first_name"));
+		setLastName(properties.getProperty("last_name"));
+		setPhoneNumber(properties.getProperty("phone_number"));
+		setAccountBalance(0);
+		setRoutingNumber(-1);
+		setAccountNumber(-1);
 	}
+	
+	
 	
 	/**
 	 * @return the username
@@ -189,5 +208,11 @@ public class User extends AbstractDomainNode {
 	 */
 	public void setAccountBalance(double account_balance) {
 		this.account_balance = account_balance;
+	}
+	
+	private Date formatBirthDate(String date) throws ParseException {
+		DateFormat df = new SimpleDateFormat("dd/mm/yyyy");
+		Date birth_date = df.parse(date);
+		return birth_date;
 	}
 }
