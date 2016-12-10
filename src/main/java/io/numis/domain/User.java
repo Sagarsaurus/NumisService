@@ -46,6 +46,8 @@ public class User extends AbstractDomainNode {
 		setFirstName(properties.getProperty("first_name"));
 		setLastName(properties.getProperty("last_name"));
 		setPhoneNumber(properties.getProperty("phone_number"));
+		// TODO: if accountbalance is 0 or routing number is invalid, test that. if it exists, 
+		// using the getRoutingNumber, getAccountNumber and getAccountBalance methods. 
 		setAccountBalance(0);
 		setRoutingNumber(NO_ACCOUNT_NUMBER);
 		setAccountNumber(NO_ACCOUNT_NUMBER);

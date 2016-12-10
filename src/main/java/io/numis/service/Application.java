@@ -7,12 +7,15 @@ import java.sql.SQLException;
 import java.util.Properties;
 import java.util.logging.Logger;
 
+import org.json.JSONObject;
 import org.neo4j.driver.v1.AuthTokens;
 import org.neo4j.driver.v1.Driver;
 import org.neo4j.driver.v1.GraphDatabase;
 import org.neo4j.driver.v1.Record;
 import org.neo4j.driver.v1.Session;
 import org.neo4j.driver.v1.StatementResult;
+
+import com.fasterxml.jackson.databind.util.JSONPObject;
 
 import io.numis.formatter.FormatHTML;
 import io.numis.persistence.DriverFactory;
@@ -48,6 +51,36 @@ public class Application implements SparkApplication {
 		boolean worked = userImpl.saveUser(properties);
 		LOGGER.info("" + worked);
 		get("/", (request, response) -> worked);
+		
+		post("/api/v1/user/new", (request, response) -> {
+			String username = request.queryParams("username");
+			String encrypted_password = request.queryParams("encrypted_password");
+			String email = request.queryParams("email");
+			String birth_date = request.queryParams("birth_date");
+			String first_name = request.queryParams("first_name");
+			String last_name = request.queryParams("last_name");
+			String phone_number = request.queryParams("phone_number");
+
+			Properties test_post_properties = new Properties();
+			test_post_properties.setProperty("username", username);
+			test_post_properties.setProperty("encrypted_password", encrypted_password);
+			test_post_properties.setProperty("email", email);
+			test_post_properties.setProperty("birth_date", birth_date);
+			test_post_properties.setProperty("first_name", first_name);
+			test_post_properties.setProperty("last_name", last_name);
+			test_post_properties.setProperty("phone_number", phone_number);
+			// RUN DATA VALIDATION HERE
+			boolean created = userImpl.saveUser(test_post_properties);
+			if (created) {
+				LOGGER.info("created successfully");
+				response.body("done with creation of new user");
+			} else {
+				response.body("your shit wrong");				
+			}
+
+			return "posted";
+		});
+		
 		try {
 			DriverFactory.closeConnection();
 		} catch (ClassNotFoundException e) {

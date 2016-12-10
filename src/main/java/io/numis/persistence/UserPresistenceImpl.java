@@ -50,7 +50,7 @@ public class UserPresistenceImpl {
 	    		+ ", email: '" + email + "'"
 	    		+ ", birth_date: '" + birth_date + "'"
 	    		+ ", first_name: '" + first_name + "'"
-	    		+ ", list_name: '" + last_name + "'"
+	    		+ ", last_name: '" + last_name + "'"
 	    		+ ", phone_number: '" + phone_number + "'"
 	    		+ ", account_number:-1, routing_number:-1, account_balance:0})";
 	    
