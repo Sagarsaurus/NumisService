@@ -1,5 +1,15 @@
 package io.numis.persistence;
 
-public class UserPresistenceImpl {
+import io.numis.domain.User;
 
+public class UserPresistenceImpl {
+	public User getUser(){
+		return null;
+	}
+	
+	public boolean saveUser() {
+		return true;
+	}
+	
+	
 }
