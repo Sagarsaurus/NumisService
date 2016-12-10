@@ -12,7 +12,7 @@ public class DriverFactory {
 	
 	private DriverFactory() {}
 	
-	public Driver getConnection() throws URISyntaxException, SQLException, 
+	public Driver createConnection() throws URISyntaxException, SQLException, 
 		ClassNotFoundException, InstantiationException, IllegalAccessException {
 	
 		Class.forName("org.neo4j.jdbc.Driver");
@@ -26,6 +26,12 @@ public class DriverFactory {
 	
 	public static Driver getInstance() throws ClassNotFoundException, InstantiationException, IllegalAccessException, URISyntaxException, SQLException {
 		if (driverFactory == null) driverFactory = new DriverFactory();
-		return driverFactory.getConnection();
+		return driverFactory.createConnection();
+	}
+	
+	public static void closeConnection() throws ClassNotFoundException, InstantiationException, IllegalAccessException, URISyntaxException, SQLException {
+		Driver driver = getInstance();
+		driver.close();
+		driver = null;
 	}
 }

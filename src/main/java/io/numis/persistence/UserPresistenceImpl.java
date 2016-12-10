@@ -1,5 +1,7 @@
 package io.numis.persistence;
 
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Properties;
 
@@ -9,6 +11,9 @@ import org.neo4j.driver.v1.Session;
 import io.numis.domain.User;
 
 public class UserPresistenceImpl {
+	
+	public UserPresistenceImpl() {}
+	
 	public User getUser(){
 		return null;
 	}
@@ -30,7 +35,7 @@ public class UserPresistenceImpl {
 	    String username = user.getUsername();
 	    String encrypted_password = user.getEncryptedPassword();
 	    String email = user.getEmail();
-	    Date birth_date = user.getBirthDate(); 
+	    String birth_date = formatDate(user.getBirthDate()); 
 	    String first_name = user.getFirstName();
 	    String last_name = user.getLastName();
 	    String phone_number = user.getPhoneNumber();
@@ -47,4 +52,10 @@ public class UserPresistenceImpl {
 	    
 	    return create_statement;
 	  }
+	
+	private String formatDate(Date date) {
+		DateFormat df = new SimpleDateFormat("dd/MM/YYYY");
+		String date_string = df.format(date);
+		return date_string;
+	}
 }

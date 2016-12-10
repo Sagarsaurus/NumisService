@@ -4,6 +4,7 @@ import static spark.Spark.*;
 
 import java.net.URISyntaxException;
 import java.sql.SQLException;
+import java.util.Properties;
 import java.util.logging.Logger;
 
 import org.neo4j.driver.v1.AuthTokens;
@@ -14,6 +15,8 @@ import org.neo4j.driver.v1.Session;
 import org.neo4j.driver.v1.StatementResult;
 
 import io.numis.formatter.FormatHTML;
+import io.numis.persistence.DriverFactory;
+import io.numis.persistence.UserPresistenceImpl;
 import spark.servlet.SparkApplication;
 
 /**
@@ -28,75 +31,40 @@ import spark.servlet.SparkApplication;
  *
  */
 public class Application implements SparkApplication {
-	
-	// Logger info
+
 	private final static Logger LOGGER = Logger.getLogger(Application.class.getName());
 
 	public void init() {
-		Driver driver;
-		Session session;
+		Properties properties = new Properties();
+		properties.setProperty("username", "sample_user");
+		properties.setProperty("encrypted_password", "123");
+		properties.setProperty("email", "email@email.com");
+		properties.setProperty("birth_date","23/06/1993");
+		properties.setProperty("first_name","Bob");
+		properties.setProperty("last_name","Loblaw");
+		properties.setProperty("phone_number","1234567890");
+		
+		UserPresistenceImpl userImpl = new UserPresistenceImpl();
+		boolean worked = userImpl.saveUser(properties);
+		LOGGER.info("" + worked);
+		get("/", (request, response) -> worked);
 		try {
-			LOGGER.info("Attempting to establish a connection");
-			driver = getConnection();
-			session = driver.session();
-			LOGGER.info("Established connection");
-			session.run("CREATE (n:Person {name:'Hello,'})");
-			session.run("CREATE (n:Person {name:'Im'})");
-			session.run("CREATE (n:Person {name:'Birik'})");
-			session.run("CREATE (n:Person {name:'Ibimia'})");
-			StatementResult result = session.run("MATCH (n:Person) RETURN n.name AS name");
-			String str = "";
-			while ( result.hasNext() ){
-				Record record = result.next();
-				str += "\n" + record.get("name").asString();
-			}
-
-	    	String formattedString = FormatHTML.getFormattedString(str);
-	    	LOGGER.info(formattedString);
-	    	get("/", (request, response) -> formattedString);
-	    	session.close();
-	    	LOGGER.info("session closed");
-	    	driver.close();
-	    	LOGGER.info("driver closed");
-		} catch (URISyntaxException e) {
-			e.printStackTrace();
-		} catch (SQLException e) {
-			e.printStackTrace();
-		} catch (SecurityException e) {
-			e.printStackTrace();
+			DriverFactory.closeConnection();
 		} catch (ClassNotFoundException e) {
+			// TODO Auto-generated catch block
 			e.printStackTrace();
 		} catch (InstantiationException e) {
+			// TODO Auto-generated catch block
 			e.printStackTrace();
 		} catch (IllegalAccessException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (URISyntaxException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-	}
-	
-	/**
-     * Provides a connection to numis.io database on heroku platform.
-     * <p>
-     * 
-     * @return Connection to JDBC_DATABASE_URL environment url variable
-     * @throws URISyntaxException
-     * @throws SQLException
-	 * @throws ClassNotFoundException 
-	 * @throws IllegalAccessException 
-	 * @throws InstantiationException 
-     */
-	private static Driver getConnection() throws URISyntaxException, SQLException, 
-								ClassNotFoundException, InstantiationException, IllegalAccessException {
-		
-		Class.forName("org.neo4j.jdbc.Driver");
-		
-		String graphenedbURL = System.getenv("GRAPHENEDB_TEAL_BOLT_URL");
-		LOGGER.info("graphene db url: " + graphenedbURL);
-	    String graphenedbUser = System.getenv("GRAPHENEDB_TEAL_BOLT_USER");
-	    LOGGER.info("Graphene db user: " + graphenedbUser);
-	    String graphenedbPass = System.getenv("GRAPHENEDB_TEAL_BOLT_PASSWORD");
-	    LOGGER.info("Graphene db pass: " + graphenedbPass);
-	    Driver driver = GraphDatabase.driver( graphenedbURL, AuthTokens.basic( graphenedbUser, graphenedbPass ) );
-	    LOGGER.info("Successfully created Driver");
-		return driver;
 	}
 }

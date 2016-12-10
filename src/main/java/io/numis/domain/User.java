@@ -27,9 +27,7 @@ public class User extends AbstractDomainNode {
 	private int routing_number;
 	private double account_balance;
 
-	public User(){
-		
-	}
+	public User(){}
 	
 	public User(Properties properties) {
 		
