@@ -39,7 +39,7 @@ public class User extends AbstractDomainNode {
 		setEncryptedPassword(properties.getProperty("encrypted_password"));
 		setEmail(properties.getProperty("email"));
 		try {
-			setBirthDate(formatBirthDate(properties.getProperty("encrypted_password")));
+			setBirthDate(formatBirthDate(properties.getProperty("birth_date")));
 		} catch (ParseException e) {
 			e.printStackTrace();
 		}
