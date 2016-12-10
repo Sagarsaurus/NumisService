@@ -64,7 +64,7 @@
   </dependencies>
   
   <build>
-  	<finalName>Numis</finalName>
+  	<finalName>numis</finalName>
   	<!-- Config: Maven Tomcat Plugin (Test) -->
   	<plugins>
   		<plugin>
