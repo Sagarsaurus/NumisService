@@ -4,14 +4,16 @@ import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Properties;
+import java.util.logging.Logger;
 
 import org.neo4j.driver.v1.Driver;
 import org.neo4j.driver.v1.Session;
+import org.neo4j.driver.v1.StatementResult;
 
 import io.numis.domain.User;
 
 public class UserPresistenceImpl {
-	
+	private final static Logger LOGGER = Logger.getLogger(UserPresistenceImpl.class.getName());
 	public UserPresistenceImpl() {}
 	
 	public User getUser(){
@@ -19,18 +21,25 @@ public class UserPresistenceImpl {
 	}
 	
 	public boolean saveUser(Properties properties) {
+		LOGGER.info("in save user");
 		User user = new User(properties);
+		LOGGER.info("created user");
 		Session session = null;
+		LOGGER.info("session is null");
 	    try {
 	    	Driver driver = DriverFactory.getInstance();
+	    	LOGGER.info("got driver isntance");
 	    	session = driver.session();
-	    	session.run(getInsertStatement(user));
+	    	LOGGER.info("got session");
+	    	StatementResult a = session.run(getInsertStatement(user));
+	    	LOGGER.info("ran session statement" + a.toString());
 	    	return true;
 	    } catch (Exception e) {
 	    	return false;
 	    } finally {
 	    	if (session != null) {
 	    		session.close();	
+	    		LOGGER.info("session closed");
 	    	} 
 	    }
 	}

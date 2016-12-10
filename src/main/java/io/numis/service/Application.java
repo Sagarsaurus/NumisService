@@ -38,20 +38,16 @@ public class Application implements SparkApplication {
 	private final static Logger LOGGER = Logger.getLogger(Application.class.getName());
 
 	public void init() {
-		Properties properties = new Properties();
-		properties.setProperty("username", "sample_user");
-		properties.setProperty("encrypted_password", "123");
-		properties.setProperty("email", "email@email.com");
-		properties.setProperty("birth_date","23/06/1993");
-		properties.setProperty("first_name","Bob");
-		properties.setProperty("last_name","Loblaw");
-		properties.setProperty("phone_number","1234567890");
-		
+		testGet();
+		testPost();	
+	}
+	
+	private void testGet() {
+		get("/", (request, response) -> "worked");
+	}
+	
+	private void testPost() {
 		UserPresistenceImpl userImpl = new UserPresistenceImpl();
-		boolean worked = userImpl.saveUser(properties);
-		LOGGER.info("" + worked);
-		get("/", (request, response) -> worked);
-		
 		post("/api/v1/user/new", (request, response) -> {
 			String username = request.queryParams("username");
 			String encrypted_password = request.queryParams("encrypted_password");
@@ -69,8 +65,9 @@ public class Application implements SparkApplication {
 			test_post_properties.setProperty("first_name", first_name);
 			test_post_properties.setProperty("last_name", last_name);
 			test_post_properties.setProperty("phone_number", phone_number);
-			// RUN DATA VALIDATION HERE
+			// TODO: RUN DATA VALIDATION HERE
 			boolean created = userImpl.saveUser(test_post_properties);
+			// TODO: Create custom body response here. 
 			if (created) {
 				LOGGER.info("created successfully");
 				response.body("done with creation of new user");
