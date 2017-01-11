@@ -29,9 +29,17 @@ public class DriverFactory {
 		return driverFactory.createConnection();
 	}
 	
-	public static void closeConnection() throws ClassNotFoundException, InstantiationException, IllegalAccessException, URISyntaxException, SQLException {
-		Driver driver = getInstance();
-		driver.close();
-		driver = null;
+	public static void closeConnection() {
+		Driver driver;
+		try {
+			driver = getInstance();
+			driver.close();
+		} catch (ClassNotFoundException | InstantiationException | IllegalAccessException | URISyntaxException
+				| SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} finally {
+			driver = null;
+		}
 	}
 }

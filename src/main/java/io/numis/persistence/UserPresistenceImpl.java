@@ -11,8 +11,10 @@ import org.neo4j.driver.v1.Session;
 import org.neo4j.driver.v1.StatementResult;
 
 import io.numis.domain.User;
+import io.numis.persistence.interfaces.UserPersistence;
 
-public class UserPresistenceImpl {
+public class UserPresistenceImpl implements UserPersistence {
+	
 	private final static Logger LOGGER = Logger.getLogger(UserPresistenceImpl.class.getName());
 	public UserPresistenceImpl() {}
 	
@@ -20,7 +22,8 @@ public class UserPresistenceImpl {
 		return null;
 	}
 	
-	public boolean saveUser(Properties properties) {
+	@Override
+	public boolean createUser(Properties properties) {
 		LOGGER.info("in save user");
 		User user = new User(properties);
 		LOGGER.info("created user");
@@ -40,6 +43,7 @@ public class UserPresistenceImpl {
 	    	if (session != null) {
 	    		session.close();	
 	    		LOGGER.info("session closed");
+	    		DriverFactory.closeConnection();
 	    	} 
 	    }
 	}
@@ -70,5 +74,23 @@ public class UserPresistenceImpl {
 		DateFormat df = new SimpleDateFormat("dd/MM/YYYY");
 		String date_string = df.format(date);
 		return date_string;
+	}
+
+	@Override
+	public boolean deleteUser(Properties properties) {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
+	@Override
+	public boolean editUser(Properties properties) {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
+	@Override
+	public User getUser(Properties properties) {
+		// TODO Auto-generated method stub
+		return null;
 	}
 }
