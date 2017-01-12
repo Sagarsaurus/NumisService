@@ -5,6 +5,8 @@ import static spark.Spark.get;
 import static spark.Spark.post;
 import java.util.logging.Logger;
 
+import spark.servlet.SparkApplication;
+
 /**
  * <h1>NumisApp</h1>
  * The App class is the starting point for the 
@@ -16,22 +18,24 @@ import java.util.logging.Logger;
  * @since 2016-11-14
  *
  */
-public class Application {
+public class Application implements SparkApplication {
 
 	private final static Logger LOGGER = Logger.getLogger(Application.class.getName());
 	private static UserService userService = new UserService();
 	
-	public static void main(String[] args) {
+	@Override
+	public void init() {
 		
 		post("/api/v1/user/new", (request, response) -> {
 			LOGGER.info("Started to create a new User");
 			userService.create(request, response);
-			return "create new user called";
+			return "User created successfully";
 		});	
 		
 		get("/", (request, response) -> {
 			return "Application loaded";
 		});
+		
 	}
 	
 }

@@ -1,6 +1,7 @@
 package io.numis.service;
 
 import java.util.Properties;
+import java.util.function.Supplier;
 import java.util.logging.Logger;
 
 import io.numis.domain.interfaces.DomainNode;
@@ -20,7 +21,6 @@ public class UserService implements GenericService {
 	 */
 	@Override
 	public void create(Request request, Response response) {
-			
 		String username = request.queryParams("username");
 		String encrypted_password = request.queryParams("encrypted_password");
 		String email = request.queryParams("email");
@@ -28,7 +28,7 @@ public class UserService implements GenericService {
 		String first_name = request.queryParams("first_name");
 		String last_name = request.queryParams("last_name");
 		String phone_number = request.queryParams("phone_number");
-
+		
 		Properties properties = new Properties();
 		properties.setProperty("username", username);
 		properties.setProperty("encrypted_password", encrypted_password);
