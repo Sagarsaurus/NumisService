@@ -1,7 +1,6 @@
 package io.numis.service;
 
 import java.util.Properties;
-import java.util.function.Supplier;
 import java.util.logging.Logger;
 
 import io.numis.domain.interfaces.DomainNode;
@@ -21,23 +20,8 @@ public class UserService implements GenericService {
 	 */
 	@Override
 	public void create(Request request, Response response) {
-		String username = request.queryParams("username");
-		String encrypted_password = request.queryParams("encrypted_password");
-		String email = request.queryParams("email");
-		String birth_date = request.queryParams("birth_date");
-		String first_name = request.queryParams("first_name");
-		String last_name = request.queryParams("last_name");
-		String phone_number = request.queryParams("phone_number");
 		
-		Properties properties = new Properties();
-		properties.setProperty("username", username);
-		properties.setProperty("encrypted_password", encrypted_password);
-		properties.setProperty("email", email);
-		properties.setProperty("birth_date", birth_date);
-		properties.setProperty("first_name", first_name);
-		properties.setProperty("last_name", last_name);
-		properties.setProperty("phone_number", phone_number);
-		
+		Properties properties = getProperties(request);
 		boolean created = this.userImpl.createUser(properties);
 		
 		if (created) {
@@ -45,7 +29,7 @@ public class UserService implements GenericService {
 			response.body("done with creation of new user");
 		} else {
 			response.body("your shit wrong");				
-			}
+		}
 			
 	}
 	
@@ -63,8 +47,15 @@ public class UserService implements GenericService {
 	 */
 	@Override
 	public void update(Request request, Response response) {
-		// TODO Auto-generated method stub
 		
+		Properties properties = getProperties(request);
+		boolean updated = this.userImpl.editUser(properties);
+		if (updated) {
+			LOGGER.info("updated successfully");
+			response.body("updated user successfully");
+		} else {
+			response.body("issues with updating the user");
+		}
 	}
 	
 	/**
@@ -76,6 +67,20 @@ public class UserService implements GenericService {
 	public DomainNode get(Request request, Response response) {
 		// TODO Auto-generated method stub
 		return null;
+	}
+	
+	/**
+	 * Private helper method to return a list of properties from a given request. 
+	 * 
+	 * @param request - the incoming request to extract all the parameters from
+	 * @return a properties object which has the updated query parameters from the request body
+	 */
+	private Properties getProperties(Request request) {
+		Properties properties = new Properties();
+		for (String qParam: request.queryParams()) {
+			properties.setProperty(qParam, request.queryParams(qParam));
+		}
+		return properties;
 	}
 
 	

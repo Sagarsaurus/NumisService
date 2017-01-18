@@ -27,25 +27,8 @@ public class UserPresistenceImpl implements UserPersistence {
 		LOGGER.info("in save user");
 		User user = new User(properties);
 		LOGGER.info("created user");
-		Session session = null;
-		LOGGER.info("session is null");
-	    try {
-	    	Driver driver = DriverFactory.getInstance();
-	    	LOGGER.info("got driver isntance");
-	    	session = driver.session();
-	    	LOGGER.info("got session");
-	    	StatementResult a = session.run(getInsertStatement(user));
-	    	LOGGER.info("ran session statement" + a.toString());
-	    	return true;
-	    } catch (Exception e) {
-	    	return false;
-	    } finally {
-	    	if (session != null) {
-	    		session.close();	
-	    		LOGGER.info("session closed");
-	    		DriverFactory.closeConnection();
-	    	} 
-	    }
+		String createStatement = getInsertStatement(user);
+		return runCypherCommand(createStatement);
 	}
 	
 	private String getInsertStatement(User user) {
@@ -84,13 +67,63 @@ public class UserPresistenceImpl implements UserPersistence {
 
 	@Override
 	public boolean editUser(Properties properties) {
-		// TODO Auto-generated method stub
-		return false;
+		LOGGER.info("Editing user");
+		String editStatement = getEditStatement(properties);
+		LOGGER.info("Established edit statement");
+		return runCypherCommand(editStatement);
 	}
-
+	
+	/**
+	 * Helper method to build strings in this format:<br>
+	 *   <p>MATCH(s) WHERE id(s) = 25 SET s.encrypted_password = '12345890', s.last_name = 'last name',<br>
+	 *  	s.email = 'karan@numis.io', s.phone_number = '1234567890', s.first_name = 'some user', <br>
+	 *  	s.birth_date = '02/13/1993', s.username = 'username' RETURN s;
+	 * <p> The user is selected based off of the id
+	 * 
+	 * @param properties - the properties to update in the selected user
+	 * @return the updated edit statement which can be run from the driver. 
+	 */
+	private String getEditStatement(Properties properties) {
+		
+		String id = properties.getProperty("id");
+		String update_statement = " MATCH(user) WHERE id(user) = " + id + " SET";
+		String buildString = "";
+		
+		for (Object property : properties.keySet()) {
+			if(!property.equals("id")) {
+				buildString = " user." + property + " = '" + properties.getProperty((String) property) + "',";
+				update_statement += buildString;
+			}
+		}
+		update_statement = update_statement.substring(0, update_statement.length()-1); // removes trailing comma
+		update_statement += " RETURN user;";
+		return update_statement;
+	}
+	
 	@Override
 	public User getUser(Properties properties) {
 		// TODO Auto-generated method stub
 		return null;
+	}
+	
+	private boolean runCypherCommand(String cyperStatement) {
+		Session session = null;
+	    try {
+	    	Driver driver = DriverFactory.getInstance();
+	    	LOGGER.info("got driver isntance");
+	    	session = driver.session();
+	    	LOGGER.info("got session");
+	    	StatementResult a = session.run(cyperStatement);
+	    	LOGGER.info("ran session statement" + a.toString());
+	    	return true;
+	    } catch (Exception e) {
+	    	return false;
+	    } finally {
+	    	if (session != null) {
+	    		session.close();	
+	    		LOGGER.info("session closed");
+	    		DriverFactory.closeConnection();
+	    	} 
+	    }
 	}
 }

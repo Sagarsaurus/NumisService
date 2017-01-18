@@ -29,11 +29,17 @@ public class Application implements SparkApplication {
 		post("/api/v1/user/new", (request, response) -> {
 			LOGGER.info("Started to create a new User");
 			userService.create(request, response);
-			return "User created successfully";
+			return response.body();
 		});	
 		
 		get("/", (request, response) -> {
 			return "Application loaded";
+		});
+		
+		post("/api/v1/user/update", (request, response) -> {
+			LOGGER.info("Started to update a new User");
+			userService.update(request, response);
+			return response.body();
 		});
 		
 	}
