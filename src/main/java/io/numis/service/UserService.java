@@ -17,6 +17,7 @@ public class UserService implements GenericService {
 	
 	private final static Logger LOGGER = Logger.getLogger(UserService.class.getName());
 	private PersistenceImpl persistence = new UserPersistenceImpl();
+	private UserPresistenceImpl userImpl  = new UserPresistenceImpl();
 	
 	
 	/**

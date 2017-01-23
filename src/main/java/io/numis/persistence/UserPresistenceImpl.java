@@ -28,30 +28,30 @@ public class UserPresistenceImpl implements Persistence {
 		User user = new User(properties);
 		LOGGER.info("created user");
 		String createStatement = getInsertStatement(user);
-		//return runCypherCommand(createStatement);
+		return runCypherCommand(createStatement);
 	}
 	
-//	private String getInsertStatement(User user) {
-//	    String username = user.getUsername();
-//	    String encrypted_password = user.getEncryptedPassword();
-//	    String email = user.getEmail();
-//	    String birth_date = formatDate(user.getBirthDate());
-//	    String first_name = user.getFirstName();
-//	    String last_name = user.getLastName();
-//	    String phone_number = user.getPhoneNumber();
-//
-//	    String create_statement = "CREATE (u:User {"
-//	    		+ "username: '" + username + "'"
-//	    		+ ", encrypted_password: '" + encrypted_password + "'"
-//	    		+ ", email: '" + email + "'"
-//	    		+ ", birth_date: '" + birth_date + "'"
-//	    		+ ", first_name: '" + first_name + "'"
-//	    		+ ", last_name: '" + last_name + "'"
-//	    		+ ", phone_number: '" + phone_number + "'"
-//	    		+ ", account_number:-1, routing_number:-1, account_balance:0})";
-//
-//	    return create_statement;
-//	  }
+	private String getInsertStatement(User user) {
+	    String username = user.getUsername();
+	    String encrypted_password = user.getEncryptedPassword();
+	    String email = user.getEmail();
+	    String birth_date = formatDate(user.getBirthDate());
+	    String first_name = user.getFirstName();
+	    String last_name = user.getLastName();
+	    String phone_number = user.getPhoneNumber();
+
+	    String create_statement = "CREATE (u:User {"
+	    		+ "username: '" + username + "'"
+	    		+ ", encrypted_password: '" + encrypted_password + "'"
+	    		+ ", email: '" + email + "'"
+	    		+ ", birth_date: '" + birth_date + "'"
+	    		+ ", first_name: '" + first_name + "'"
+	    		+ ", last_name: '" + last_name + "'"
+	    		+ ", phone_number: '" + phone_number + "'"
+	    		+ ", account_number:-1, routing_number:-1, account_balance:0})";
+
+	    return create_statement;
+	  }
 	
 	private String formatDate(Date date) {
 		DateFormat df = new SimpleDateFormat("dd/MM/YYYY");
@@ -106,24 +106,24 @@ public class UserPresistenceImpl implements Persistence {
 		return null;
 	}
 	
-//	private boolean runCypherCommand(String cyperStatement) {
-//		Session session = null;
-//	    try {
-//	    	Driver driver = DriverFactory.getInstance();
-//	    	LOGGER.info("got driver isntance");
-//	    	session = driver.session();
-//	    	LOGGER.info("got session");
-//	    	StatementResult a = session.run(cyperStatement);
-//	    	LOGGER.info("ran session statement" + a.toString());
-//	    	return true;
-//	    } catch (Exception e) {
-//	    	return false;
-//	    } finally {
-//	    	if (session != null) {
-//	    		session.close();
-//	    		LOGGER.info("session closed");
-//	    		DriverFactory.closeConnection();
-//	    	}
-//	    }
-//	}
+	private boolean runCypherCommand(String cyperStatement) {
+		Session session = null;
+	    try {
+	    	Driver driver = DriverFactory.getInstance();
+	    	LOGGER.info("got driver isntance");
+	    	session = driver.session();
+	    	LOGGER.info("got session");
+	    	StatementResult a = session.run(cyperStatement);
+	    	LOGGER.info("ran session statement" + a.toString());
+	    	return true;
+	    } catch (Exception e) {
+	    	return false;
+	    } finally {
+	    	if (session != null) {
+	    		session.close();
+	    		LOGGER.info("session closed");
+	    		DriverFactory.closeConnection();
+	    	}
+	    }
+	}
 }
