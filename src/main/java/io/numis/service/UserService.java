@@ -3,7 +3,11 @@ package io.numis.service;
 import java.util.Properties;
 import java.util.logging.Logger;
 
+import io.numis.domain.User;
+import io.numis.domain.Utils;
 import io.numis.domain.interfaces.DomainNode;
+import io.numis.persistence.PersistenceImpl;
+import io.numis.persistence.UserPersistenceImpl;
 import io.numis.persistence.UserPresistenceImpl;
 import io.numis.service.interfaces.GenericService;
 import spark.Request;
@@ -12,7 +16,7 @@ import spark.Response;
 public class UserService implements GenericService {
 	
 	private final static Logger LOGGER = Logger.getLogger(UserService.class.getName());
-	private UserPresistenceImpl userImpl = new UserPresistenceImpl();
+	private PersistenceImpl persistence = new UserPersistenceImpl();
 	
 	
 	/**
@@ -22,10 +26,12 @@ public class UserService implements GenericService {
 	public void create(Request request, Response response) {
 		
 		Properties properties = getProperties(request);
-		boolean created = this.userImpl.createUser(properties);
-		
+		LOGGER.info("Creating User");
+		boolean created = persistence.create(properties);
+
+
 		if (created) {
-			LOGGER.info("created successfully");
+			LOGGER.info("User Created successfully");
 			response.body("done with creation of new user");
 		} else {
 			response.body("your shit wrong");				

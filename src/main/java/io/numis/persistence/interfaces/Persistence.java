@@ -4,7 +4,9 @@ import java.util.Properties;
 
 import io.numis.domain.User;
 
-public interface UserPersistence {
+public interface Persistence {
+
+	//TODO: Change method stubs after Persistence Implementation is done
 	
 	public boolean createUser(Properties properties);
 	
