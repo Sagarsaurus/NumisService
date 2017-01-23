@@ -1,10 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="c9a8cd31-52af-4cde-88a7-324fb8e28ddb" name="Default" comment="">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/io/numis/persistence/UserPresistenceImpl.java" afterPath="$PROJECT_DIR$/src/main/java/io/numis/persistence/UserPresistenceImpl.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/io/numis/service/UserService.java" afterPath="$PROJECT_DIR$/src/main/java/io/numis/service/UserService.java" />
-    </list>
+    <list default="true" id="c9a8cd31-52af-4cde-88a7-324fb8e28ddb" name="Default" comment="" />
     <ignored path="NumisService.iws" />
     <ignored path=".idea/workspace.xml" />
     <ignored path="$PROJECT_DIR$/target/" />
@@ -49,8 +46,8 @@
       <file leaf-file-name="PersistenceImpl.java" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/main/java/io/numis/persistence/PersistenceImpl.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="316">
-              <caret line="38" column="5" selection-start-line="38" selection-start-column="5" selection-end-line="38" selection-end-column="5" />
+            <state relative-caret-position="-45">
+              <caret line="24" column="38" selection-start-line="24" selection-start-column="38" selection-end-line="24" selection-end-column="38" />
               <folding>
                 <element signature="imports" expanded="true" />
               </folding>
@@ -61,7 +58,7 @@
       <file leaf-file-name="UserPresistenceImpl.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/main/java/io/numis/persistence/UserPresistenceImpl.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="205">
+            <state relative-caret-position="345">
               <caret line="25" column="54" selection-start-line="25" selection-start-column="54" selection-end-line="25" selection-end-column="54" />
               <folding>
                 <element signature="imports" expanded="true" />
@@ -949,12 +946,12 @@
       <updated>1484867432188</updated>
       <workItem from="1484867433639" duration="28000" />
       <workItem from="1484867597539" duration="6952000" />
-      <workItem from="1485127202041" duration="2167000" />
+      <workItem from="1485127202041" duration="2245000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="9147000" />
+    <option name="totallyTimeSpent" value="9225000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="19" y="23" width="1624" height="983" extended-state="0" />
@@ -1122,7 +1119,7 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/io/numis/persistence/UserPresistenceImpl.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="205">
+        <state relative-caret-position="345">
           <caret line="25" column="54" selection-start-line="25" selection-start-column="54" selection-end-line="25" selection-end-column="54" />
           <folding>
             <element signature="imports" expanded="true" />
@@ -1132,8 +1129,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/io/numis/persistence/PersistenceImpl.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="316">
-          <caret line="38" column="5" selection-start-line="38" selection-start-column="5" selection-end-line="38" selection-end-column="5" />
+        <state relative-caret-position="-45">
+          <caret line="24" column="38" selection-start-line="24" selection-start-column="38" selection-end-line="24" selection-end-column="38" />
           <folding>
             <element signature="imports" expanded="true" />
           </folding>
