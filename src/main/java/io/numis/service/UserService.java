@@ -45,8 +45,21 @@ public class UserService implements GenericService {
 	 */
 	@Override
 	public void destroy(Request request, Response response) {
-		// TODO Auto-generated method stub
+		Properties properties = getProperties(request);
+		boolean delete = this.userImpl.deleteUser(properties);
 		
+		// TODO: update status to 202 (accepted) if queued
+		
+		if (delete) {
+			LOGGER.info("deleted user");
+			response.body("deleted user");
+			// (OK)
+			response.status(200);
+		} else {
+			response.body("failed to delete");
+			// (No Content)
+			response.status(204);
+		}
 	}
 	
 	/**

@@ -31,6 +31,12 @@ public class UserPresistenceImpl implements Persistence {
 		return runCypherCommand(createStatement);
 	}
 	
+	/**
+	 * Used to generate and return a new user.
+	 * 
+	 * @param user User being created
+	 * @return GraphDB create user statement
+	 */
 	private String getInsertStatement(User user) {
 	    String username = user.getUsername();
 	    String encrypted_password = user.getEncryptedPassword();
@@ -51,7 +57,7 @@ public class UserPresistenceImpl implements Persistence {
 	    		+ ", account_number:-1, routing_number:-1, account_balance:0})";
 
 	    return create_statement;
-	  }
+	}
 	
 	private String formatDate(Date date) {
 		DateFormat df = new SimpleDateFormat("dd/MM/YYYY");
@@ -61,8 +67,21 @@ public class UserPresistenceImpl implements Persistence {
 
 	@Override
 	public boolean deleteUser(Properties properties) {
-		// TODO Auto-generated method stub
-		return false;
+		LOGGER.info("Deleting user");
+		String delete = deleteUserStatement(properties);
+		LOGGER.info("Set delete statement");
+		return runCypherCommand(delete);
+	}
+	
+	/**
+	 * Used to delete a user by user id
+	 * 
+	 * @param properties - properties of the user to be deleted
+	 * @return GraphDB statement that deletes the user
+	 */
+	private String deleteUserStatement(Properties properties) {
+		String userId = properties.getProperty("id");
+		return "MATCH(u: User) WHERE id(u) = " + userId + " DETACH DELETE u";
 	}
 
 	@Override

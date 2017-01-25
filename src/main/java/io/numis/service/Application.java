@@ -3,6 +3,7 @@ package io.numis.service;
 import static spark.Spark.*;
 import static spark.Spark.get;
 import static spark.Spark.post;
+import static spark.Spark.delete;
 import java.util.logging.Logger;
 
 import spark.servlet.SparkApplication;
@@ -26,6 +27,7 @@ public class Application implements SparkApplication {
 	@Override
 	public void init() {
 		
+		// create new user
 		post("/api/v1/user/new", (request, response) -> {
 			LOGGER.info("Started to create a new User");
 			userService.create(request, response);
@@ -36,12 +38,19 @@ public class Application implements SparkApplication {
 			return "Application loaded";
 		});
 		
+		// update existing user
 		post("/api/v1/user/update", (request, response) -> {
 			LOGGER.info("Started to update a new User");
 			userService.update(request, response);
 			return response.body();
 		});
 		
+		// delete existing user
+		delete("/api/v1/user/delete", (request, response) -> {
+			LOGGER.info("Start delete user");
+			userService.destroy(request, response);
+			return response.body();
+		});
 	}
 	
 }
