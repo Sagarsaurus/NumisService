@@ -16,22 +16,25 @@ import java.util.logging.Logger;
 import static org.apache.http.client.utils.DateUtils.formatDate;
 
 /**
- * Created by yuetinggg on 1/19/17.
+ * <h1>PersistenceImpl</h1>
+ * Abstract persistence implementation class that
+ * modularizes between persistence interface
+ * and model classes. Implements {@link Persistence}
+ * <p>
+ * 
+ * @author Numis
+ * @version 0.0.1
+ * @since 0.0.1
+ *
  */
-
-
-
-//TODO: Set it back to implementing Persistence
-public abstract class PersistenceImpl {
+public abstract class PersistenceImpl implements Persistence {
 
     private final static Logger LOGGER = Logger.getLogger(PersistenceImpl.class.getName());
 
     public PersistenceImpl() {}
-
-    //TODO: Change names of methods after Persistence is changed
-    //@Override
-    public boolean create(Properties properties) {
-
+    
+    @Override
+    public boolean createUser(Properties properties) {
         Object obj = getObject(properties);
         String createStatement = getInsertStatement(obj);
         return runCypherCommand(createStatement);
@@ -48,18 +51,18 @@ public abstract class PersistenceImpl {
     }
 
     //@Override
-    public boolean delete(Properties properties) {
+    public boolean deleteUser(Properties properties) {
         return false;
     }
 
     //@Override
-    public boolean edit(Properties properties) {
+    public boolean editUser(Properties properties) {
         return false;
     }
 
     //@Override
     //TODO: Change the return type to NodeType that is implemented by all the different types of nodes
-    public User get(Properties properties) {
+    public User getUser(Properties properties) {
         return null;
     }
 

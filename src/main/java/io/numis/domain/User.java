@@ -14,7 +14,7 @@ import java.util.Properties;
  * 
  * @author Numis
  * @version 0.0.1
- * @since 2016-12-06
+ * @since 0.0.1
  *
  */
 public class User extends AbstractDomainNode {
