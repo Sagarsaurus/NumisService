@@ -10,8 +10,9 @@ import static org.apache.http.client.utils.DateUtils.formatDate;
 /**
  * Created by yuetinggg on 1/21/17.
  */
-public class UserPersistenceImpl extends PersistenceImpl{
+public class UserPersistenceImpl extends PersistenceImpl {
     private final static Logger LOGGER = Logger.getLogger(UserPersistenceImpl.class.getName());
+    
     //Create user variable block
     private static final String USERNAME = "$username$";
     private static final String ENCRYPTED_PASSWORD = "$encryped_password$";
@@ -51,4 +52,43 @@ public class UserPersistenceImpl extends PersistenceImpl{
         LOGGER.info("Created " + user.getUsername() + " User");
         return user;
     }
+    
+    /**
+	 * Used to delete a user by user id
+	 * 
+	 * @param properties - properties of the user to be deleted
+	 * @return GraphDB statement that deletes the user
+	 */
+	@Override
+	public String getDeleteStatement(Properties properties) {
+		String userId = properties.getProperty("id");
+		return "MATCH(u: User) WHERE id(u) = " + userId + " DETACH DELETE u";
+	}
+	
+	/**
+	 * Helper method to build strings in this format:<br>
+	 *   <p>MATCH(s) WHERE id(s) = 25 SET s.encrypted_password = '12345890', s.last_name = 'last name',<br>
+	 *  	s.email = 'karan@numis.io', s.phone_number = '1234567890', s.first_name = 'some user', <br>
+	 *  	s.birth_date = '02/13/1993', s.username = 'username' RETURN s;
+	 * <p> The user is selected based off of the id
+	 * 
+	 * @param properties - the properties to update in the selected user
+	 * @return the updated edit statement which can be run from the driver. 
+	 */
+	@Override
+	public String getEditStatement(Properties properties) {
+		String id = properties.getProperty("id");
+		String updateStatement = " MATCH(user) WHERE id(user) = " + id + " SET";
+		String buildString = "";
+		
+		for (Object property : properties.keySet()) {
+			if(!property.equals("id")) {
+				buildString = " user." + property + " = '" + properties.getProperty((String) property) + "',";
+				updateStatement += buildString;
+			}
+		}
+		updateStatement = updateStatement.substring(0, updateStatement.length()-1); // removes trailing comma
+		updateStatement += " RETURN user;";
+		return updateStatement;
+	}
 }

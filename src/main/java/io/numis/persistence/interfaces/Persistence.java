@@ -15,8 +15,6 @@ import io.numis.domain.User;
  *
  */
 public interface Persistence {
-
-	//TODO: Change method stubs after Persistence Implementation is done
 	
 	/**
 	 * Create a new user.
@@ -25,7 +23,7 @@ public interface Persistence {
 	 * @return true: new user created
 	 *         false: failed to create user
 	 */
-	public boolean createUser(Properties properties);
+	public boolean create(Properties properties);
 	
 	/**
 	 * Detach and delete a user by user id.
@@ -34,7 +32,7 @@ public interface Persistence {
 	 * @return true: user deleted and detached from groups
 	 *         false: failed tp delete user or detach from related groups
 	 */
-	public boolean deleteUser(Properties properties);
+	public boolean delete(Properties properties);
 	
 	/**
 	 * Modify property(s) of a specific user referenced by user id.
@@ -43,7 +41,7 @@ public interface Persistence {
 	 * @return true: succesfully modified user information(s)
 	 *         false: failed to edit user information
 	 */
-	public boolean editUser(Properties properties);
+	public boolean edit(Properties properties);
 	
 	/**
 	 * Retrieve specific user by id and related information.
@@ -54,6 +52,6 @@ public interface Persistence {
 	 * @param properties (TODO: Change return type to NodeType!)
 	 * @return user User id that is searched
 	 */
-	public User getUser(Properties properties);
+	public User get(Properties properties);
 	
 }

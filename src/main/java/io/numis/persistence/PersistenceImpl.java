@@ -1,19 +1,13 @@
 package io.numis.persistence;
 
 import io.numis.domain.User;
-import io.numis.domain.Utils;
 import io.numis.persistence.interfaces.Persistence;
 import org.neo4j.driver.v1.Driver;
 import org.neo4j.driver.v1.Session;
 import org.neo4j.driver.v1.StatementResult;
 
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
-import java.util.Date;
 import java.util.Properties;
 import java.util.logging.Logger;
-
-import static org.apache.http.client.utils.DateUtils.formatDate;
 
 /**
  * <h1>PersistenceImpl</h1>
@@ -34,39 +28,37 @@ public abstract class PersistenceImpl implements Persistence {
     public PersistenceImpl() {}
     
     @Override
-    public boolean createUser(Properties properties) {
+    public boolean create(Properties properties) {
         Object obj = getObject(properties);
         String createStatement = getInsertStatement(obj);
         return runCypherCommand(createStatement);
 
     }
 
-    abstract public String getInsertStatement(Object obj);
-    abstract public Object getObject(Properties properties);
-
-    private String formatDate(Date date) {
-        DateFormat df = new SimpleDateFormat("dd/MM/YYYY");
-        String date_string = df.format(date);
-        return date_string;
+    public boolean delete(Properties properties) {
+    	LOGGER.info("Deleting Object");
+		String delete = getDeleteStatement(properties);
+		LOGGER.info("Set delete statement");
+		return runCypherCommand(delete);
     }
 
-    //@Override
-    public boolean deleteUser(Properties properties) {
-        return false;
+    public boolean edit(Properties properties) {
+    	LOGGER.info("Editing Object");
+		String editStatement = getEditStatement(properties);
+		LOGGER.info("Established edit statement");
+		return runCypherCommand(editStatement);
     }
 
-    //@Override
-    public boolean editUser(Properties properties) {
-        return false;
-    }
-
-    //@Override
     //TODO: Change the return type to NodeType that is implemented by all the different types of nodes
-    public User getUser(Properties properties) {
+    public User get(Properties properties) {
         return null;
     }
-
-    //Exactly the same method as Karan's from UserPresistenceImpl
+    
+    abstract public String getInsertStatement(Object obj);
+    abstract public Object getObject(Properties properties);
+    abstract public String getDeleteStatement(Properties properties);
+    abstract public String getEditStatement(Properties properties);
+    
     private boolean runCypherCommand(String cyperStatement) {
         Session session = null;
         try {

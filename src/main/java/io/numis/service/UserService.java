@@ -3,12 +3,9 @@ package io.numis.service;
 import java.util.Properties;
 import java.util.logging.Logger;
 
-import io.numis.domain.User;
-import io.numis.domain.Utils;
 import io.numis.domain.interfaces.DomainNode;
 import io.numis.persistence.PersistenceImpl;
 import io.numis.persistence.UserPersistenceImpl;
-import io.numis.persistence.UserPresistenceImpl;
 import io.numis.service.interfaces.GenericService;
 import spark.Request;
 import spark.Response;
@@ -17,8 +14,6 @@ public class UserService implements GenericService {
 	
 	private final static Logger LOGGER = Logger.getLogger(UserService.class.getName());
 	private PersistenceImpl persistence = new UserPersistenceImpl();
-	private UserPresistenceImpl userImpl  = new UserPresistenceImpl();
-	
 	
 	/**
 	 * REST API call to create a User
@@ -46,7 +41,7 @@ public class UserService implements GenericService {
 	@Override
 	public void destroy(Request request, Response response) {
 		Properties properties = getProperties(request);
-		boolean delete = this.userImpl.deleteUser(properties);
+		boolean delete = persistence.delete(properties);
 		
 		// TODO: update status to 202 (accepted) if queued
 		
@@ -57,8 +52,8 @@ public class UserService implements GenericService {
 			response.status(200);
 		} else {
 			response.body("failed to delete");
-			// (No Content)
-			response.status(204);
+			// internal server error
+			response.status(500);
 		}
 	}
 	
@@ -69,12 +64,15 @@ public class UserService implements GenericService {
 	public void update(Request request, Response response) {
 		
 		Properties properties = getProperties(request);
-		boolean updated = this.userImpl.editUser(properties);
+		boolean updated = persistence.edit(properties);
 		if (updated) {
 			LOGGER.info("updated successfully");
 			response.body("updated user successfully");
+			response.status(200);
 		} else {
 			response.body("issues with updating the user");
+			// 500 is internal server error
+			response.status(500);
 		}
 	}
 	
