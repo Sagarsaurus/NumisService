@@ -27,6 +27,13 @@ public abstract class PersistenceImpl implements Persistence {
 
     public PersistenceImpl() {}
     
+    /**
+     * Create a new user.
+     * 
+     * @param properties
+     * @return true: new user created
+     *         false: failed to create user
+     */
     @Override
     public boolean create(Properties properties) {
         Object obj = getObject(properties);
@@ -35,30 +42,79 @@ public abstract class PersistenceImpl implements Persistence {
 
     }
 
+    /**
+     * 
+     * @param obj User object
+     * @return createUserStatement Create User string
+     */
     public boolean delete(Properties properties) {
-    	LOGGER.info("Deleting Object");
-		String delete = getDeleteStatement(properties);
-		LOGGER.info("Set delete statement");
-		return runCypherCommand(delete);
+        LOGGER.info("Deleting Object");
+        String delete = getDeleteStatement(properties);
+        LOGGER.info("Set delete statement");
+        return runCypherCommand(delete);
     }
 
+    /**
+     * Modify property(s) of a specific user referenced by user id.
+     * 
+     * @param properties
+     * @return true: succesfully modified user information(s)
+     *         false: failed to edit user information
+     */
     public boolean edit(Properties properties) {
-    	LOGGER.info("Editing Object");
-		String editStatement = getEditStatement(properties);
-		LOGGER.info("Established edit statement");
-		return runCypherCommand(editStatement);
+        LOGGER.info("Editing Object");
+        String editStatement = getEditStatement(properties);
+        LOGGER.info("Established edit statement");
+        return runCypherCommand(editStatement);
     }
 
-    //TODO: Change the return type to NodeType that is implemented by all the different types of nodes
+
+    /**
+     * Retrieve specific user by id and related information.
+     * 
+     * TODO: Change the return type to NodeType 
+     * that is implemented by all the different types of nodes.
+     * 
+     * @param properties (TODO: Change return type to NodeType!)
+     * @return user User id that is searched
+     */
     public User get(Properties properties) {
         return null;
     }
     
+    /**
+     * 
+     * @param obj
+     * @return createStatement Create string statement
+     */
     abstract public String getInsertStatement(Object obj);
+
+    /**
+     * 
+     * @param properties
+     * @return user User object with respective properties
+     */
     abstract public Object getObject(Properties properties);
+
+    /**
+     * 
+     * @param properties Object properties
+     * @return deleteStatement Create User string
+     */
     abstract public String getDeleteStatement(Properties properties);
+
+    /**
+     * 
+     * @param obj User object
+     * @return editStatement Create User string
+     */
     abstract public String getEditStatement(Properties properties);
     
+    /**
+     * 
+     * @param cyperStatement string to execute
+     * @return true: success, false: failed to execute command
+     */
     private boolean runCypherCommand(String cyperStatement) {
         Session session = null;
         try {
