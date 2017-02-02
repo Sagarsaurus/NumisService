@@ -15,12 +15,24 @@
   </properties>
 
   <dependencies>
+    <!-- tag::junit-dependency -->
     <dependency>
       <groupId>junit</groupId>
       <artifactId>junit</artifactId>
-      <version>3.8.1</version>
+      <version>4.12</version>
       <scope>test</scope>
     </dependency>
+    <!-- end::junit-dependency -->
+    
+    <!-- tag::hamcrest-dependency -->
+    <dependency>
+      <groupId>org.hamcrest</groupId>
+      <artifactId>hamcrest-all</artifactId>
+      <version>1.3</version>
+      <scope>test</scope>
+    </dependency>
+    <!-- end::hamcrest-dependency -->
+    
     <!-- tag::spark-core-dependency -->
     <dependency>
       <groupId>com.sparkjava</groupId>
@@ -28,11 +40,32 @@
       <version>2.5.2</version>
     </dependency>
     <!-- end::spark-core-dependency -->
+    
+    <!-- tag::org.neo4j kernel-dependency -->
+    <dependency>
+      <groupId>org.neo4j</groupId>
+      <artifactId>neo4j-kernel</artifactId>
+      <version>3.1.1</version>
+      <type>test-jar</type>
+      <scope>test</scope>
+    </dependency>
+    <!-- end::org.neo4j kernel-dependency -->
+    
+    <!-- tag::org.neo4j kernel-dependency -->
+    <dependency>
+      <groupId>org.neo4j</groupId>
+      <artifactId>neo4j-io</artifactId>
+      <version>3.1.1</version>
+      <type>test-jar</type>
+      <scope>test</scope>
+    </dependency>
+    <!-- end::org.neo4j kernel-dependency -->
+    
     <!-- tag::bolt-dependency -->
     <dependency>
     	<groupId>org.neo4j.driver</groupId>
     	<artifactId>neo4j-java-driver</artifactId>
-    	<version>1.0.6</version>
+    	<version>1.1.1</version>
     </dependency>
     <!-- end::bolt-dependency -->
     
@@ -40,7 +73,7 @@
 	<dependency>
 	    <groupId>org.neo4j</groupId>
 	    <artifactId>neo4j</artifactId>
-	    <version>3.0.7</version>
+	    <version>3.1.1</version>
 	</dependency>
     
     <dependency>
@@ -54,6 +87,7 @@
     	<artifactId>slf4j-simple</artifactId>
     	<version>1.7.21</version>
     </dependency>
+    
     <!-- https://mvnrepository.com/artifact/org.json/json -->
 	<dependency>
 	    <groupId>org.json</groupId>
