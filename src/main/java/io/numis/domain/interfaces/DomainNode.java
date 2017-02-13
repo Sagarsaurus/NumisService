@@ -14,5 +14,5 @@ package io.numis.domain.interfaces;
  */
 public interface DomainNode extends Comparable<DomainNode> {
 	
-	public int getId();
+	public Long getId();
 }

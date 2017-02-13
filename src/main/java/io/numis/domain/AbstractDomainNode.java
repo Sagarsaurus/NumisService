@@ -18,22 +18,6 @@ import io.numis.domain.interfaces.DomainNode;
  */
 public abstract class AbstractDomainNode implements DomainNode {
 	
-	private int id;
-	
-	/**
-	 * @return the id
-	 */
-	public int getId() {
-		return id;
-	}
-	
-	/**
-	 * @param id the id to set
-	 */
-	public void setId(int id) {
-		this.id = id;
-	}
-	
 	/**
 	 * @return boolean
 	 */
@@ -51,7 +35,7 @@ public abstract class AbstractDomainNode implements DomainNode {
 	 * @return int
 	 */
 	public int compareTo(DomainNode o) {
-		return ((Integer)this.getId()).compareTo((Integer)(o.getId()));
+		return ((Long)this.getId()).compareTo((Long)(o.getId()));
 	}
 	
 	/**

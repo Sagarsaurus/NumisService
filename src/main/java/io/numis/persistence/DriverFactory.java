@@ -6,6 +6,8 @@ import java.sql.SQLException;
 import org.neo4j.driver.v1.AuthTokens;
 import org.neo4j.driver.v1.Driver;
 import org.neo4j.driver.v1.GraphDatabase;
+import org.neo4j.ogm.session.Session;
+import org.neo4j.ogm.session.SessionFactory;
 
 public class DriverFactory {
 	private static DriverFactory driverFactory;
@@ -27,6 +29,11 @@ public class DriverFactory {
 	public static Driver getInstance() throws ClassNotFoundException, InstantiationException, IllegalAccessException, URISyntaxException, SQLException {
 		if (driverFactory == null) driverFactory = new DriverFactory();
 		return driverFactory.createConnection();
+	}
+	
+	public static Session getSessionFactory() {
+		SessionFactory session = new SessionFactory("io.numis");
+		return session.openSession();
 	}
 	
 	public static void closeConnection() {

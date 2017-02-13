@@ -9,6 +9,7 @@ import org.neo4j.driver.v1.StatementResult;
 import org.neo4j.driver.v1.Value;
 import org.neo4j.driver.v1.summary.ResultSummary;
 import org.neo4j.driver.v1.util.Pair;
+import org.neo4j.ogm.transaction.Transaction;
 
 import java.sql.ResultSet;
 import java.util.ArrayList;
@@ -43,9 +44,7 @@ public abstract class PersistenceImpl implements Persistence {
     @Override
     public boolean create(Properties properties) {
         Object obj = getObject(properties);
-        String createStatement = getInsertStatement(obj);
-        return runCypherCommand(createStatement);
-
+        return persistsObject(obj);
     }
 
     /**
@@ -142,6 +141,27 @@ public abstract class PersistenceImpl implements Persistence {
                 session.close();
                 LOGGER.info("session closed");
                 DriverFactory.closeConnection();
+            }
+        }
+    }
+    
+    private boolean persistsObject(Object o) {
+    	org.neo4j.ogm.session.Session session = null;
+    	Transaction tx = null;
+        try {
+            session = DriverFactory.getSessionFactory();
+            LOGGER.info("begin transaction instance");
+            tx = session.beginTransaction();
+            LOGGER.info("got session");
+            session.save(o);
+            LOGGER.info("saved domain node " + o.getClass());
+            return true;
+        } catch (Exception e) {
+            return false;
+        } finally {
+            if (tx != null) {
+            	LOGGER.info("transaction closed");
+                tx.close();
             }
         }
     }

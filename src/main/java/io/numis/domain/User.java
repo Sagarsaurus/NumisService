@@ -5,6 +5,9 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Properties;
+
+import org.neo4j.ogm.annotation.GraphId;
+import org.neo4j.ogm.annotation.NodeEntity;
 /**
  * <h1>User</h1>
  * User class extends 
@@ -17,8 +20,11 @@ import java.util.Properties;
  * @since 0.0.1
  *
  */
+@NodeEntity
 public class User extends AbstractDomainNode {
 	
+	@GraphId
+	private Long id;
 	private String username;
 	private String encrypted_password;
 	private String email;
@@ -53,7 +59,19 @@ public class User extends AbstractDomainNode {
 		setAccountNumber(NO_ACCOUNT_NUMBER);
 	}
 	
+	/**
+	 * @return the id
+	 */
+	public Long getId() {
+		return id;
+	}
 	
+	/**
+	 * @param id the id to set
+	 */
+	public void setId(Long id) {
+		this.id = id;
+	}
 	
 	/**
 	 * @return the username
