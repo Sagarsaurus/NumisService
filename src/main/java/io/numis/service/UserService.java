@@ -3,6 +3,7 @@ package io.numis.service;
 import java.util.Properties;
 import java.util.logging.Logger;
 
+import io.numis.domain.User;
 import io.numis.domain.interfaces.DomainNode;
 import io.numis.persistence.PersistenceImpl;
 import io.numis.persistence.UserPersistenceImpl;
@@ -82,8 +83,15 @@ public class UserService implements GenericService {
 	 * @return a DomainNode Object which is in this case a user
 	 */
 	@Override
-	public DomainNode get(Request request, Response response) {
-		// TODO Auto-generated method stub
+	public User get(Request request, Response response) {
+		Properties properties = getProperties(request);
+		DomainNode user = persistence.get(properties);
+		if(user != null) {
+			LOGGER.info("Got the user");
+			response.body("Retreived the user");
+			response.status(200);
+			return (User) user;
+		}
 		return null;
 	}
 	

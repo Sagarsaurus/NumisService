@@ -51,6 +51,12 @@ public class Application implements SparkApplication {
 			userService.destroy(request, response);
 			return response.body();
 		});
+		
+		get("/api/v1/user/get", (request, response) -> {
+			LOGGER.info("Start getting a user");
+			userService.get(request, response);
+			return response.body();
+		});
 	}
 	
 }

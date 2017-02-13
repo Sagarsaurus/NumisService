@@ -1,7 +1,8 @@
 package io.numis.persistence.interfaces;
 
 import java.util.Properties;
-import io.numis.domain.User;
+
+import io.numis.domain.interfaces.DomainNode;
 
 /**
  * <h1>Persistence Interface</h1>
@@ -52,6 +53,6 @@ public interface Persistence {
 	 * @param properties (TODO: Change return type to NodeType!)
 	 * @return user User id that is searched
 	 */
-	public User get(Properties properties);
+	public DomainNode get(Properties properties);
 	
 }

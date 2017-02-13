@@ -1,11 +1,17 @@
 package io.numis.persistence;
 
-import io.numis.domain.User;
+import io.numis.domain.interfaces.DomainNode;
 import io.numis.persistence.interfaces.Persistence;
 import org.neo4j.driver.v1.Driver;
+import org.neo4j.driver.v1.Record;
 import org.neo4j.driver.v1.Session;
 import org.neo4j.driver.v1.StatementResult;
+import org.neo4j.driver.v1.Value;
+import org.neo4j.driver.v1.summary.ResultSummary;
+import org.neo4j.driver.v1.util.Pair;
 
+import java.sql.ResultSet;
+import java.util.ArrayList;
 import java.util.Properties;
 import java.util.logging.Logger;
 
@@ -49,8 +55,10 @@ public abstract class PersistenceImpl implements Persistence {
 		return runCypherCommand(editStatement);
     }
 
-    //TODO: Change the return type to NodeType that is implemented by all the different types of nodes
-    public User get(Properties properties) {
+    public DomainNode get(Properties properties) {
+    	LOGGER.info("getting the object");
+    	String readStatement = getReadStatement(properties);
+    	runGetCommand(readStatement);
         return null;
     }
     
@@ -58,18 +66,51 @@ public abstract class PersistenceImpl implements Persistence {
     abstract public Object getObject(Properties properties);
     abstract public String getDeleteStatement(Properties properties);
     abstract public String getEditStatement(Properties properties);
+    abstract public String getReadStatement(Properties properties);
     
-    private boolean runCypherCommand(String cyperStatement) {
+    private boolean runCypherCommand(String cypherStatement) {
         Session session = null;
         try {
             Driver driver = DriverFactory.getInstance();
             LOGGER.info("got driver isntance");
             session = driver.session();
             LOGGER.info("got session");
-            StatementResult a = session.run(cyperStatement);
+            StatementResult a = session.run(cypherStatement);
             LOGGER.info("ran session statement" + a.toString());
             return true;
         } catch (Exception e) {
+            return false;
+        } finally {
+            if (session != null) {
+                session.close();
+                LOGGER.info("session closed");
+                DriverFactory.closeConnection();
+            }
+        }
+    }
+    
+    private boolean runGetCommand(String cypherStatement) {
+    	Session session = null;
+        try {
+            Driver driver = DriverFactory.getInstance();
+            LOGGER.info("got driver isntance");
+            session = driver.session();
+            LOGGER.info("got session for get command");
+            StatementResult a = session.run(cypherStatement);
+            
+            LOGGER.info("ran session statement" + a.toString());
+            ArrayList<Record> recordList = new ArrayList<Record>();
+            while(a.hasNext()) {
+            	Record record = a.next();
+            	for (Pair<String, Value> list : record.fields()) {
+					System.out.println(list.value());
+				}
+            	recordList.add(record);
+            }
+            System.out.println(recordList.size());
+            return true;
+        } catch (Exception e) {
+        	LOGGER.info(e.getMessage());
             return false;
         } finally {
             if (session != null) {

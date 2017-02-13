@@ -15,7 +15,8 @@ public class UserPersistenceImpl extends PersistenceImpl {
     
     //Create user variable block
     private static final String USERNAME = "$username$";
-    private static final String ENCRYPTED_PASSWORD = "$encryped_password$";
+    private static final String ID = "$id$";
+    private static final String ENCRYPTED_PASSWORD = "$encrypted_password$";
     private static final String EMAIL = "$email$";
     private static final String BIRTH_DATE = "$birth_date$";
     private static final String FIRST_NAME = "$first_name$";
@@ -90,5 +91,12 @@ public class UserPersistenceImpl extends PersistenceImpl {
 		updateStatement = updateStatement.substring(0, updateStatement.length()-1); // removes trailing comma
 		updateStatement += " RETURN user;";
 		return updateStatement;
+	}
+
+	@Override
+	public String getReadStatement(Properties properties) {
+		String id = properties.getProperty("id");
+		String readStatement = " Match(user) where id(user) = " + id + " return user;";
+		return readStatement;
 	}
 }
