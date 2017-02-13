@@ -160,7 +160,7 @@ public abstract class PersistenceImpl implements Persistence {
             return false;
         } finally {
             if (tx != null) {
-            	LOGGER.info("transaction closed");
+            	LOGGER.info("Transaction closed");
                 tx.close();
             }
         }
