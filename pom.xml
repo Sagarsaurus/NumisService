@@ -28,6 +28,7 @@
       <version>2.5.2</version>
     </dependency>
     <!-- end::spark-core-dependency -->
+   
     <!-- tag::bolt-dependency -->
     <dependency>
     	<groupId>org.neo4j.driver</groupId>
