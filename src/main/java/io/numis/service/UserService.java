@@ -80,7 +80,7 @@ public class UserService implements GenericService {
 	/**
 	 * REST API call to get a User
 	 * 
-	 * @return a DomainNode Object which is in this case a user
+	 * @return a DomainNode Object user object
 	 */
 	@Override
 	public User get(Request request, Response response) {

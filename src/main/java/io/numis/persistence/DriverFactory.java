@@ -36,7 +36,6 @@ public class DriverFactory {
 			driver.close();
 		} catch (ClassNotFoundException | InstantiationException | IllegalAccessException | URISyntaxException
 				| SQLException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		} finally {
 			driver = null;
