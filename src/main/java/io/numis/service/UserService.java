@@ -87,10 +87,11 @@ public class UserService implements GenericService {
 		Properties properties = getProperties(request);
 		DomainNode user = persistence.get(properties);
 		if(user != null) {
-			LOGGER.info("Got the user");
-			response.body("Retreived the user");
+			User userNode = (User) user;
+			LOGGER.info("Got the user. the username is: " + userNode.getUsername());
+			response.body("Retreived the user. username is: " + userNode.getUsername());
 			response.status(200);
-			return (User) user;
+			return userNode;
 		}
 		return null;
 	}

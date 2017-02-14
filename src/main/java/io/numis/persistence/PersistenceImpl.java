@@ -13,6 +13,8 @@ import org.neo4j.ogm.transaction.Transaction;
 
 import java.sql.ResultSet;
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.Properties;
 import java.util.logging.Logger;
 
@@ -44,7 +46,7 @@ public abstract class PersistenceImpl implements Persistence {
     @Override
     public boolean create(Properties properties) {
         Object obj = getObject(properties);
-        return persistsObject(obj);
+        return persistObject(obj);
     }
 
     /**
@@ -84,9 +86,9 @@ public abstract class PersistenceImpl implements Persistence {
      */
     public DomainNode get(Properties properties) {
     	LOGGER.info("getting the object");
-    	String readStatement = getReadStatement(properties);
-    	runGetCommand(readStatement);
-		return null;
+    	Map<String, Object> map = getReadParameters(properties);
+    	DomainNode node = getDomainNode(map);
+    	return node;
     }
     
     /**
@@ -99,7 +101,7 @@ public abstract class PersistenceImpl implements Persistence {
     /**
      * 
      * @param properties
-     * @return user User object with respective properties
+     * @return the created object with its respective properties
      */
     abstract public Object getObject(Properties properties);
 
@@ -117,7 +119,7 @@ public abstract class PersistenceImpl implements Persistence {
      */
     abstract public String getEditStatement(Properties properties);
     abstract public String getReadStatement(Properties properties);
-    
+    abstract public HashMap<String, Object> getReadParameters(Properties properties);
     /**
      * 
      * @param cyperStatement string to execute
@@ -145,7 +147,7 @@ public abstract class PersistenceImpl implements Persistence {
         }
     }
     
-    private boolean persistsObject(Object o) {
+    private boolean persistObject(Object o) {
     	org.neo4j.ogm.session.Session session = null;
     	Transaction tx = null;
         try {
@@ -160,10 +162,39 @@ public abstract class PersistenceImpl implements Persistence {
             return false;
         } finally {
             if (tx != null) {
-            	LOGGER.info("Transaction closed");
                 tx.close();
+                LOGGER.info("Transaction closed");
             }
         }
+    }
+    
+    private boolean deleteObject(Object o, long id) {
+    	return false;
+    }
+    
+    private DomainNode getDomainNode(Map<String, Object>  map) {
+    	Long id = (Long) map.get("id");
+    	@SuppressWarnings("unchecked")
+		Class<DomainNode> klass = (Class<DomainNode>) map.get("class");
+    	org.neo4j.ogm.session.Session session = null;
+    	Transaction tx = null;
+    	DomainNode returnedObject = null;
+    	
+    	try {
+    		session = DriverFactory.getSessionFactory();
+            LOGGER.info("got session");
+            tx = session.beginTransaction();
+            LOGGER.info("begin transaction instance");
+            returnedObject = session.load(klass, id);
+    	} catch (Exception e) {
+			LOGGER.info("Could not load of type class: " + klass.toString());
+    	} finally {
+    		if(tx != null) {
+    			tx.close();
+    			LOGGER.info("Transaciton closed");
+    		}
+    	}
+    	return returnedObject;
     }
     
     private boolean runGetCommand(String cypherStatement) {

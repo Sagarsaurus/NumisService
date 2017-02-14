@@ -2,6 +2,7 @@ package io.numis.persistence;
 
 import io.numis.domain.User;
 
+import java.util.HashMap;
 import java.util.Properties;
 import java.util.logging.Logger;
 
@@ -79,6 +80,16 @@ public class UserPersistenceImpl extends PersistenceImpl {
 		String readStatement = " Match(user) where id(user) = " + id + " return user;";
 		return readStatement;
 	}
+	
+	@Override
+	public HashMap<String, Object> getReadParameters(Properties properties) {
+		Long id = Long.parseLong((String) properties.get("id"));
+		HashMap<String, Object> map = new HashMap<String, Object>();
+		map.put("class", User.class);
+		map.put("id", id);
+		return map;
+	}
+	
 	/**
      * Used to delete a user by user id
      * 

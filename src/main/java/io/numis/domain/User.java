@@ -8,6 +8,7 @@ import java.util.Properties;
 
 import org.neo4j.ogm.annotation.GraphId;
 import org.neo4j.ogm.annotation.NodeEntity;
+import org.neo4j.ogm.annotation.typeconversion.DateString;
 /**
  * <h1>User</h1>
  * User class extends 
@@ -28,6 +29,7 @@ public class User extends AbstractDomainNode {
 	private String username;
 	private String encrypted_password;
 	private String email;
+	@DateString("dd/mm/yyyy")
 	private Date birth_date; 
 	private String first_name;
 	private String last_name;
