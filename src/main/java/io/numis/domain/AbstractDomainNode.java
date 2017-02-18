@@ -6,10 +6,11 @@ import io.numis.domain.interfaces.DomainNode;
 
 /**
  * <h1>AbstractDomainNode</h1>
+ * <p>
  * AbstractDomainNode class 
  * implements {@link DomainNode} interface
  * to handle basic Node behavior.
- * <p>
+ * </p>
  * 
  * @author Numis
  * @version 0.0.1

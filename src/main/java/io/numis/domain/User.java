@@ -11,10 +11,11 @@ import org.neo4j.ogm.annotation.NodeEntity;
 import org.neo4j.ogm.annotation.typeconversion.DateString;
 /**
  * <h1>User</h1>
+ * <p>
  * User class extends 
  * {@link AbstractDomainNode} abstract class.
  * User model for User node in the database.
- * <p>
+ * </p>
  * 
  * @author Numis
  * @version 0.0.1

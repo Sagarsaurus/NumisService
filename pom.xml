@@ -15,12 +15,16 @@
   </properties>
 
   <dependencies>
+  	
+  	<!-- tag::junit-dependency -->
     <dependency>
       <groupId>junit</groupId>
       <artifactId>junit</artifactId>
-      <version>3.8.1</version>
+      <version>4.12</version>
       <scope>test</scope>
     </dependency>
+    <!-- end::junit-dependency -->
+    
     <!-- tag::spark-core-dependency -->
     <dependency>
       <groupId>com.sparkjava</groupId>
@@ -37,18 +41,21 @@
     </dependency>
     <!-- end::bolt-dependency -->
     
-    <!-- https://mvnrepository.com/artifact/org.neo4j/neo4j -->
+    <!-- tag::neo4j-dependency -->
 	<dependency>
 	    <groupId>org.neo4j</groupId>
 	    <artifactId>neo4j</artifactId>
 	    <version>3.0.7</version>
 	</dependency>
+	<!-- end::neo4j-dependency -->
 	
-	<dependency> <!-- If you're using the Bolt driver -->
+	<!-- tag::bolt-ogm-dependency -->
+	<dependency>
 	    <groupId>org.neo4j</groupId>
 	    <artifactId>neo4j-ogm-bolt-driver</artifactId>
 	    <version>2.1.0</version>
 	</dependency>
+	<!-- end::bolt-ogm-dependency -->
 	
 	<!-- tag::hamcrest-dependency -->
     <dependency>
@@ -59,7 +66,7 @@
     </dependency>
     <!-- end::hamcrest-dependency -->
 	
-	    <!-- tag::org.neo4j kernel-dependency -->
+	<!-- tag::org.neo4j kernel-dependency -->
     <dependency>
       <groupId>org.neo4j</groupId>
       <artifactId>neo4j-kernel</artifactId>
@@ -69,7 +76,7 @@
     </dependency>
     <!-- end::org.neo4j kernel-dependency -->
     
-    <!-- tag::org.neo4j kernel-dependency -->
+    <!-- tag::org.neo4j io-dependency -->
     <dependency>
       <groupId>org.neo4j</groupId>
       <artifactId>neo4j-io</artifactId>
@@ -77,30 +84,40 @@
       <type>test-jar</type>
       <scope>test</scope>
     </dependency>
-    <!-- end::org.neo4j kernel-dependency -->
+    <!-- end::org.neo4j io-dependency -->
+    
+    <!-- tag::neo4j-ogm-dependency -->
 	<dependency>
 	    <groupId>org.neo4j</groupId>
 	    <artifactId>neo4j-ogm-core</artifactId>
 	    <version>2.1.0</version>
 	</dependency>
+	<!-- end::neo4j-ogm-dependency -->
     
+    <!-- tag::jdbc-dependency -->
     <dependency>
     	<groupId>org.neo4j</groupId>
     	<artifactId>neo4j-jdbc-driver</artifactId>
     	<version>3.0.1</version>
 	</dependency>
+	<!-- end::jdbc-dependency -->
     
+    <!-- tag::slf4j-dependency -->
     <dependency>
     	<groupId>org.slf4j</groupId>
     	<artifactId>slf4j-simple</artifactId>
     	<version>1.7.21</version>
     </dependency>
+    <!-- end::slf4j-dependency -->
+    
     <!-- https://mvnrepository.com/artifact/org.json/json -->
+    <!-- tag::json-dependency -->
 	<dependency>
 	    <groupId>org.json</groupId>
 	    <artifactId>json</artifactId>
 	    <version>20160810</version>
 	</dependency>
+	<!-- end::json-dependency -->
     
   </dependencies>
   
