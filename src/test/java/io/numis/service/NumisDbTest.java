@@ -1,5 +1,16 @@
-//package io.numis.service;
-//
+package io.numis.service;
+
+// import org.junit.Before;
+import org.neo4j.graphdb.GraphDatabaseService;
+// import org.junit.After;
+
+public class NumisDbTest {
+	
+	// Start with standard service variable.
+	protected GraphDatabaseService numisDb;
+	
+	
+}
 //import org.junit.Before;
 //import org.junit.After;
 //import org.junit.Test;

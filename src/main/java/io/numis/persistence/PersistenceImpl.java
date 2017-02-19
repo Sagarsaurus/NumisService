@@ -3,27 +3,23 @@ package io.numis.persistence;
 import io.numis.domain.interfaces.DomainNode;
 import io.numis.persistence.interfaces.Persistence;
 import org.neo4j.driver.v1.Driver;
-import org.neo4j.driver.v1.Record;
 import org.neo4j.driver.v1.Session;
 import org.neo4j.driver.v1.StatementResult;
-import org.neo4j.driver.v1.Value;
-import org.neo4j.driver.v1.summary.ResultSummary;
-import org.neo4j.driver.v1.util.Pair;
 import org.neo4j.ogm.transaction.Transaction;
 
-import java.sql.ResultSet;
-import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.Properties;
 import java.util.logging.Logger;
 
 /**
  * <h1>PersistenceImpl</h1>
+ * <p>
  * Abstract persistence implementation class that
  * modularizes between persistence interface
  * and model classes. Implements {@link Persistence}
- * <p>
+ * </p>
  * 
  * @author Numis
  * @version 0.0.1
@@ -32,27 +28,36 @@ import java.util.logging.Logger;
  */
 public abstract class PersistenceImpl implements Persistence {
 
+	// Class Logger
     private final static Logger LOGGER = Logger.getLogger(PersistenceImpl.class.getName());
+	private Class<DomainNode> domainNodeClass;
 
     public PersistenceImpl() {}
     
     /**
-     * Create a new user.
+     * <p>
+     * Create a new domain node with list of properties.
+     * </p>
      * 
-     * @param properties
-     * @return true: new user created
-     *         false: failed to create user
+     * @param properties Attributes of the domain node.
+     * @return true: new node created
+     *         false: exception thrown
      */
     @Override
     public boolean create(Properties properties) {
-        Object obj = getObject(properties);
+        LOGGER.info("Get related object with set of properties.");
+    	Object obj = getObject(properties);
         return persistObject(obj);
     }
 
     /**
+     * <p>
+     * Delete node through id and delete request.
+     * </p>
      * 
-     * @param obj User object
-     * @return createUserStatement Create User string
+     * @param obj Domain Node object
+     * @return true: deleted node
+     *         false: failed to delete, status error
      */
     public boolean delete(Properties properties) {
         LOGGER.info("Deleting Object");
@@ -62,30 +67,34 @@ public abstract class PersistenceImpl implements Persistence {
     }
 
     /**
-     * Modify property(s) of a specific user referenced by user id.
+     * <p>
+     * Modify property(s) of domain node referenced by id.
+     * </p>
      * 
      * @param properties
-     * @return true: succesfully modified user information(s)
-     *         false: failed to edit user information
+     * @return true: modified/updated node property(s)
+     *         false: exception thrown, status error
      */
     public boolean edit(Properties properties) {
-        LOGGER.info("Editing Object");
+        LOGGER.info("Updating Object");
         String editStatement = getEditStatement(properties);
         LOGGER.info("Established edit statement");
         return runCypherCommand(editStatement);
     }
 
     /**
-     * Retrieve specific user by id and related information.
+     * <p>
+     * Retrieve specific node by id and related information.
+     * </p>
      * 
      * TODO: Change the return type to NodeType 
      * that is implemented by all the different types of nodes.
      * 
      * @param properties (TODO: Change return type to NodeType!)
-     * @return user User id that is searched
+     * @return node Domain node
      */
     public DomainNode get(Properties properties) {
-    	LOGGER.info("getting the object");
+    	LOGGER.info("Get specified domain node");
     	Map<String, Object> map = getReadParameters(properties);
     	DomainNode node = getDomainNode(map);
     	return node;
@@ -93,40 +102,52 @@ public abstract class PersistenceImpl implements Persistence {
     
     /**
      * 
-     * @param obj
+     * @param obj Node object
      * @return createStatement Create string statement
      */
     abstract public String getInsertStatement(Object obj);
 
     /**
      * 
-     * @param properties
+     * @param properties Node properties
      * @return the created object with its respective properties
      */
     abstract public Object getObject(Properties properties);
 
     /**
      * 
-     * @param properties Object properties
-     * @return deleteStatement Create User string
+     * @param properties Node properties
+     * @return deleteStatement Create node query
      */
     abstract public String getDeleteStatement(Properties properties);
 
     /**
      * 
-     * @param obj User object
-     * @return editStatement Create User string
+     * @param properties - the properties to update in the selected user
+     * @return the updated edit statement which can be run from the driver. 
      */
     abstract public String getEditStatement(Properties properties);
+    
+    /**
+     * 
+     * @param properties Node properties
+     * @return readStatement Read node by reference id query
+     */
     abstract public String getReadStatement(Properties properties);
+    
+    /**
+     * 
+     * @param properties Node properties
+     * @return map HashMap<String, Object> containing node id and class
+     */
     abstract public HashMap<String, Object> getReadParameters(Properties properties);
+    
     /**
      * 
      * @param cyperStatement string to execute
      * @return true: success, false: failed to execute command
      */
     private boolean runCypherCommand(String cypherStatement) {
-
         Session session = null;
         try {
             Driver driver = DriverFactory.getInstance();
@@ -147,6 +168,15 @@ public abstract class PersistenceImpl implements Persistence {
         }
     }
     
+    /**
+     * <p>
+     * Create object transaction and save node.
+     * </p>
+     * 
+     * @param o Node object with properties.
+     * @return true: Create transaction and save node.
+     *         false: exception caught 
+     */
     private boolean persistObject(Object o) {
     	org.neo4j.ogm.session.Session session = null;
     	Transaction tx = null;
@@ -159,73 +189,90 @@ public abstract class PersistenceImpl implements Persistence {
             LOGGER.info("saved domain node " + o.getClass());
             return true;
         } catch (Exception e) {
+        	LOGGER.info("Caught Exception " + e);
+        	e.printStackTrace();
             return false;
         } finally {
             if (tx != null) {
+            	LOGGER.info("Transaction closed");
                 tx.close();
-                LOGGER.info("Transaction closed");
             }
         }
     }
     
-    private boolean deleteObject(Object o, long id) {
-    	return false;
-    }
+//    private boolean deleteObject(Object o, long id) {
+//    	return false;
+//    }
     
-    private DomainNode getDomainNode(Map<String, Object>  map) {
+    /**
+     * <p>
+     * Gets the the loaded session of the domain node id and class.
+     * </p>
+     * 
+     * @param map Node mapping of node class and object
+     * @return returnedObject DomainNode with loaded class and id
+     */
+    private DomainNode getDomainNode(Map<String, Object> map) {
     	Long id = (Long) map.get("id");
-    	@SuppressWarnings("unchecked")
-		Class<DomainNode> klass = (Class<DomainNode>) map.get("class");
+    	domainNodeClass = null;
+    	// @SuppressWarnings("unchecked")
+    	// Addressing Type Safety warning
+    	List<?> mapClass = (List<?>) map.get("class");
+    	for (Object o : mapClass) {
+    		if (o instanceof DomainNode) {
+    			domainNodeClass.cast(map.get(o));
+    		}
+    	}
+		// Class<DomainNode> klass = (Class<DomainNode>) map.get("class");
     	org.neo4j.ogm.session.Session session = null;
     	Transaction tx = null;
     	DomainNode returnedObject = null;
-    	
     	try {
     		session = DriverFactory.getSessionFactory();
             LOGGER.info("got session");
             tx = session.beginTransaction();
             LOGGER.info("begin transaction instance");
-            returnedObject = session.load(klass, id);
+            returnedObject = session.load(domainNodeClass, id);
     	} catch (Exception e) {
-			LOGGER.info("Could not load of type class: " + klass.toString());
+			LOGGER.info("Could not load of type class: " + domainNodeClass.toString());
     	} finally {
     		if(tx != null) {
     			tx.close();
-    			LOGGER.info("Transaciton closed");
+    			LOGGER.info("transaction closed");
     		}
     	}
     	return returnedObject;
     }
     
-    private boolean runGetCommand(String cypherStatement) {
-    	Session session = null;
-        try {
-            Driver driver = DriverFactory.getInstance();
-            LOGGER.info("got driver isntance");
-            session = driver.session();
-            LOGGER.info("got session for get command");
-            StatementResult a = session.run(cypherStatement);
-            
-            LOGGER.info("ran session statement" + a.toString());
-            ArrayList<Record> recordList = new ArrayList<Record>();
-            while(a.hasNext()) {
-            	Record record = a.next();
-            	for (Pair<String, Value> list : record.fields()) {
-					System.out.println(list.value());
-				}
-            	recordList.add(record);
-            }
-            System.out.println(recordList.size());
-            return true;
-        } catch (Exception e) {
-        	LOGGER.info(e.getMessage());
-            return false;
-        } finally {
-            if (session != null) {
-                session.close();
-                LOGGER.info("session closed");
-                DriverFactory.closeConnection();
-            }
-        }
-    }
+//    private boolean runGetCommand(String cypherStatement) {
+//    	Session session = null;
+//        try {
+//            Driver driver = DriverFactory.getInstance();
+//            LOGGER.info("got driver instance");
+//            session = driver.session();
+//            LOGGER.info("got session for get command");
+//            StatementResult a = session.run(cypherStatement);
+//            
+//            LOGGER.info("ran session statement" + a.toString());
+//            ArrayList<Record> recordList = new ArrayList<Record>();
+//            while(a.hasNext()) {
+//            	Record record = a.next();
+//            	for (Pair<String, Value> list : record.fields()) {
+//					System.out.println(list.value());
+//				}
+//            	recordList.add(record);
+//            }
+//            System.out.println(recordList.size());
+//            return true;
+//        } catch (Exception e) {
+//        	LOGGER.info(e.getMessage());
+//            return false;
+//        } finally {
+//            if (session != null) {
+//                session.close();
+//                LOGGER.info("session closed");
+//                DriverFactory.closeConnection();
+//            }
+//        }
+//    }
 }

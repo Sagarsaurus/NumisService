@@ -6,9 +6,10 @@ import io.numis.domain.interfaces.DomainNode;
 
 /**
  * <h1>Persistence Interface</h1>
+ * <p>
  * Persistence Interface that adds method stubs
  * for User modification properties.
- * <p>
+ * </p>
  * 
  * @author Numis
  * @version 0.0.1
@@ -18,41 +19,48 @@ import io.numis.domain.interfaces.DomainNode;
 public interface Persistence {
 	
 	/**
-	 * Create a new user.
-	 * 
-	 * @param properties
-	 * @return true: new user created
-	 *         false: failed to create user
-	 */
+     * <p>
+     * Create a new domain node with list of properties.
+     * </p>
+     * 
+     * @param properties Attributes of the domain node.
+     * @return true: new node created
+     *         false: exception thrown
+     */
 	public boolean create(Properties properties);
 	
 	/**
-	 * Detach and delete a user by user id.
-	 * 
-	 * @param properties
-	 * @return true: user deleted and detached from groups
-	 *         false: failed tp delete user or detach from related groups
-	 */
+     * <p>
+     * Delete node through id and delete request.
+     * </p>
+     * 
+     * @param obj Domain Node object
+     * @return true: deleted node
+     *         false: failed to delete, status error
+     */
 	public boolean delete(Properties properties);
 	
 	/**
-	 * Modify property(s) of a specific user referenced by user id.
-	 * 
-	 * @param properties
-	 * @return true: succesfully modified user information(s)
-	 *         false: failed to edit user information
-	 */
+     * <p>
+     * Modify property(s) of domain node referenced by id.
+     * </p>
+     * 
+     * @param properties
+     * @return true: modified/updated node property(s)
+     *         false: exception thrown, status error
+     */
 	public boolean edit(Properties properties);
 	
 	/**
-	 * Retrieve specific user by id and related information.
-	 * 
-	 * TODO: Change the return type to NodeType 
-	 * that is implemented by all the different types of nodes.
-	 * 
-	 * @param properties (TODO: Change return type to NodeType!)
-	 * @return user User id that is searched
-	 */
+     * <p>
+     * Retrieve specific node by id and related information.
+     * </p>
+     * 
+     * TODO: Change the return type to NodeType 
+     * that is implemented by all the different types of nodes.
+     * 
+     * @param properties (TODO: Change return type to NodeType!)
+     * @return node Domain node
+     */
 	public DomainNode get(Properties properties);
-	
 }

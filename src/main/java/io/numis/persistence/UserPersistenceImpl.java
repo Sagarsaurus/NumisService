@@ -10,10 +10,11 @@ import static org.apache.http.client.utils.DateUtils.formatDate;
 
 /**
  * <h1>UserPersistenceImpl</h1>
+ * <p>
  * User Persistence implementation class contains
  * methods to run the respective CRUD queries
- * for the User api. extends {@link PersistenceImpl}
- * <p>
+ * for the User API. extends {@link PersistenceImpl}
+ * </p>
  * 
  * @author Numis
  * @version 0.0.1
@@ -25,7 +26,7 @@ public class UserPersistenceImpl extends PersistenceImpl {
     
     //Create user variable block
     private static final String USERNAME = "$username$";
-    private static final String ID = "$id$";
+    // private static final String ID = "$id$";
     private static final String ENCRYPTED_PASSWORD = "$encrypted_password$";
     private static final String EMAIL = "$email$";
     private static final String BIRTH_DATE = "$birth_date$";
@@ -41,6 +42,9 @@ public class UserPersistenceImpl extends PersistenceImpl {
             "routing_number: "+ROUTING_NUMBER+", account_balance:"+ACCOUNT_BALANCE+"})";
 
     /**
+     * <p>
+     * Create Cypher query for new user with all properties.
+     * </p>
      * 
      * @param obj
      * @return createStatement Create string statement
@@ -63,6 +67,9 @@ public class UserPersistenceImpl extends PersistenceImpl {
     }
 
     /**
+     * <p>
+     * Get user object with properties.
+     * </p>
      * 
      * @param properties
      * @return user User object with respective properties
@@ -74,6 +81,14 @@ public class UserPersistenceImpl extends PersistenceImpl {
         return user;
     }
 
+    /**
+     * <p>
+     * Writes and returns Get cypher query based on id.
+     * </p>
+     * 
+     * @param properties Node properties
+     * @return readStatement Read node by reference id query
+     */
 	@Override
 	public String getReadStatement(Properties properties) {
 		String id = properties.getProperty("id");
@@ -81,6 +96,14 @@ public class UserPersistenceImpl extends PersistenceImpl {
 		return readStatement;
 	}
 	
+	/**
+	 * <p>
+     * Gets the specific user node class and string parameters for ogm.
+     * </p>
+     * 
+     * @param properties Node properties
+     * @return map HashMap<String, Object> containing node id and class
+     */
 	@Override
 	public HashMap<String, Object> getReadParameters(Properties properties) {
 		Long id = Long.parseLong((String) properties.get("id"));
@@ -91,7 +114,9 @@ public class UserPersistenceImpl extends PersistenceImpl {
 	}
 	
 	/**
-     * Used to delete a user by user id
+	 * <p>
+     * Used to delete a node by referencing node id.
+     * </p>
      * 
      * @param properties - properties of the user to be deleted
      * @return GraphDB statement that deletes the user
