@@ -18,6 +18,9 @@ public class UserService implements GenericService {
 	
 	/**
 	 * REST API call to create a User
+	 * 
+	 * @param request
+	 * @param response
 	 */
 	@Override
 	public void create(Request request, Response response) {
@@ -38,6 +41,9 @@ public class UserService implements GenericService {
 	
 	/**
 	 * REST API call to delete a User
+	 * 
+	 * @param request
+	 * @param response
 	 */
 	@Override
 	public void destroy(Request request, Response response) {
@@ -60,6 +66,9 @@ public class UserService implements GenericService {
 	
 	/**
 	 * REST API call to update a User
+	 * 
+	 * @param request
+	 * @param response
 	 */
 	@Override
 	public void update(Request request, Response response) {
@@ -81,6 +90,8 @@ public class UserService implements GenericService {
 	 * REST API call to get a User
 	 * 
 	 * @return a DomainNode Object user object
+	 * @param request
+	 * @param response
 	 */
 	@Override
 	public User get(Request request, Response response) {

@@ -29,7 +29,7 @@ public class Application implements SparkApplication {
 		
 		// create new user
 		post("/api/v1/user/new", (request, response) -> {
-			LOGGER.info("Started to create a new User");
+			LOGGER.info("Create new node");
 			userService.create(request, response);
 			return response.body();
 		});	
@@ -40,20 +40,21 @@ public class Application implements SparkApplication {
 		
 		// update existing user
 		post("/api/v1/user/update", (request, response) -> {
-			LOGGER.info("Started to update a new User");
+			LOGGER.info("Update node and properties");
 			userService.update(request, response);
 			return response.body();
 		});
 		
 		// delete existing user
 		delete("/api/v1/user/delete", (request, response) -> {
-			LOGGER.info("Start delete user");
+			LOGGER.info("Delete Node");
 			userService.destroy(request, response);
 			return response.body();
 		});
 		
+		
 		get("/api/v1/user/get", (request, response) -> {
-			LOGGER.info("Start getting a user");
+			LOGGER.info("Get Node");
 			userService.get(request, response);
 			return response.body();
 		});
