@@ -31,10 +31,6 @@ public class Application implements SparkApplication {
 			LOGGER.info("Create new node");
 			userService.create(request, response);
 			return response.body();
-		});	
-		
-		get("/", (request, response) -> {
-			return "Application loaded";
 		});
 		
 		// update existing user
@@ -45,7 +41,7 @@ public class Application implements SparkApplication {
 		});
 		
 		// delete existing user
-		post("/api/v1/user/delete", (request, response) -> {
+		delete("/api/v1/user/delete", (request, response) -> {
 			LOGGER.info("Delete Node");
 			userService.destroy(request, response);
 			return response.body(); 

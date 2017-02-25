@@ -11,6 +11,18 @@ import io.numis.service.interfaces.GenericService;
 import spark.Request;
 import spark.Response;
 
+/**
+ * <h1>UserService</h1>
+ * <p>
+ * UserService class that implements
+ * {@link GenericService} and establishes
+ * responses to major CRUD operations.
+ * </p>
+ * 
+ * @author Numis
+ * @version 0.0.1
+ * @since 0.0.1
+ */
 public class UserService implements GenericService {
 	
 	private final static Logger LOGGER = Logger.getLogger(UserService.class.getName());
@@ -121,8 +133,4 @@ public class UserService implements GenericService {
 		}
 		return properties;
 	}
-
-	
-
-	
 }
