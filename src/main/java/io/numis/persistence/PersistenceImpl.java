@@ -61,9 +61,9 @@ public abstract class PersistenceImpl implements Persistence {
      */
     public boolean delete(Properties properties) {
         LOGGER.info("Deleting Object");
-        String delete = getDeleteStatement(properties);
-        LOGGER.info("Set delete statement");
-        return runCypherCommand(delete);
+    	Map<String, Object> map = getReadParameters(properties);
+    	DomainNode node = getDomainNode(map);
+    	return deleteObject(node);
     }
 
     /**
@@ -102,13 +102,6 @@ public abstract class PersistenceImpl implements Persistence {
     
     /**
      * 
-     * @param obj Node object
-     * @return createStatement Create string statement
-     */
-    abstract public String getInsertStatement(Object obj);
-
-    /**
-     * 
      * @param properties Node properties
      * @return the created object with its respective properties
      */
@@ -127,13 +120,6 @@ public abstract class PersistenceImpl implements Persistence {
      * @return the updated edit statement which can be run from the driver. 
      */
     abstract public String getEditStatement(Properties properties);
-    
-    /**
-     * 
-     * @param properties Node properties
-     * @return readStatement Read node by reference id query
-     */
-    abstract public String getReadStatement(Properties properties);
     
     /**
      * 
@@ -181,6 +167,7 @@ public abstract class PersistenceImpl implements Persistence {
     	org.neo4j.ogm.session.Session session = null;
     	Transaction tx = null;
         try {
+    		LOGGER.info("in the try for persist object");
             session = DriverFactory.getSessionFactory();
             LOGGER.info("begin transaction instance");
             tx = session.beginTransaction();
@@ -197,12 +184,44 @@ public abstract class PersistenceImpl implements Persistence {
             	LOGGER.info("Transaction closed");
                 tx.close();
             }
+    		LOGGER.info("finished with persist object method");
         }
     }
     
-//    private boolean deleteObject(Object o, long id) {
-//    	return false;
-//    }
+    /**
+     * <p>
+     * Create object transaction and save node.
+     * </p>
+     * 
+     * @param o Node object with properties.
+     * @return true: Create transaction and save node.
+     *         false: exception caught 
+     */
+    private boolean deleteObject(Object o) {
+    	org.neo4j.ogm.session.Session session = null;
+    	Transaction tx = null;
+        try {
+    		LOGGER.info("in the try for delete object");
+            session = DriverFactory.getSessionFactory();
+            LOGGER.info("begin transaction instance");
+            tx = session.beginTransaction();
+            LOGGER.info("got session");
+            session.delete(o);
+            LOGGER.info("deleted domain node " + o.getClass());
+            return true;
+        } catch (Exception e) {
+        	LOGGER.info("Caught Exception " + e);
+        	e.printStackTrace();
+            return false;
+        } finally {
+            if (tx != null) {
+            	LOGGER.info("Transaction closed");
+                tx.close();
+            }
+    		LOGGER.info("finished with delete object method");
+        }
+    }
+    
     
     /**
      * <p>
@@ -215,7 +234,6 @@ public abstract class PersistenceImpl implements Persistence {
     private DomainNode getDomainNode(Map<String, Object> map) {
     	Long id = (Long) map.get("id");
     	domainNodeClass = null;
-    	// @SuppressWarnings("unchecked")
     	// Addressing Type Safety warning
     	List<?> mapClass = (List<?>) map.get("class");
     	for (Object o : mapClass) {
@@ -223,11 +241,11 @@ public abstract class PersistenceImpl implements Persistence {
     			domainNodeClass.cast(map.get(o));
     		}
     	}
-		// Class<DomainNode> klass = (Class<DomainNode>) map.get("class");
     	org.neo4j.ogm.session.Session session = null;
     	Transaction tx = null;
     	DomainNode returnedObject = null;
     	try {
+    		LOGGER.info("in the try for get domain node");
     		session = DriverFactory.getSessionFactory();
             LOGGER.info("got session");
             tx = session.beginTransaction();
@@ -240,39 +258,9 @@ public abstract class PersistenceImpl implements Persistence {
     			tx.close();
     			LOGGER.info("transaction closed");
     		}
+    		LOGGER.info("finished with get domain node");
     	}
     	return returnedObject;
     }
-    
-//    private boolean runGetCommand(String cypherStatement) {
-//    	Session session = null;
-//        try {
-//            Driver driver = DriverFactory.getInstance();
-//            LOGGER.info("got driver instance");
-//            session = driver.session();
-//            LOGGER.info("got session for get command");
-//            StatementResult a = session.run(cypherStatement);
-//            
-//            LOGGER.info("ran session statement" + a.toString());
-//            ArrayList<Record> recordList = new ArrayList<Record>();
-//            while(a.hasNext()) {
-//            	Record record = a.next();
-//            	for (Pair<String, Value> list : record.fields()) {
-//					System.out.println(list.value());
-//				}
-//            	recordList.add(record);
-//            }
-//            System.out.println(recordList.size());
-//            return true;
-//        } catch (Exception e) {
-//        	LOGGER.info(e.getMessage());
-//            return false;
-//        } finally {
-//            if (session != null) {
-//                session.close();
-//                LOGGER.info("session closed");
-//                DriverFactory.closeConnection();
-//            }
-//        }
-//    }
 }
+    

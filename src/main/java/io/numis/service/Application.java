@@ -52,7 +52,7 @@ public class Application implements SparkApplication {
 			return response.body();
 		});
 		
-		
+		// get existing user
 		get("/api/v1/user/get", (request, response) -> {
 			LOGGER.info("Get Node");
 			userService.get(request, response);
