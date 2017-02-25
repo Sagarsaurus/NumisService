@@ -1,5 +1,6 @@
 package io.numis.domain;
 
+import java.util.Properties;
 import java.util.Set;
 
 import org.neo4j.ogm.annotation.GraphId;
@@ -23,18 +24,30 @@ import org.neo4j.ogm.annotation.Relationship;
 public class Group extends AbstractDomainNode {
 	
 	@GraphId
-	public Long id;
-	public double amount;
-	public String purpose;
-	public String description;
-	public int group_type;
+	private Long id;
+	private double amount;
+	private String purpose;
+	private String description;
+	private int group_type;
 	
 	// Set Relationships
-	// 1.) Members: Set of users IN a group.
+	// Members: Set of users IN a group.
 	@Relationship(direction = Relationship.INCOMING, type = "IN")
-	public Set<User> members;
+	private Set<User> members;
 	
-	// 2.) 
+	// Contributions: Set of contributions OWNED by the group.
+	@Relationship(direction = Relationship.INCOMING, type = "OWNS")
+	private Set<Contribution> contributions;
+	
+	// TransactionHistory
+	@Relationship(type = "LATEST_TRANSACTION", direction = Relationship.OUTGOING)
+	private TransactionHistory transactionHistory;
+	
+	public Group() {}
+	
+	public Group(Properties properties) {
+		
+	}
 	
 	/**
 	 * @return the members

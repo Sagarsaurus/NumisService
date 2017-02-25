@@ -34,7 +34,8 @@ public class UserService implements GenericService {
 			LOGGER.info("User Created successfully");
 			response.body("done with creation of new user");
 		} else {
-			response.body("your shit wrong");				
+			LOGGER.severe("failed to create user");
+			response.body("failed to create user");				
 		}
 			
 	}

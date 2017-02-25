@@ -8,7 +8,6 @@ import org.neo4j.driver.v1.StatementResult;
 import org.neo4j.ogm.transaction.Transaction;
 
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 import java.util.Properties;
 import java.util.logging.Logger;
@@ -30,7 +29,6 @@ public abstract class PersistenceImpl implements Persistence {
 
 	// Class Logger
     private final static Logger LOGGER = Logger.getLogger(PersistenceImpl.class.getName());
-	private Class<DomainNode> domainNodeClass;
 
     public PersistenceImpl() {}
     
@@ -109,13 +107,6 @@ public abstract class PersistenceImpl implements Persistence {
 
     /**
      * 
-     * @param properties Node properties
-     * @return deleteStatement Create node query
-     */
-    abstract public String getDeleteStatement(Properties properties);
-
-    /**
-     * 
      * @param properties - the properties to update in the selected user
      * @return the updated edit statement which can be run from the driver. 
      */
@@ -173,6 +164,7 @@ public abstract class PersistenceImpl implements Persistence {
             tx = session.beginTransaction();
             LOGGER.info("got session");
             session.save(o);
+            tx.commit();
             LOGGER.info("saved domain node " + o.getClass());
             return true;
         } catch (Exception e) {
@@ -205,8 +197,8 @@ public abstract class PersistenceImpl implements Persistence {
             session = DriverFactory.getSessionFactory();
             LOGGER.info("begin transaction instance");
             tx = session.beginTransaction();
-            LOGGER.info("got session");
             session.delete(o);
+            tx.commit();
             LOGGER.info("deleted domain node " + o.getClass());
             return true;
         } catch (Exception e) {
@@ -233,15 +225,11 @@ public abstract class PersistenceImpl implements Persistence {
      */
     private DomainNode getDomainNode(Map<String, Object> map) {
     	Long id = (Long) map.get("id");
-    	domainNodeClass = null;
-    	// Addressing Type Safety warning
-    	List<?> mapClass = (List<?>) map.get("class");
-    	for (Object o : mapClass) {
-    		if (o instanceof DomainNode) {
-    			domainNodeClass.cast(map.get(o));
-    		}
-    	}
+
+    	@SuppressWarnings("unchecked")
+		Class<DomainNode> klass = (Class<DomainNode>) map.get("class");
     	org.neo4j.ogm.session.Session session = null;
+    	
     	Transaction tx = null;
     	DomainNode returnedObject = null;
     	try {
@@ -250,9 +238,9 @@ public abstract class PersistenceImpl implements Persistence {
             LOGGER.info("got session");
             tx = session.beginTransaction();
             LOGGER.info("begin transaction instance");
-            returnedObject = session.load(domainNodeClass, id);
+            returnedObject = session.load(klass, id);
     	} catch (Exception e) {
-			LOGGER.info("Could not load of type class: " + domainNodeClass.toString());
+			LOGGER.info("Could not load of type class: " + klass.toString());
     	} finally {
     		if(tx != null) {
     			tx.close();

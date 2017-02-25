@@ -3,7 +3,6 @@ package io.numis.service;
 import static spark.Spark.*;
 import static spark.Spark.get;
 import static spark.Spark.post;
-import static spark.Spark.delete;
 import java.util.logging.Logger;
 
 import spark.servlet.SparkApplication;
@@ -46,10 +45,10 @@ public class Application implements SparkApplication {
 		});
 		
 		// delete existing user
-		delete("/api/v1/user/delete", (request, response) -> {
+		post("/api/v1/user/delete", (request, response) -> {
 			LOGGER.info("Delete Node");
 			userService.destroy(request, response);
-			return response.body();
+			return response.body(); 
 		});
 		
 		// get existing user

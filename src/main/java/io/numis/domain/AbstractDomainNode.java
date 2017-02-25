@@ -40,6 +40,16 @@ public abstract class AbstractDomainNode implements DomainNode {
 	}
 	
 	/**
+	 * @return result
+	 */
+	public int hashCode(DomainNode o) {
+		final int prime = 17;
+		int result = 1;
+		result = (int) (prime * result + ((this.getId() == null) ? 0 : o.getId()));
+		return result;
+	}
+	
+	/**
      * Used for debugging returning in this format:
      * 
      * Var {

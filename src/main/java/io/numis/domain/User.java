@@ -5,9 +5,11 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Properties;
+import java.util.Set;
 
 import org.neo4j.ogm.annotation.GraphId;
 import org.neo4j.ogm.annotation.NodeEntity;
+import org.neo4j.ogm.annotation.Relationship;
 import org.neo4j.ogm.annotation.typeconversion.DateString;
 /**
  * <h1>User</h1>
@@ -38,6 +40,19 @@ public class User extends AbstractDomainNode {
 	private int account_number;
 	private int routing_number;
 	private double account_balance;
+	
+	// Set Relationships
+	// Friends: User IS FRIENDS WITH other users.
+	@Relationship(direction = Relationship.OUTGOING, type = "IS_FRIENDS_WITH")
+	private Set<User> friends;
+	
+	// Groups: User is IN groups.
+	@Relationship(direction = Relationship.OUTGOING, type = "IN")
+	private Set<Group> groups;
+	
+	// contributions: User HAS CONTRIBUTION contributions...
+	@Relationship(direction = Relationship.OUTGOING, type = "HAS_CONTRIBUTION")
+	private Set<Contribution> contributions;
 	
 	private final int NO_ACCOUNT_NUMBER = -1;
 	
@@ -238,5 +253,33 @@ public class User extends AbstractDomainNode {
 		DateFormat df = new SimpleDateFormat("dd/mm/yyyy");
 		Date birth_date = df.parse(date);
 		return birth_date;
+	}
+
+	/**
+	 * @return the friends
+	 */
+	public Set<User> getFriends() {
+		return friends;
+	}
+
+	/**
+	 * @param friends the friends to set
+	 */
+	public void setFriends(Set<User> friends) {
+		this.friends = friends;
+	}
+
+	/**
+	 * @return the groups
+	 */
+	public Set<Group> getGroups() {
+		return groups;
+	}
+
+	/**
+	 * @param groups the groups to set
+	 */
+	public void setGroups(Set<Group> groups) {
+		this.groups = groups;
 	}
 }

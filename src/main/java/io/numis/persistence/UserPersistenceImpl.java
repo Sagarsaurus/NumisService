@@ -51,24 +51,10 @@ public class UserPersistenceImpl extends PersistenceImpl {
 		HashMap<String, Object> map = new HashMap<String, Object>();
 		map.put("class", User.class);
 		map.put("id", id);
+		LOGGER.info("id is " + map.get("id"));
 		return map;
 	}
 	
-	/**
-	 * <p>
-     * Used to delete a node by referencing node id.
-     * </p>
-     * 
-     * @param properties - properties of the user to be deleted
-     * @return GraphDB statement that deletes the user
-     */
-    @Override
-    public String getDeleteStatement(Properties properties) {
-        String objectId = properties.getProperty("id");
-        String delete_statement = "MATCH (n { id: '" + objectId + "' }) DETACH DELETE n";
-        return delete_statement;
-    }
-
     /**
      * Helper method to build strings in this format:<br>
      * <p>MATCH(s) WHERE id(s) = 25 SET s.encrypted_password = '12345890', s.last_name = 'last name',<br>
