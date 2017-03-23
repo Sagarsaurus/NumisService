@@ -13,21 +13,20 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package io.numis.domain;
-
-import io.numis.common.DomainNode;
+package io.numis.common.environment;
 
 /**
- * <h1>UserDomain</h1>
+ * <h1>Dotenv</h1>
  * 
- * This class represents the ContributionDomain
- * node structure and properties of the
- * graph database. extends {@link DomainNode}
+ * Custom dotenv interface containing
+ * method stubs and declarations for
+ * .env file loading and validations.
  * <p>
  *
  * @author Numis
  * @version 0.0.1
  * @since 0.0.1
  */
-public class Contribution {
+public interface Dotenv {
+
 }

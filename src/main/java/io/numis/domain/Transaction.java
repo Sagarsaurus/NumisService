@@ -18,9 +18,9 @@ package io.numis.domain;
 import io.numis.common.DomainNode;
 
 /**
- * <h1>UserDomain</h1>
+ * <h1>TransactionDomain</h1>
  * 
- * This class represents the ContributionDomain
+ * This class represents the TransactionDomain
  * node structure and properties of the
  * graph database. extends {@link DomainNode}
  * <p>
@@ -29,5 +29,6 @@ import io.numis.common.DomainNode;
  * @version 0.0.1
  * @since 0.0.1
  */
-public class Contribution {
+public class Transaction {
+	
 }

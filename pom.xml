@@ -1,149 +1,237 @@
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-  xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
-  <modelVersion>4.0.0</modelVersion>
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
 
-  <groupId>io.numis</groupId>
-  <artifactId>service</artifactId>
-  <version>0.0.1-SNAPSHOT</version>
-  <packaging>war</packaging>
+    <groupId>io.numis</groupId>
+    <artifactId>service</artifactId>
+    <version>0.0.1-SNAPSHOT</version>
+    <packaging>war</packaging>
 
-  <name>service</name>
-  <url>http://maven.apache.org</url>
+    <name>service</name>
+    <url>http://maven.apache.org</url>
 
-  <properties>
-    <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-  </properties>
+    <properties>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <!-- Set version properties -->
+        <com.sparkjava.version>2.5.5</com.sparkjava.version>
 
-  <dependencies>
-  	
-  	<!-- tag::junit-dependency -->
-    <dependency>
-      <groupId>junit</groupId>
-      <artifactId>junit</artifactId>
-      <version>4.12</version>
-      <scope>test</scope>
-    </dependency>
-    <!-- end::junit-dependency -->
-    
-    <!-- tag::spark-core-dependency -->
-    <dependency>
-      <groupId>com.sparkjava</groupId>
-      <artifactId>spark-core</artifactId>
-      <version>2.5.2</version>
-    </dependency>
-    <!-- end::spark-core-dependency -->
-   
-    <!-- tag::bolt-dependency -->
-    <dependency>
-    	<groupId>org.neo4j.driver</groupId>
-    	<artifactId>neo4j-java-driver</artifactId>
-    	<version>1.1.1</version>
-    </dependency>
-    <!-- end::bolt-dependency -->
-    
-    <!-- tag::neo4j-dependency -->
-	<dependency>
-	    <groupId>org.neo4j</groupId>
-	    <artifactId>neo4j</artifactId>
-	    <version>3.0.7</version>
-	</dependency>
-	<!-- end::neo4j-dependency -->
-	
-	<!-- tag::bolt-ogm-dependency -->
-	<dependency>
-	    <groupId>org.neo4j</groupId>
-	    <artifactId>neo4j-ogm-bolt-driver</artifactId>
-	    <version>2.1.0</version>
-	</dependency>
-	<!-- end::bolt-ogm-dependency -->
-	
-	<!-- tag::hamcrest-dependency -->
-    <dependency>
-      <groupId>org.hamcrest</groupId>
-      <artifactId>hamcrest-all</artifactId>
-      <version>1.3</version>
-      <scope>test</scope>
-    </dependency>
-    <!-- end::hamcrest-dependency -->
-	
-	<!-- tag::org.neo4j kernel-dependency -->
-    <dependency>
-      <groupId>org.neo4j</groupId>
-      <artifactId>neo4j-kernel</artifactId>
-      <version>3.1.1</version>
-      <type>test-jar</type>
-      <scope>test</scope>
-    </dependency>
-    <!-- end::org.neo4j kernel-dependency -->
-    
-    <!-- tag::org.neo4j io-dependency -->
-    <dependency>
-      <groupId>org.neo4j</groupId>
-      <artifactId>neo4j-io</artifactId>
-      <version>3.1.1</version>
-      <type>test-jar</type>
-      <scope>test</scope>
-    </dependency>
-    <!-- end::org.neo4j io-dependency -->
-    
-    <!-- tag::neo4j-ogm-dependency -->
-	<dependency>
-	    <groupId>org.neo4j</groupId>
-	    <artifactId>neo4j-ogm-core</artifactId>
-	    <version>2.1.1</version>
-	</dependency>
-	<!-- end::neo4j-ogm-dependency -->
-    
-    <!-- tag::jdbc-dependency -->
-    <dependency>
-    	<groupId>org.neo4j</groupId>
-    	<artifactId>neo4j-jdbc-driver</artifactId>
-    	<version>3.0.1</version>
-	</dependency>
-	<!-- end::jdbc-dependency -->
-    
-    <!-- tag::slf4j-dependency -->
-    <dependency>
-    	<groupId>org.slf4j</groupId>
-    	<artifactId>slf4j-simple</artifactId>
-    	<version>1.7.21</version>
-    </dependency>
-    <!-- end::slf4j-dependency -->
-    
-    <!-- https://mvnrepository.com/artifact/org.json/json -->
-    <!-- tag::json-dependency -->
-	<dependency>
-	    <groupId>org.json</groupId>
-	    <artifactId>json</artifactId>
-	    <version>20160810</version>
-	</dependency>
-	<!-- end::json-dependency -->
-    
-  </dependencies>
-  
-  <build>
-  	<finalName>numis</finalName>
-  	<!-- Config: Maven Tomcat Plugin (Test) -->
-  	<plugins>
-  		<plugin>
-  			<groupId>org.apache.tomcat.maven</groupId>
-  			<artifactId>tomcat-7-maven-plugin</artifactId>
-  			<version>2.3-SNAPSHOT</version>
-  			<configuration>
-			  <systemPropertyVariables>
-			   <java.util.logging.config.file>src/main/resources/logging.properties</java.util.logging.config.file>
-			  </systemPropertyVariables>
-		 	</configuration>
-  		</plugin>
-  		<plugin>
-  			<groupId>org.apache.maven.plugins</groupId>
-  			<artifactId>maven-compiler-plugin</artifactId>
-  			<version>3.6.0</version>
-  			<configuration>
-  				<source>1.8</source>
-  				<target>1.8</target>
-  			</configuration>
-  		</plugin>
-  	</plugins>
-  </build>
+        <org.neo4j.version>3.0.7</org.neo4j.version>
+        <org.neo4j.driver.version>1.1.1</org.neo4j.driver.version>
+        <org.neo4j.bolt.version>2.1.0</org.neo4j.bolt.version>
+        <org.neo4j.ogm.version>2.1.1</org.neo4j.ogm.version>
+        <org.neo4j.jdbc.version>3.0.1</org.neo4j.jdbc.version>
+
+        <junit.version>4.12</junit.version>
+        <org.hamcrest.version>1.3</org.hamcrest.version>
+        <org.neo4j.kernel.version>3.1.1</org.neo4j.kernel.version>
+        <org.neo4j.io.version>3.1.1</org.neo4j.io.version>
+        <com.google.code.gson.version>2.8.0</com.google.code.gson.version>
+
+        <org.slf4j.version>1.7.21</org.slf4j.version>
+        <org.json.version>20160810</org.json.version>
+        <com.google.guava.version>21.0</com.google.guava.version>
+        <org.projectlombok.version>1.16.14</org.projectlombok.version>
+        <com.squareup.retrofit2.version>2.2.0</com.squareup.retrofit2.version>
+        <com.squareup.okio.version>1.11.0</com.squareup.okio.version>
+    </properties>
+
+    <dependencies>
+
+        <!--****** tag::core dependencies ******-->
+        <!-- tag::spark-core-dependency -->
+        <dependency>
+            <groupId>com.sparkjava</groupId>
+            <artifactId>spark-core</artifactId>
+            <version>${com.sparkjava.version}</version>
+        </dependency>
+        <!-- end::spark-core-dependency -->
+
+        <!-- tag::velocity-spark-dependency -->
+        <dependency>
+            <groupId>com.sparkjava</groupId>
+            <artifactId>spark-template-velocity</artifactId>
+            <version>${com.sparkjava.version}</version>
+        </dependency>
+        <!-- end::velocity-spark-dependency -->
+        <!--****** end::core dependencies ******-->
+
+
+        <!--****** tag::database dependencies ******-->
+        <!-- tag::neo4j-dependency -->
+        <dependency>
+            <groupId>org.neo4j</groupId>
+            <artifactId>neo4j</artifactId>
+            <version>${org.neo4j.version}</version>
+        </dependency>
+        <!-- end::neo4j-dependency -->
+
+        <!-- tag::neo4j-java-driver dependency -->
+        <dependency>
+            <groupId>org.neo4j.driver</groupId>
+            <artifactId>neo4j-java-driver</artifactId>
+            <version>${org.neo4j.driver.version}</version>
+        </dependency>
+        <!-- end::neo4j-java-driver dependency -->
+
+        <!-- tag::bolt-ogm-dependency -->
+        <dependency>
+            <groupId>org.neo4j</groupId>
+            <artifactId>neo4j-ogm-bolt-driver</artifactId>
+            <version>${org.neo4j.bolt.version}</version>
+        </dependency>
+        <!-- end::bolt-ogm-dependency -->
+
+        <!-- tag::neo4j-ogm-dependency -->
+        <dependency>
+            <groupId>org.neo4j</groupId>
+            <artifactId>neo4j-ogm-core</artifactId>
+            <version>${org.neo4j.ogm.version}</version>
+        </dependency>
+        <!-- end::neo4j-ogm-dependency -->
+
+        <!-- tag::jdbc-dependency -->
+        <dependency>
+            <groupId>org.neo4j</groupId>
+            <artifactId>neo4j-jdbc-driver</artifactId>
+            <version>${org.neo4j.jdbc.version}</version>
+        </dependency>
+        <!-- end::jdbc-dependency -->
+        <!--****** end::database dependencies ******-->
+
+
+        <!--****** tag::testing dependencies ******-->
+        <!-- tag::junit-dependency -->
+        <dependency>
+            <groupId>junit</groupId>
+            <artifactId>junit</artifactId>
+            <version>${junit.version}</version>
+            <scope>test</scope>
+        </dependency>
+        <!-- end::junit-dependency -->
+
+        <!-- tag::hamcrest-dependency -->
+        <dependency>
+            <groupId>org.hamcrest</groupId>
+            <artifactId>hamcrest-all</artifactId>
+            <version>${org.hamcrest.version}</version>
+            <scope>test</scope>
+        </dependency>
+        <!-- end::hamcrest-dependency -->
+
+        <!--****** tag::org.neo4j kernel-dependency ******-->
+        <dependency>
+            <groupId>org.neo4j</groupId>
+            <artifactId>neo4j-kernel</artifactId>
+            <version>${org.neo4j.kernel.version}</version>
+            <type>test-jar</type>
+            <scope>test</scope>
+        </dependency>
+        <!-- end::org.neo4j kernel-dependency -->
+
+        <!-- tag::org.neo4j io-dependency -->
+        <dependency>
+            <groupId>org.neo4j</groupId>
+            <artifactId>neo4j-io</artifactId>
+            <version>${org.neo4j.io.version}</version>
+            <type>test-jar</type>
+            <scope>test</scope>
+        </dependency>
+        <!-- end::org.neo4j io-dependency -->
+
+        <!-- tag::google-gson-dependency -->
+        <dependency>
+            <groupId>com.google.code.gson</groupId>
+            <artifactId>gson</artifactId>
+            <version>${com.google.code.gson.version}</version>
+            <scope>test</scope>
+        </dependency>
+        <!-- end::google-gson-dependency -->
+        <!--****** end::testing dependencies ******-->
+
+
+        <!--****** tag::utility dependencies ******-->
+        <!-- tag::slf4j-dependency -->
+        <dependency>
+            <groupId>org.slf4j</groupId>
+            <artifactId>slf4j-simple</artifactId>
+            <version>${org.slf4j.version}</version>
+        </dependency>
+        <!-- end::slf4j-dependency -->
+
+        <!-- tag::json-dependency -->
+        <dependency>
+            <groupId>org.json</groupId>
+            <artifactId>json</artifactId>
+            <version>${org.json.version}</version>
+        </dependency>
+        <!-- end::json-dependency -->
+
+        <!-- tag::guava-dependency -->
+        <dependency>
+            <groupId>com.google.guava</groupId>
+            <artifactId>guava</artifactId>
+            <version>${com.google.guava.version}</version>
+        </dependency>
+        <!-- end::guava-dependency -->
+
+        <!-- tag::lombok-dependency -->
+        <dependency>
+            <groupId>org.projectlombok</groupId>
+            <artifactId>lombok</artifactId>
+            <version>${org.projectlombok.version}</version>
+            <scope>provided</scope>
+        </dependency>
+        <!-- end::lombok-dependency -->
+        
+        <!-- tag::retrofit-dependency -->
+        <dependency>
+        	<groupId>com.squareup.retrofit2</groupId>
+        	<artifactId>retrofit</artifactId>
+        	<version>${com.squareup.retrofit2.version}</version>
+        </dependency>
+        <!-- end::retrofit-dependency -->
+        
+        <!-- tag::okio-dependency -->
+        <dependency>
+        	<groupId>com.squareup.okio</groupId>
+        	<artifactId>okio</artifactId>
+        	<version>${com.squareup.okio.version}</version>
+        </dependency>
+        <!-- end::okio-dependency -->
+        <!--****** end::utility dependencies ******-->
+
+    </dependencies>
+
+    <build>
+        <finalName>numis</finalName>
+        <!-- Config: Maven Tomcat Plugin (Test) -->
+        <pluginManagement>
+            <plugins>
+                <plugin>
+                    <groupId>org.apache.tomcat.maven</groupId>
+                    <artifactId>tomcat-7-maven-plugin</artifactId>
+                    <version>2.3-SNAPSHOT</version>
+                    <configuration>
+                        <sytemPropertyVariables>
+                            <java.util.logging.config.file>
+                                src/main/resources/logging.properties
+                            </java.util.logging.config.file>
+                        </sytemPropertyVariables>
+                    </configuration>
+                </plugin>
+                <plugin>
+                    <groupId>org.apache.maven.plugins</groupId>
+                    <artifactId>maven-compiler-plugin</artifactId>
+                    <version>3.6.1</version>
+                    <!-- Config plugin directly to use Java 1.8 features -->
+                    <configuration>
+                        <source>1.8</source>
+                        <target>1.8</target>
+                    </configuration>
+                </plugin>
+            </plugins>
+        </pluginManagement>
+    </build>
 </project>

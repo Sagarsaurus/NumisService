@@ -1,147 +1,113 @@
+/**
+ * Copyright {2017} Numis.io
+ * 
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ * 
+ * http://www.apache.org/licenses/LICENSE-2.0
+ * 
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
 package io.numis.domain;
-
-import java.util.Properties;
-import java.util.Set;
 
 import org.neo4j.ogm.annotation.GraphId;
 import org.neo4j.ogm.annotation.NodeEntity;
-import org.neo4j.ogm.annotation.Relationship;
+import org.neo4j.ogm.annotation.Property;
+
+import io.numis.common.DomainNode;
+
+import java.util.Properties;
 
 /**
- * <h1>Group</h1>
- * <p>
- * User class extends 
- * {@link AbstractDomainNode} abstract class.
- * Group defined model for Group node in the database.
- * </p>
+ * <h1>GroupDomain</h1>
  * 
+ * This class represents the GroupDomain
+ * node structure and properties of the
+ * graph database. extends {@link DomainNode}
+ * <p>
+ *
  * @author Numis
  * @version 0.0.1
  * @since 0.0.1
- *
  */
 @NodeEntity
-public class Group extends AbstractDomainNode {
-	
-	@GraphId
-	private Long id;
-	private double amount;
-	private String purpose;
-	private String description;
-	private int group_type;
-	
-	// Set Relationships
-	// Members: Set of users IN a group.
-	@Relationship(direction = Relationship.INCOMING, type = "IN")
-	private Set<User> members;
-	
-	// Contributions: Set of contributions OWNED by the group.
-	@Relationship(direction = Relationship.INCOMING, type = "OWNS")
-	private Set<Contribution> contributions;
-	
-	// TransactionHistory
-	@Relationship(type = "LATEST_TRANSACTION", direction = Relationship.OUTGOING)
-	private TransactionHistory transactionHistory;
-	
-	public Group() {}
-	
-	public Group(Properties properties) {
-		
-	}
-	
-	/**
-	 * @return the members
+public class Group extends DomainNode {
+
+    /**
+	 * 
 	 */
-	public Set<User> getMembers() {
-		return members;
-	}
+	private static final long serialVersionUID = 1072857842493938227L;
 
+	// Annotated GroupDomain Properties
+    @GraphId
+    private Long id;
 
-	/**
-	 * @param members the members to set
-	 */
-	public void setMembers(Set<User> members) {
-		this.members = members;
-	}
+    @Property
+    private double amount;
 
+    @Property
+    private String purpose;
 
-	/**
-	 * @return the amount
-	 */
-	public double getAmount() {
-		return amount;
-	}
+    @Property
+    private String description;
 
+    @Property
+    private int group_type;
 
-	/**
-	 * @param amount the amount to set
-	 */
-	public void setAmount(double amount) {
-		this.amount = amount;
-	}
+    // Empty Constructor
+    public Group() {}
 
+    // Properties Constructor
+    public Group(Properties properties) {
 
-	/**
-	 * @return the purpose
-	 */
-	public String getPurpose() {
-		return purpose;
-	}
+    }
 
+    /**
+     * @return id of node
+     */
+    @Override
+    public Long getId() {
+        return id;
+    }
 
-	/**
-	 * @param purpose the purpose to set
-	 */
-	public void setPurpose(String purpose) {
-		this.purpose = purpose;
-	}
+    public void setId(Long id) {
+        this.id = id;
+    }
 
+    public double getAmount() {
+        return amount;
+    }
 
-	/**
-	 * @return the description
-	 */
-	public String getDescription() {
-		return description;
-	}
+    public void setAmount(double amount) {
+        this.amount = amount;
+    }
 
+    public String getPurpose() {
+        return purpose;
+    }
 
-	/**
-	 * @param description the description to set
-	 */
-	public void setDescription(String description) {
-		this.description = description;
-	}
+    public void setPurpose(String purpose) {
+        this.purpose = purpose;
+    }
 
+    public String getDescription() {
+        return description;
+    }
 
-	/**
-	 * @return the group_type
-	 */
-	public int getGroup_type() {
-		return group_type;
-	}
+    public void setDescription(String description) {
+        this.description = description;
+    }
 
+    public int getGroup_type() {
+        return group_type;
+    }
 
-	/**
-	 * @param group_type the group_type to set
-	 */
-	public void setGroup_type(int group_type) {
-		this.group_type = group_type;
-	}
-
-
-	/**
-	 * @param id the id to set
-	 */
-	public void setId(Long id) {
-		this.id = id;
-	}
-
-	/**
-	 * @return the id
-	 */
-	@Override
-	public Long getId() {
-		return id;
-	}
-
+    public void setGroup_type(int group_type) {
+        this.group_type = group_type;
+    }
 }

@@ -13,21 +13,18 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package io.numis.domain;
-
-import io.numis.common.DomainNode;
+package io.numis.common;
 
 /**
- * <h1>UserDomain</h1>
+ * <h1>GroupType</h1>
  * 
- * This class represents the ContributionDomain
- * node structure and properties of the
- * graph database. extends {@link DomainNode}
+ * Enumeration listing for all Group Types
+ * used for in the Group Domain.
  * <p>
  *
  * @author Numis
  * @version 0.0.1
  * @since 0.0.1
  */
-public class Contribution {
+public enum GroupType {
 }

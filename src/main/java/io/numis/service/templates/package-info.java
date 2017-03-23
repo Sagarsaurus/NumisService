@@ -13,21 +13,17 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package io.numis.domain;
-
-import io.numis.common.DomainNode;
 
 /**
- * <h1>UserDomain</h1>
+ * <h1>io.numis.service.templates</h1>
  * 
- * This class represents the ContributionDomain
- * node structure and properties of the
- * graph database. extends {@link DomainNode}
+ * Service template abstract classes for each node
+ * which contains method stubs respective
+ * of themselves
  * <p>
- *
+ * 
  * @author Numis
  * @version 0.0.1
  * @since 0.0.1
  */
-public class Contribution {
-}
+package io.numis.service.templates;

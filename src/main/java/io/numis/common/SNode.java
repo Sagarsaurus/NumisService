@@ -13,21 +13,35 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package io.numis.domain;
+package io.numis.common;
 
-import io.numis.common.DomainNode;
+import java.io.Serializable;
 
 /**
- * <h1>UserDomain</h1>
+ * <h1>SNode</h1>
  * 
- * This class represents the ContributionDomain
- * node structure and properties of the
- * graph database. extends {@link DomainNode}
+ * Serializable node class that extends
+ * {@link java.io.Serializable}
  * <p>
+ * Used by standard domain node templates
+ * <p>
+ *
  *
  * @author Numis
  * @version 0.0.1
  * @since 0.0.1
  */
-public class Contribution {
+public interface SNode extends Serializable {
+
+    /**
+     *
+     * @return id - id of the node
+     */
+    public Long getId();
+
+    /**
+     *
+     * @param id - id being set
+     */
+    public void setId(final Long id);
 }

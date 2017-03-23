@@ -13,21 +13,33 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package io.numis.domain;
-
-import io.numis.common.DomainNode;
+package io.numis.common;
 
 /**
- * <h1>UserDomain</h1>
+ * <h1>Routes</h1>
  * 
- * This class represents the ContributionDomain
- * node structure and properties of the
- * graph database. extends {@link DomainNode}
+ * File to hold all the REST api
+ * routes for each node.
  * <p>
  *
  * @author Numis
  * @version 0.0.1
  * @since 0.0.1
  */
-public class Contribution {
+public enum Routes {
+    // User URI
+    GetUser("/api/v1/users/get"),
+    CreateUser("/api/v1/users/new"),
+    UpdateUser("/api/v1");
+    // User URI
+
+    private String URI;
+
+    Routes(String URI) {
+        this.URI = URI;
+    }
+
+    public String URI() {
+        return URI;
+    }
 }
