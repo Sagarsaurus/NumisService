@@ -45,7 +45,7 @@
 	public class User extends DomainNode {
 
 	/**
-	 * 
+	 * Default Serial ID
 	 */
 	private static final long serialVersionUID = 1L;
 
@@ -116,7 +116,7 @@
 	 */
 	@Override
 	public Long getId() {
-	return id;
+		return id;
 	}
 
 	/**
