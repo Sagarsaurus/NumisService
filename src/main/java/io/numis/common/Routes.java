@@ -27,19 +27,19 @@ package io.numis.common;
  * @since 0.0.1
  */
 public enum Routes {
-    // User URI
-    GetUser("/api/v1/users/get"),
-    CreateUser("/api/v1/users/new"),
-    UpdateUser("/api/v1");
-    // User URI
+	// User URI
+	GetUser("/api/v1/users/get"),
+	CreateUser("/api/v1/users/new"),
+	UpdateUser("/api/v1");
+	// User URI
 
-    private String URI;
+	private String URI;
 
-    Routes(String URI) {
-        this.URI = URI;
-    }
+	Routes(String URI) {
+		this.URI = URI;
+	}
 
-    public String URI() {
-        return URI;
-    }
+	public String URI() {
+		return URI;
+	}
 }

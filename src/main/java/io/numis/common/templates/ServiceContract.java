@@ -37,44 +37,44 @@ import spark.Response;
  */
 public interface ServiceContract {
 
-    /**
-     * READ request
-     * REST API call to get a node
-     *
-     * @param request - Get request
-     * @param response - Get response body (node requested)
-     * @return - Node object
-     */
-    SNode getNode(Request request, Response response);
+	/**
+	 * READ request
+	 * REST API call to get a node
+	 *
+	 * @param request - Get request
+	 * @param response - Get response body (node requested)
+	 * @return - Node object
+	 */
+	SNode getNode(Request request, Response response);
 
-    /**
-     * POST request
-     * REST API call to create a node
-     *
-     * @param request - Create request
-     * @param response - Create response body
-     */
-    void createNode(Request request, Response response);
+	/**
+	 * POST request
+	 * REST API call to create a node
+	 *
+	 * @param request - Create request
+	 * @param response - Create response body
+	 */
+	void createNode(Request request, Response response);
 
-    /**
-     * POST request
-     * Note: POST request instead of PUT request
-     *       because POST is not idempotent and thus
-     *       multiple requests can occur at the same time.
-     * Warning: Must consider impact vs PUT through application runtime.
-     * REST API call to update a node
-     *
-     * @param request - Update request
-     * @param response - Update response body
-     */
-    void updateNode(Request request, Response response);
+	/**
+	 * POST request
+	 * Note: POST request instead of PUT request
+	 *       because POST is not idempotent and thus
+	 *       multiple requests can occur at the same time.
+	 * Warning: Must consider impact vs PUT through application runtime.
+	 * REST API call to update a node
+	 *
+	 * @param request - Update request
+	 * @param response - Update response body
+	 */
+	void updateNode(Request request, Response response);
 
-    /**
-     * DELETE request
-     * REST API call to delete a node
-     *
-     * @param request - Delete request
-     * @param response - Delete response body
-     */
-    void deleteNode(Request request, Response response);
+	/**
+	 * DELETE request
+	 * REST API call to delete a node
+	 *
+	 * @param request - Delete request
+	 * @param response - Delete response body
+	 */
+	void deleteNode(Request request, Response response);
 }

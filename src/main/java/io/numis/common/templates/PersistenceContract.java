@@ -33,45 +33,45 @@ import java.util.Properties;
  */
 public interface PersistenceContract {
 
-    /**
-     * GET request
-     * Retrieve node and its properties.
-     *
-     * @param properties - Node properties
-     * @return - true:  retrieve node
-     *           false: exception thrown, failed to retrieve node
-     */
-    SNode retrieveNode(Properties properties);
+	/**
+	 * GET request
+	 * Retrieve node and its properties.
+	 *
+	 * @param properties - Node properties
+	 * @return - true:  retrieve node
+	 *           false: exception thrown, failed to retrieve node
+	 */
+	SNode retrieveNode(Properties properties);
 
-    /**
-     * POST request
-     * Create new node with respective properties.
-     *
-     * @param properties - Node properties
-     * @return - true:  new node created
-     *           false: exception thrown, failed to create node
-     */
-    boolean createNode(Properties properties);
+	/**
+	 * POST request
+	 * Create new node with respective properties.
+	 *
+	 * @param properties - Node properties
+	 * @return - true:  new node created
+	 *           false: exception thrown, failed to create node
+	 */
+	boolean createNode(Properties properties);
 
-    /**
-     * POST request
-     * Note: POST request instead of PUT request
-     *       because POST is not idempotent and thus
-     *       multiple requests can occur at the same time.
-     * Warning: Must consider impact vs PUT through application runtime.
-     * Update node property(s)
-     *
-     * @param properties - Node properties
-     * @return - true:  Update node
-     *           false: exception thrown, failed to update node
-     */
-    boolean updateNode(Properties properties);
+	/**
+	 * POST request
+	 * Note: POST request instead of PUT request
+	 *       because POST is not idempotent and thus
+	 *       multiple requests can occur at the same time.
+	 * Warning: Must consider impact vs PUT through application runtime.
+	 * Update node property(s)
+	 *
+	 * @param properties - Node properties
+	 * @return - true:  Update node
+	 *           false: exception thrown, failed to update node
+	 */
+	boolean updateNode(Properties properties);
 
-    /**
-     *
-     * @param properties - Node properties
-     * @return - true:  delete node
-     *           false: exception thrown, failed to delete node
-     */
-    boolean deleteNode(Properties properties);
+	/**
+	 *
+	 * @param properties - Node properties
+	 * @return - true:  delete node
+	 *           false: exception thrown, failed to delete node
+	 */
+	boolean deleteNode(Properties properties);
 }

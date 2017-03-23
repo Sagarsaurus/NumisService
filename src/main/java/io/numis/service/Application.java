@@ -48,32 +48,32 @@ public class Application implements SparkApplication {
 	// Domain Service Handlers
 	private static UserService userService = new UserService();
 	
-    /**
-     * Invoked from the SparkFilter. Add routes here.
-     */
-    @Override
-    public void init() {
-        // User Domain
-    	
-    	/**
-    	 * GET user referenced at id
-    	 * 
-    	 * @param path - /api/v1/users/get
-    	 */
-    	get(Routes.GetUser.URI(), (request, response) -> {
-    		// TODO: Append node id if it exists
-    		LOGGER.log(Level.INFO, "GET node");
-    		userService.getNode(request, response);
+	/**
+	 * Invoked from the SparkFilter. Add routes here.
+	 */
+	@Override
+	public void init() {
+		// User Domain
+
+		/**
+		 * GET user referenced at id
+		 * 
+		 * @param path - /api/v1/users/get
+		 */
+		get(Routes.GetUser.URI(), (request, response) -> {
+			// TODO: Append node id if it exists
+			LOGGER.log(Level.INFO, "GET node");
+			userService.getNode(request, response);
 			return response.body();
 		});
-    	
-    	/**
-    	 * CREATE user from request
-    	 * 
-    	 * @param path - /api/v1/user/new
-    	 */
-    	post(Routes.CreateUser.URI(), (request, response) -> {
+
+		/**
+		 * CREATE user from request
+		 * 
+		 * @param path - /api/v1/user/new
+		 */
+		post(Routes.CreateUser.URI(), (request, response) -> {
 			return response.body();
 		});
-    }
+	}
 }

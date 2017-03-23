@@ -33,15 +33,15 @@ import java.io.Serializable;
  */
 public interface SNode extends Serializable {
 
-    /**
-     *
-     * @return id - id of the node
-     */
-    public Long getId();
+	/**
+	 *
+	 * @return id - id of the node
+	 */
+	public Long getId();
 
-    /**
-     *
-     * @param id - id being set
-     */
-    public void setId(final Long id);
+	/**
+	 *
+	 * @param id - id being set
+	 */
+	public void setId(final Long id);
 }

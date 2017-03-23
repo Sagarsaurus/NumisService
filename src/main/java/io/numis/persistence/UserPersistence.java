@@ -34,59 +34,59 @@ import java.util.Properties;
  */
 public class UserPersistence extends GenericPersistence {
 
-    /**
-     * Get node object with given properties.
-     * i.e: return Node properties
-     *
-     * @param properties - Node properties
-     * @return node - the created object with its repsective properties
-     */
-    @Override
-    public Object getNode(Properties properties) {
-        return new User(properties);
-    }
+	/**
+	 * Get node object with given properties.
+	 * i.e: return Node properties
+	 *
+	 * @param properties - Node properties
+	 * @return node - the created object with its repsective properties
+	 */
+	@Override
+	public Object getNode(Properties properties) {
+		return new User(properties);
+	}
 
-    /**
-     * Get node class id and name parameters.
-     *
-     * @param properties - Node properties
-     * @return HashMap - class id and name
-     */
-    @Override
-    public HashMap<String, Object> getClassParameters(Properties properties) {
-        HashMap<String, Object> userMap = new HashMap<>();
-        userMap.put("class", User.class);
-        userMap.put("id", Long.parseLong((String) properties.get("id")));
-        return userMap;
-    }
+	/**
+	 * Get node class id and name parameters.
+	 *
+	 * @param properties - Node properties
+	 * @return HashMap - class id and name
+	 */
+	@Override
+	public HashMap<String, Object> getClassParameters(Properties properties) {
+		HashMap<String, Object> userMap = new HashMap<>();
+		userMap.put("class", User.class);
+		userMap.put("id", Long.parseLong((String) properties.get("id")));
+		return userMap;
+	}
 
-    /**
-     * Get update query statement.
-     * <p>
-     * Helper method to build strings in this format:<br>
-     * <p>MATCH(s) WHERE id(s) = 25 SET s.encrypted_password = '12345890', s.last_name = 'last name',<br>
-     * s.email = 'karan@numis.io', s.phone_number = '1234567890', s.first_name = 'some user', <br>
-     * s.birth_date = '02/13/1993', s.username = 'username' RETURN s;
-     * <p> The user is selected based off of the id
-     *
-     * @param properties - Node properties
-     * @return update query - the update node cypher query
-     */
-    @Override
-    public String updateStatement(Properties properties) {
-        String buildString;
-        String id = properties.getProperty("id");
-        String updateStatement = " MATCH(user) WHERE id(user) = " + id + " SET";
-        for (Object property : properties.keySet()) {
-            if (!property.equals("id")) {
-                buildString = " user." + property
-                        + " = '" + properties.getProperty((String) property) + "',";
-                updateStatement += buildString;
-            }
-        }
-        // removes trailing comma
-        updateStatement = updateStatement.substring(0, updateStatement.length()-1);
-        updateStatement += " RETURN user;";
-        return updateStatement;
-    }
+	/**
+	 * Get update query statement.
+	 * <p>
+	 * Helper method to build strings in this format:<br>
+	 * <p>MATCH(s) WHERE id(s) = 25 SET s.encrypted_password = '12345890', s.last_name = 'last name',<br>
+	 * s.email = 'karan@numis.io', s.phone_number = '1234567890', s.first_name = 'some user', <br>
+	 * s.birth_date = '02/13/1993', s.username = 'username' RETURN s;
+	 * <p> The user is selected based off of the id
+	 *
+	 * @param properties - Node properties
+	 * @return update query - the update node cypher query
+	 */
+	@Override
+	public String updateStatement(Properties properties) {
+		String buildString;
+		String id = properties.getProperty("id");
+		String updateStatement = " MATCH(user) WHERE id(user) = " + id + " SET";
+		for (Object property : properties.keySet()) {
+			if (!property.equals("id")) {
+				buildString = " user." + property
+						+ " = '" + properties.getProperty((String) property) + "',";
+				updateStatement += buildString;
+			}
+		}
+		// removes trailing comma
+		updateStatement = updateStatement.substring(0, updateStatement.length()-1);
+		updateStatement += " RETURN user;";
+		return updateStatement;
+	}
 }

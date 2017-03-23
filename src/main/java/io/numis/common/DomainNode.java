@@ -33,66 +33,66 @@ import java.lang.reflect.Field;
  */
 public abstract class DomainNode implements SNode {
 
-    /**
+	/**
 	 * Default Serial ID
 	 */
 	private static final long serialVersionUID = 1L;
 
 	/**
-     *
-     * @return true if object is of DomainNode
-     */
-    public boolean equals(Object o) {
-        return this == o || !(o == null ||
-                !(o instanceof SNode)) &&
-                this.compareTo((SNode) o) == 0;
-    }
+	 *
+	 * @return true if object is of DomainNode
+	 */
+	public boolean equals(Object o) {
+		return this == o || !(o == null ||
+				!(o instanceof SNode)) &&
+				this.compareTo((SNode) o) == 0;
+	}
 
-    /**
-     *
-     * @param node to compare
-     * @return comparison metric
-     */
-    private int compareTo(SNode node) {
-        return this.getId().compareTo(node.getId());
-    }
+	/**
+	 *
+	 * @param node to compare
+	 * @return comparison metric
+	 */
+	private int compareTo(SNode node) {
+	    return this.getId().compareTo(node.getId());
+	}
 
-    /**
-     * Used for debugging returning in this format:
-     *
-     * Var {
-     *   varName: value
-     *   ...
-     * }
-     * <p>
-     *
-     * @return result aggregated list of values of the class
-     */
-    public String toString() {
-        StringBuilder result = new StringBuilder();
-        String newLine = System.getProperty("line.separator");
+	/**
+	 * Used for debugging returning in this format:
+	 *
+	 * Var {
+	 *   varName: value
+	 *   ...
+	 * }
+	 * <p>
+	 *
+	 * @return result aggregated list of values of the class
+	 */
+	public String toString() {
+		StringBuilder result = new StringBuilder();
+		String newLine = System.getProperty("line.separator");
 
-        result.append(this.getClass().getName());
-        result.append(" {");
-        result.append(newLine);
+		result.append(this.getClass().getName());
+		result.append(" {");
+		result.append(newLine);
 
-        // Display class attributes of (this) class
-        Field[] attributes = this.getClass().getDeclaredFields();
+		// Display class attributes of (this) class
+		Field[] attributes = this.getClass().getDeclaredFields();
 
-        // return attribute/value pairs
-        for (Field field : attributes) {
-            result.append("  ");
-            try {
-                result.append(field.getName());
-                result.append(": ");
-                // access private fields
-                result.append(field.get(this));
-            } catch (IllegalAccessException e) {
-                e.printStackTrace();
-            }
-            result.append(newLine);
-        }
-        result.append("}");
-        return result.toString();
-    }
+		// return attribute/value pairs
+		for (Field field : attributes) {
+			result.append("  ");
+			try {
+				result.append(field.getName());
+				result.append(": ");
+				// access private fields
+				result.append(field.get(this));
+			} catch (IllegalAccessException e) {
+				e.printStackTrace();
+			}
+			result.append(newLine);
+		}
+		result.append("}");
+		return result.toString();
+	}
 }

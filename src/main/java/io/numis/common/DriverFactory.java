@@ -34,55 +34,55 @@ import org.neo4j.ogm.session.SessionFactory;
  */
 class DriverFactory {
 
-    // DriverFactory instance
-    private static DriverFactory driverFactory;
+	// DriverFactory instance
+	private static DriverFactory driverFactory;
 
-    // Private Empty Constructor
-    private DriverFactory() {
-    }
+	// Private Empty Constructor
+	private DriverFactory() {
+	}
 
-    /**
-     * Creates driver object to setup a
-     * connection through BOLT databse URI.
-     *
-     * @return driver - Established connection to the bolt database URI.
-     */
-    private Driver createConnection() {
-        // Prepare Bolt URL variables
-        // TODO: Prepare dotenv resource package to preserve environment variables.
-        String graphenedbURL = System.getenv("GRAPHENEDB_TEAL_BOLT_URL");
-        String grapheneDbUser = System.getenv("GRAPHENEDB_TEAL_BOLT_USER");
-        String grapheneDbPassword = System.getenv("GRAPHENEDB_TEAL_BOLT_PASSWORD");
+	/**
+	 * Creates driver object to setup a
+	 * connection through BOLT databse URI.
+	 *
+	 * @return driver - Established connection to the bolt database URI.
+	 */
+	private Driver createConnection() {
+		// Prepare Bolt URL variables
+		// TODO: Prepare dotenv resource package to preserve environment variables.
+		String graphenedbURL = System.getenv("GRAPHENEDB_TEAL_BOLT_URL");
+		String grapheneDbUser = System.getenv("GRAPHENEDB_TEAL_BOLT_USER");
+		String grapheneDbPassword = System.getenv("GRAPHENEDB_TEAL_BOLT_PASSWORD");
 
-        return GraphDatabase.driver(graphenedbURL, AuthTokens.basic(grapheneDbUser, grapheneDbPassword));
-    }
+		return GraphDatabase.driver(graphenedbURL, AuthTokens.basic(grapheneDbUser, grapheneDbPassword));
+	}
 
-    /**
-     * Create driver and establish connection by calling
-     * createConnection() method.
-     *
-     * @return driverFactory.createConnection() Open new GraphDB connection.
-     */
-    static Driver getDriverInstance() {
-        if (driverFactory == null) driverFactory = new DriverFactory();
-        return driverFactory.createConnection();
-    }
+	/**
+	 * Create driver and establish connection by calling
+	 * createConnection() method.
+	 *
+	 * @return driverFactory.createConnection() Open new GraphDB connection.
+	 */
+	static Driver getDriverInstance() {
+		if (driverFactory == null) driverFactory = new DriverFactory();
+		return driverFactory.createConnection();
+	}
 
-    /**
-     * Opens a session with the Application Service.
-     *
-     * @return sessionFactory.openSession() - open new database session with SessionFactory
-     */
-    static Session getSessionFactory() {
-        SessionFactory sessionFactory = new SessionFactory("io.numis");
-        return sessionFactory.openSession();
-    }
+	/**
+	 * Opens a session with the Application Service.
+	 *
+	 * @return sessionFactory.openSession() - open new database session with SessionFactory
+	 */
+	static Session getSessionFactory() {
+		SessionFactory sessionFactory = new SessionFactory("io.numis");
+		return sessionFactory.openSession();
+	}
 
-    /**
-     * Close driver instance session with DriverFactory.
-     */
-    static void closeConnection() {
-        Driver driver = getDriverInstance();
-        driver.close();
-    }
+	/**
+	 * Close driver instance session with DriverFactory.
+	 */
+	static void closeConnection() {
+		Driver driver = getDriverInstance();
+		driver.close();
+	}
 }
