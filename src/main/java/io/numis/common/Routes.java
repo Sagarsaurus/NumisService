@@ -28,9 +28,10 @@ package io.numis.common;
  */
 public enum Routes {
 	// User URI
-	GetUser("/api/v1/users/get"),
-	CreateUser("/api/v1/users/new"),
-	UpdateUser("/api/v1");
+	GETUSER("/api/v1/users/get"),
+	CREATEUSER("/api/v1/users/new"),
+	UPDATEUSER("/api/v1/user/udpate"),
+	DELETEUSER("/api/v1/user/delete");
 	// User URI
 
 	private String URI;

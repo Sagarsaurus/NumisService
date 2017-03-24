@@ -54,15 +54,14 @@ public class Application implements SparkApplication {
 	@Override
 	public void init() {
 		// User Domain
-
 		/**
 		 * GET user referenced at id
 		 * 
 		 * @param path - /api/v1/users/get
 		 */
-		get(Routes.GetUser.URI(), (request, response) -> {
+		get(Routes.GETUSER.URI(), (request, response) -> {
 			// TODO: Append node id if it exists
-			LOGGER.log(Level.INFO, "GET node");
+			LOGGER.log(Level.INFO, "GET user");
 			userService.getNode(request, response);
 			return response.body();
 		});
@@ -72,8 +71,35 @@ public class Application implements SparkApplication {
 		 * 
 		 * @param path - /api/v1/user/new
 		 */
-		post(Routes.CreateUser.URI(), (request, response) -> {
+		post(Routes.CREATEUSER.URI(), (request, response) -> {
+			LOGGER.log(Level.INFO, "CREATE user");
+			userService.createNode(request, response);
 			return response.body();
 		});
+		
+		/**
+		 * UPDATE user properties referenced from id
+		 * 
+		 * @param path - /api/v1/user/update
+		 */
+		put(Routes.UPDATEUSER.URI(), (request, response) -> {
+			// TODO: Append properties that were updated
+			LOGGER.log(Level.INFO, "UPDATE user");
+			userService.updateNode(request, response);
+			return response.body();
+		});
+		
+		/**
+		 * DELETE user referenced from id
+		 * 
+		 * @param path - /api/v1/user/delete
+		 */
+		delete(Routes.DELETEUSER.URI(), (request, response) -> {
+			// TODO: Append user id that was deleted
+			LOGGER.log(Level.INFO, "DELETE user");
+			userService.deleteNode(request, response);
+			return response.body();
+		});
+		// User Domain
 	}
 }

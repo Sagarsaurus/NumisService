@@ -13,32 +13,21 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package io.numis.common;
+package io.numis.service.templates;
+
+import io.numis.common.templates.ServiceContract;
 
 /**
- * <h1>GroupType</h1>
+ * <h1>GroupTemplate</h1>
  * 
- * Enumeration listing for all Group Types
- * used in the Group Domain.
+ * Group Service template for
+ * specific Group node method transactions.
  * <p>
- *
+ * 
  * @author Numis
  * @version 0.0.1
  * @since 0.0.1
  */
-public enum GroupType {
-	DEFAULT(0),
-	TRAVEL(1),
-	COMMON(2),
-	GOAL(3);
-	
-	private int type;
-	
-	GroupType(int type) {
-		this.type = type;
-	}
-	
-	public int getType() {
-		return type;
-	}
+public abstract class GroupTemplate implements ServiceContract {
+
 }
