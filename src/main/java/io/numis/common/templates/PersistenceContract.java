@@ -58,7 +58,7 @@ public interface PersistenceContract {
 	 * Note: POST request instead of PUT request
 	 *       because POST is not idempotent and thus
 	 *       multiple requests can occur at the same time.
-	 * Warning: Must consider impact vs PUT through application runtime.
+	 * Warning: Must consider PUT because OGM SET operations are idempotent.
 	 * Update node property(s)
 	 *
 	 * @param properties - Node properties

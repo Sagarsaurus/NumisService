@@ -18,6 +18,8 @@ package io.numis.persistence;
 import java.util.HashMap;
 import java.util.Properties;
 
+import io.numis.domain.Group;
+
 /**
  * <h1>GroupPersistence</h1>
  * 
@@ -41,8 +43,7 @@ public class GroupPersistence extends GenericPersistence {
 	 */
 	@Override
 	public Object getNode(Properties properties) {
-		// TODO Auto-generated method stub
-		return null;
+		return new Group(properties);
 	}
 
 	/**
@@ -53,18 +54,14 @@ public class GroupPersistence extends GenericPersistence {
 	 */
 	@Override
 	public HashMap<String, Object> getClassParameters(Properties properties) {
-		// TODO Auto-generated method stub
-		return null;
+		HashMap<String, Object> groupMap = new HashMap<>();
+		groupMap.put("class", Group.class);
+		groupMap.put("id", Long.parseLong((String) properties.get("id")));
+		return groupMap;
 	}
 
 	/**
 	 * Get update query statement.
-	 * <p>
-	 * Helper method to build strings in this format:<br>
-	 * <p>MATCH(s) WHERE id(s) = 25 SET s.encrypted_password = '12345890', s.last_name = 'last name',<br>
-	 * s.email = 'karan@numis.io', s.phone_number = '1234567890', s.first_name = 'some user', <br>
-	 * s.birth_date = '02/13/1993', s.username = 'username' RETURN s;
-	 * <p> The user is selected based off of the id
 	 *
 	 * @param properties - Node properties
 	 * @return update query - the update node cypher query

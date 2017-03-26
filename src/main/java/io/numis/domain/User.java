@@ -21,7 +21,6 @@ import lombok.Data;
 import org.neo4j.ogm.annotation.GraphId;
 import org.neo4j.ogm.annotation.NodeEntity;
 import org.neo4j.ogm.annotation.Property;
-import org.neo4j.ogm.annotation.Transient;
 import org.neo4j.ogm.annotation.typeconversion.DateString;
 
 import java.text.DateFormat;
@@ -59,20 +58,20 @@ public class User extends DomainNode {
 	@Property
 	private String username;
 
-	@Property
+	@Property(name="password")
 	private String encrypted_password;
 
 	@Property
 	private String email;
 
-	@Property
+	@Property(name="birthday")
 	@DateString("dd/mm/yyyy")
 	private Date birth_date;
 
-	@Property
+	@Property(name="name")
 	private String first_name;
 
-	@Property
+	@Property(name="surname")
 	private String last_name;
 
 	@Property
@@ -87,7 +86,6 @@ public class User extends DomainNode {
 	@Property
 	private double account_balance;
 
-	@Transient
 	private final int NO_ACCOUNT_NUMBER = -1;
 
 	// Empty Constructor
@@ -113,11 +111,17 @@ public class User extends DomainNode {
 		this.routing_number = Integer.parseInt(properties.getProperty(String.valueOf(NO_ACCOUNT_NUMBER)));
 	}
 
+	/**
+	 * @return User id
+	 */
 	@Override
 	public Long getId() {
 		return id;
 	}
 
+	/**
+	 * @param id - User id to set
+	 */
 	@Override
 	public void setId(final Long id) {
 		this.id = id;

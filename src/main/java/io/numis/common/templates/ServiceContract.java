@@ -61,7 +61,7 @@ public interface ServiceContract {
 	 * Note: POST request instead of PUT request
 	 *       because POST is not idempotent and thus
 	 *       multiple requests can occur at the same time.
-	 * Warning: Must consider impact vs PUT through application runtime.
+	 * Warning: Must consider PUT because OGM SET operations are idempotent.
 	 * REST API call to update a node
 	 *
 	 * @param request - Update request

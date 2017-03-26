@@ -15,6 +15,8 @@
  */
 package io.numis.common.environment;
 
+import io.numis.common.exceptions.DotenvException;
+
 /**
  * <h1>Dotenv</h1>
  * 
@@ -28,5 +30,25 @@ package io.numis.common.environment;
  * @since 0.0.1
  */
 public interface Dotenv {
-
+	
+	/**
+	 * Load environment variable from .env file locally.
+	 * 
+	 * Environemt variable file should not be committed 
+	 * to th repository!
+	 * 
+	 * @param envVar - File environment variable name
+	 * @return env - environment variable value or null
+	 * @throws DotenvException - Environment variable can't be loaded
+	 */
+	String getEnv(String envVar) throws DotenvException;
+	
+	/**
+	 * Validates integrity of .env file.
+	 * Make sure that the file exists and key-value
+	 * pair entries are valid.
+	 * 
+	 * @throws DotenvException - .env file is corrupted or invalid
+	 */
+	void validateFile() throws DotenvException;
 }

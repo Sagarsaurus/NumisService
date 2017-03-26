@@ -42,8 +42,7 @@ public abstract class GenericPersistence implements PersistenceContract {
 	// private final static Logger LOGGER = Logger.getLogger(GenericPersistence.class.getName());
 
 	// Empty Constructor
-	GenericPersistence() {
-	}
+	GenericPersistence() {}
 
 	/**
 	 * GET request
