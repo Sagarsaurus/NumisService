@@ -18,7 +18,8 @@ package io.numis.common.environment;
 /**
  * <h1>DotenvFactory</h1>
  * 
- * Factory class .env instance
+ * Factory class. Creates an instance
+ * for Dotenv file.
  * <p>
  *
  * @author Numis
@@ -26,5 +27,16 @@ package io.numis.common.environment;
  * @since 0.0.1
  */
 public class DotenvFactory {
-
+	
+	private static String DELIMETER = "/";
+	
+	private String directory = System.getProperty("user.home");
+	
+	private boolean failedOnMissedConfigs = false;
+	
+	// Empty Constructor
+	public DotenvFactory() {	
+	}
+	
+	
 }
