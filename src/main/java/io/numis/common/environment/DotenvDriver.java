@@ -15,8 +15,6 @@
  */
 package io.numis.common.environment;
 
-import java.util.logging.Logger;
-
 import io.numis.common.exceptions.DotenvException;
 
 /**
@@ -34,13 +32,13 @@ import io.numis.common.exceptions.DotenvException;
 public class DotenvDriver implements Dotenv {
 
 	// Class Logger
-	private final static Logger LOGGER = Logger.getLogger(DotenvDriver.class.getName());
+	// private final static Logger LOGGER = Logger.getLogger(DotenvDriver.class.getName());
 	
 	/**
 	 * Load environment variable from .env file locally.
 	 * 
-	 * Environemt variable file should not be committed 
-	 * to th repository!
+	 * Environment variable file should not be committed 
+	 * to the repository!
 	 * 
 	 * @param envVar - File environment variable name
 	 * @return env - environment variable value or null

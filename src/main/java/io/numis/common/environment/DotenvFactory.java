@@ -28,11 +28,11 @@ package io.numis.common.environment;
  */
 public class DotenvFactory {
 	
-	private static String DELIMETER = "/";
-	
-	private String directory = System.getProperty("user.home");
-	
-	private boolean failedOnMissedConfigs = false;
+//	private static String DELIMETER = "/";
+//	
+//	private String directory = System.getProperty("user.home");
+//	
+//	private boolean failedOnMissedConfigs = false;
 	
 	// Empty Constructor
 	public DotenvFactory() {	
