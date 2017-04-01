@@ -20,20 +20,20 @@
 	<!-- ========================================================== --> 
 	<!-- Servlet -->
 	<!-- ========================================================== -->
-	<servlet>
-		<servlet-name>SparkFilter</servlet-name>
-		<servlet-class>spark.servlet.SparkApplication</servlet-class>
+	<filter>
+		<filter-name>SparkFilter</filter-name>
+		<filter-class>spark.servlet.SparkApplication</filter-class>
 		<init-param>
-			<param-name>mainClass</param-name>
-			<param-value>io.numis.service.Application</param-value>
+			<param-name>applicationClass</param-name>
+			<param-value>io.numis.service.App</param-value>
 		</init-param>
-	</servlet>
+	</filter>
 	
 	<!-- Map the URL -->
-	<servlet-mapping>
-		<servlet-name>SparkFilter</servlet-name>
+	<filter-mapping>
+		<filter-name>SparkFilter</filter-name>
 		<url-pattern>/numis/*</url-pattern>
-	</servlet-mapping>
+	</filter-mapping>
 	
 	<!-- ========================================================== -->
 	<!-- Welcome Files -->

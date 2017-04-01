@@ -34,8 +34,8 @@ public interface Dotenv {
 	/**
 	 * Load environment variable from .env file locally.
 	 * 
-	 * Environemt variable file should not be committed 
-	 * to th repository!
+	 * Environment variable file should not be committed 
+	 * to the repository!
 	 * 
 	 * @param envVar - File environment variable name
 	 * @return env - environment variable value or null

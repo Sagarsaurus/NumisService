@@ -40,10 +40,10 @@ import spark.servlet.SparkApplication;
  * @version 0.0.1
  * @since 0.0.1
  */
-public class Application implements SparkApplication {
+public class App implements SparkApplication {
 
 	// Class Logger
-	private final static Logger LOGGER = Logger.getLogger(Application.class.getName());
+	private final static Logger LOGGER = Logger.getLogger(App.class.getName());
 	
 	// Domain Service Handlers
 	private static UserService userService = new UserService();
