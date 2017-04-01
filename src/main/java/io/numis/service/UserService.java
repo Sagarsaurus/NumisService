@@ -15,7 +15,7 @@
  */
 package io.numis.service;
 
-import io.numis.common.SNode;
+import io.numis.common.INode;
 import io.numis.common.templates.ServiceContract;
 import io.numis.persistence.GenericPersistence;
 import io.numis.persistence.UserPersistence;
@@ -54,8 +54,8 @@ public class UserService extends UserTemplate {
 	 * @param response - Get response body (node requested)
 	 * @return - Node object
 	 */
-	public SNode getNode(Request request, Response response) {
-		SNode userNode = persistence.retrieveNode(getProperties(request));
+	public INode getNode(Request request, Response response) {
+		INode userNode = persistence.retrieveNode(getProperties(request));
 		if (userNode != null) {
 			// Set response body in json format
 			response.body();

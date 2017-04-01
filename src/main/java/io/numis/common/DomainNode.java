@@ -21,7 +21,7 @@ import java.lang.reflect.Field;
  * <h1>DomainNode</h1>
  * 
  * Abstract class that implements
- * {@link SNode} interface.
+ * {@link INode} interface.
  * <p>
  * Extended by all primary domain node
  * classes to be serializable.
@@ -31,7 +31,7 @@ import java.lang.reflect.Field;
  * @version 0.0.1
  * @since 0.0.1
  */
-public abstract class DomainNode implements SNode {
+public abstract class DomainNode implements INode {
 
 	/**
 	 * Default Serial ID
@@ -44,8 +44,8 @@ public abstract class DomainNode implements SNode {
 	 */
 	public boolean equals(Object o) {
 		return this == o || !(o == null ||
-				!(o instanceof SNode)) &&
-				this.compareTo((SNode) o) == 0;
+				!(o instanceof INode)) &&
+				this.compareTo((INode) o) == 0;
 	}
 
 	/**
@@ -53,7 +53,7 @@ public abstract class DomainNode implements SNode {
 	 * @param node to compare
 	 * @return comparison metric
 	 */
-	private int compareTo(SNode node) {
+	private int compareTo(INode node) {
 	    return this.getId().compareTo(node.getId());
 	}
 

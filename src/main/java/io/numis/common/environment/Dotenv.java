@@ -41,7 +41,7 @@ public interface Dotenv {
 	 * @return env - environment variable value or null
 	 * @throws DotenvException - Environment variable can't be loaded
 	 */
-	String getEnv(String envVar) throws DotenvException;
+	String loadEnvFile(String envVar) throws DotenvException;
 	
 	/**
 	 * Validates integrity of .env file.
@@ -50,5 +50,5 @@ public interface Dotenv {
 	 * 
 	 * @throws DotenvException - .env file is corrupted or invalid
 	 */
-	void validateFile() throws DotenvException;
+	void validateEnvFile() throws DotenvException;
 }

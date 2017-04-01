@@ -15,7 +15,7 @@
  */
 package io.numis.common.templates;
 
-import io.numis.common.SNode;
+import io.numis.common.INode;
 import spark.Request;
 import spark.Response;
 
@@ -45,7 +45,7 @@ public interface ServiceContract {
 	 * @param response - Get response body (node requested)
 	 * @return - Node object
 	 */
-	SNode getNode(Request request, Response response);
+	INode getNode(Request request, Response response);
 
 	/**
 	 * POST request

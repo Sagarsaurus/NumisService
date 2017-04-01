@@ -16,7 +16,7 @@
 package io.numis.persistence;
 
 import io.numis.common.RestOperation;
-import io.numis.common.SNode;
+import io.numis.common.INode;
 import io.numis.common.templates.PersistenceContract;
 
 import java.util.HashMap;
@@ -52,7 +52,7 @@ public abstract class GenericPersistence implements PersistenceContract {
 	 * @return - true:  retrieve node
 	 * 			 false: exception thrown, failed to retrieve node
 	 */
-	public SNode retrieveNode(Properties properties) {
+	public INode retrieveNode(Properties properties) {
 		return RestOperation.getNodeObject(getClassParameters(properties));
 	}
 

@@ -15,7 +15,7 @@
  */
 package io.numis.common.templates;
 
-import io.numis.common.SNode;
+import io.numis.common.INode;
 
 import java.util.Properties;
 
@@ -41,7 +41,7 @@ public interface PersistenceContract {
 	 * @return - true:  retrieve node
 	 *           false: exception thrown, failed to retrieve node
 	 */
-	SNode retrieveNode(Properties properties);
+	INode retrieveNode(Properties properties);
 
 	/**
 	 * POST request
