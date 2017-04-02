@@ -40,10 +40,10 @@ import spark.servlet.SparkApplication;
  * @version 0.0.1
  * @since 0.0.1
  */
-public class App implements SparkApplication {
+public class Application implements SparkApplication {
 
 	// Class Logger
-	private final static Logger LOGGER = Logger.getLogger(App.class.getName());
+	private final static Logger LOGGER = Logger.getLogger(Application.class.getName());
 	
 	// Domain Service Handlers
 	private static UserService userService = new UserService();
@@ -53,7 +53,10 @@ public class App implements SparkApplication {
 	 */
 	@Override
 	public void init() {
-		// User Domain
+		//========================
+		// User Routes
+		//========================
+		
 		/**
 		 * GET user referenced at id
 		 * 
@@ -100,6 +103,23 @@ public class App implements SparkApplication {
 			userService.deleteNode(request, response);
 			return response.body();
 		});
-		// User Domain
+		
+		//========================
+		// Group Routes
+		//========================
+		
+		get("/api/v1/group", (request, response) -> "Hello World");
+		
+		//========================
+		// Contribution Routes
+		//========================
+		
+		get("/api/v1/contribution", (request, response) -> "Hello World");
+		
+		//========================
+		// Transaction Routes
+		//========================
+		
+		get("/api/v1/transaction", (request, response) -> "Hello World");		
 	}
 }

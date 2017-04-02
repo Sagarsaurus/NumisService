@@ -15,6 +15,9 @@
  */
 package io.numis.common;
 
+import java.net.URISyntaxException;
+import java.sql.SQLException;
+
 import org.neo4j.driver.v1.AuthTokens;
 import org.neo4j.driver.v1.Driver;
 import org.neo4j.driver.v1.GraphDatabase;
@@ -47,7 +50,8 @@ class DriverFactory {
 	 *
 	 * @return driver - Established connection to the bolt database URI.
 	 */
-	private Driver createConnection() {
+	private Driver createConnection() throws URISyntaxException, SQLException,
+		ClassNotFoundException, InstantiationException, IllegalAccessException {
 		// Prepare Bolt URL variables
 		// TODO: Prepare dotenv resource package to preserve environment variables.
 		String graphenedbURL = System.getenv("GRAPHENEDB_TEAL_BOLT_URL");
@@ -62,8 +66,14 @@ class DriverFactory {
 	 * createConnection() method.
 	 *
 	 * @return driverFactory.createConnection() Open new GraphDB connection.
+	 * @throws SQLException 
+	 * @throws URISyntaxException 
+	 * @throws IllegalAccessException 
+	 * @throws InstantiationException 
+	 * @throws ClassNotFoundException 
 	 */
-	static Driver getDriverInstance() {
+	static Driver getDriverInstance() throws ClassNotFoundException, InstantiationException, 
+		IllegalAccessException, URISyntaxException, SQLException {
 		if (driverFactory == null) driverFactory = new DriverFactory();
 		return driverFactory.createConnection();
 	}
@@ -82,7 +92,16 @@ class DriverFactory {
 	 * Close driver instance session with DriverFactory.
 	 */
 	static void closeConnection() {
-		Driver driver = getDriverInstance();
-		driver.close();
+		Driver driver;
+		try {
+			driver = getDriverInstance();
+			driver.close();
+		} catch (ClassNotFoundException | InstantiationException 
+				| IllegalAccessException | URISyntaxException
+				| SQLException e) {
+			e.printStackTrace();
+		} finally {
+			driver = null;
+		}
 	}
 }

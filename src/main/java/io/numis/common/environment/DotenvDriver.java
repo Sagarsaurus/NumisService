@@ -45,7 +45,7 @@ public class DotenvDriver implements Dotenv {
 	 * @throws DotenvException - Environment variable can't be loaded
 	 */
 	@Override
-	public String loadEnvFile(String envVar) throws DotenvException {
+	public String loadEnvVar(String envVar) throws DotenvException {
 		// TODO Auto-generated method stub
 		return null;
 	}

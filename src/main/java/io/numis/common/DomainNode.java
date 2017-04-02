@@ -34,9 +34,9 @@ import java.lang.reflect.Field;
 public abstract class DomainNode implements INode {
 
 	/**
-	 * Default Serial ID
+	 * Serial ID
 	 */
-	private static final long serialVersionUID = 1L;
+	private static final long serialVersionUID = 8202270071081977205L;
 
 	/**
 	 *

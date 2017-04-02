@@ -246,6 +246,7 @@
         <!-- Config: Maven Tomcat Plugin (Test) -->
         <pluginManagement>
             <plugins>
+            	<!-- Tomcat -->
                 <plugin>
                     <groupId>org.apache.tomcat.maven</groupId>
                     <artifactId>tomcat-7-maven-plugin</artifactId>
@@ -258,6 +259,7 @@
                         </sytemPropertyVariables>
                     </configuration>
                 </plugin>
+                <!-- Maven -->
                 <plugin>
                     <groupId>org.apache.maven.plugins</groupId>
                     <artifactId>maven-compiler-plugin</artifactId>
