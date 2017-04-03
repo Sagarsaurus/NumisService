@@ -65,6 +65,20 @@
 			<groupId>com.sparkjava</groupId>
 			<artifactId>spark-core</artifactId>
 			<version>${com.sparkjava.version}</version>
+			<exclusions>
+				<exclusion>
+					<groupId>javax.servlet-api</groupId>
+					<artifactId>javax.servlet</artifactId>
+				</exclusion>
+				<exclusion>
+					<groupId>org.eclipse.jetty</groupId>
+					<artifactId>jetty-server</artifactId>
+				</exclusion>
+				<exclusion>
+					<groupId>org.eclipse.jetty</groupId>
+					<artifactId>jetty-webapp</artifactId>
+				</exclusion>
+			</exclusions>
 		</dependency>
 		<!-- end::spark-core -->
 

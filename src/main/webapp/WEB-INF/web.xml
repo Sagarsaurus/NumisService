@@ -32,7 +32,7 @@
 	<!-- Map the URL -->
 	<filter-mapping>
 		<filter-name>SparkFilter</filter-name>
-		<url-pattern>/*</url-pattern>
+		<url-pattern>/numis/*</url-pattern>
 	</filter-mapping>
 	
 	<!-- ========================================================== -->
