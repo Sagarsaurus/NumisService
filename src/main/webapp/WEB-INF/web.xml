@@ -29,6 +29,8 @@
 		</init-param>
 	</filter>
 	
+	<!-- http://stackoverflow.com/questions/31842053/java-lang-classcastexception-spark-servlet-sparkfilter-cannot-be-cast-to-javax -->
+
 	<!-- Map the URL -->
 	<filter-mapping>
 		<filter-name>SparkFilter</filter-name>
