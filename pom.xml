@@ -24,14 +24,13 @@
 		
 		<!-- Source Encoding -->
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-		<!-- Set version properties -->
 		
 		<!-- Core -->
 		<com.sparkjava.version>2.5.5</com.sparkjava.version>
 		
 		<!-- Database -->
 		<org.neo4j.version>3.0.7</org.neo4j.version>
-		<org.neo4j.driver.version>1.1.1</org.neo4j.driver.version>
+		<org.neo4j.driver.version>1.2.1</org.neo4j.driver.version>
 		<org.neo4j.bolt.version>2.1.0</org.neo4j.bolt.version>
 		<org.neo4j.ogm.version>2.1.1</org.neo4j.ogm.version>
 		<org.neo4j.jdbc.version>3.0.1</org.neo4j.jdbc.version>
@@ -60,6 +59,7 @@
 
 		<!-- ==================== -->
 		<!-- tag::core -->
+		<!-- ==================== -->
 		<!-- tag::spark-core -->
 		<dependency>
 			<groupId>com.sparkjava</groupId>
@@ -89,12 +89,11 @@
 			<version>${com.sparkjava.version}</version>
 		</dependency>
 		<!-- end::velocity-spark -->
-		<!-- end::core -->
-		<!-- ==================== -->
 
 
 		<!-- ==================== -->
 		<!-- tag::database -->
+		<!-- ==================== -->
 		<!-- tag::neo4j -->
 		<dependency>
 			<groupId>org.neo4j</groupId>
@@ -134,12 +133,11 @@
 			<version>${org.neo4j.jdbc.version}</version>
 		</dependency>
 		<!-- end::jdbc -->
-		<!-- end::database -->
-		<!-- ==================== -->
 
 
 		<!-- ==================== -->
 		<!-- tag::test -->
+		<!-- ==================== -->
 		<!-- tag::junit -->
 		<dependency>
 			<groupId>junit</groupId>
@@ -186,12 +184,11 @@
 			<scope>test</scope>
 		</dependency>
 		<!-- end::google-gson -->
-		<!-- end::test -->
-		<!-- ==================== -->
 
 
 		<!-- ==================== -->
 		<!-- tag::util -->
+		<!-- ==================== -->
 		<!-- tag::slf4j -->
 		<dependency>
 			<groupId>org.slf4j</groupId>
@@ -248,8 +245,6 @@
 			<version>${com.fasterxml.jackson.core.version}</version>
 		</dependency>
 		<!-- end::jackson -->
-		<!-- end::util -->
-
     </dependencies>
 
 	<!-- ========================================================== -->
@@ -257,10 +252,20 @@
 	<!-- ========================================================== -->
 	<build>
         <finalName>numis</finalName>
-        <!-- Config: Maven Tomcat Plugin (Test) -->
         <pluginManagement>
             <plugins>
-            	<!-- Tomcat -->
+            	<!-- Config: Maven -->
+                <plugin>
+                    <groupId>org.apache.maven.plugins</groupId>
+                    <artifactId>maven-compiler-plugin</artifactId>
+                    <version>3.6.1</version>
+                    <!-- Config plugin directly to use Java 1.8 features -->
+                    <configuration>
+                        <source>1.8</source>
+                        <target>1.8</target>
+                    </configuration>
+                </plugin>
+            	<!-- Config: Tomcat -->
                 <plugin>
                     <groupId>org.apache.tomcat.maven</groupId>
                     <artifactId>tomcat-7-maven-plugin</artifactId>
@@ -271,17 +276,6 @@
                                 src/main/resources/logging.properties
                             </java.util.logging.config.file>
                         </sytemPropertyVariables>
-                    </configuration>
-                </plugin>
-                <!-- Maven -->
-                <plugin>
-                    <groupId>org.apache.maven.plugins</groupId>
-                    <artifactId>maven-compiler-plugin</artifactId>
-                    <version>3.6.1</version>
-                    <!-- Config plugin directly to use Java 1.8 features -->
-                    <configuration>
-                        <source>1.8</source>
-                        <target>1.8</target>
                     </configuration>
                 </plugin>
             </plugins>

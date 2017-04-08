@@ -30,7 +30,7 @@ import org.neo4j.ogm.session.SessionFactory;
  * Factory class to establish connection
  * with Graph Database through the URL's.
  * <p>
- *
+ * 
  * @author Numis
  * @version 0.0.1
  * @since 0.0.1

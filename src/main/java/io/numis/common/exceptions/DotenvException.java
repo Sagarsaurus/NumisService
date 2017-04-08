@@ -39,6 +39,11 @@ public class DotenvException extends Exception {
 		super();
 	}
 	
+	// Exception Constructor
+	public DotenvException(Exception e) {
+		super(e);
+	}
+	
 	// Message Constructor
 	public DotenvException(String message) {
 		super(message);

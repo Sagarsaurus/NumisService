@@ -15,6 +15,13 @@
  */
 package io.numis.common.environment;
 
+import java.util.HashMap;
+import java.util.Map;
+
+import org.apache.commons.lang3.exception.ExceptionUtils;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import io.numis.common.exceptions.DotenvException;
 
 /**
@@ -32,7 +39,22 @@ import io.numis.common.exceptions.DotenvException;
 public class DotenvDriver implements Dotenv {
 
 	// Class Logger
-	// private final static Logger LOGGER = Logger.getLogger(DotenvDriver.class.getName());
+	private static final Logger LOGGER = LoggerFactory.getLogger(DotenvDriver.class);
+	
+	// <Key, Value> Pairs in the environment file
+	private Map<String, String> variables;
+	
+	// directory location
+	private String loc;
+	
+	// Empty Constructor
+	public DotenvDriver() {
+	}
+	
+	// Field Constructor
+	public DotenvDriver(String loc) {
+		setLoc(loc);
+	}
 	
 	/**
 	 * Load environment variable from .env file locally.
@@ -60,7 +82,28 @@ public class DotenvDriver implements Dotenv {
 	@Override
 	public void validateEnvFile() throws DotenvException {
 		// TODO Auto-generated method stub
-		
+		variables = new HashMap<>();
+		try {
+			variables.put("", "");
+			// Catch exception purely for logging.
+		} catch (Exception e) {
+			// TODO: handle exception
+			LOGGER.error(ExceptionUtils.getStackTrace(e));
+			throw new DotenvException(e);
+		}
 	}
-	
+
+	/**
+	 * @return the loc
+	 */
+	public String getLoc() {
+		return loc;
+	}
+
+	/**
+	 * @param loc the loc to set
+	 */
+	public void setLoc(String loc) {
+		this.loc = loc;
+	}
 }

@@ -23,7 +23,7 @@ import java.io.Serializable;
  * Serializable node class that extends
  * {@link java.io.Serializable}
  * <p>
- * Used by standard domain node templates
+ * Used by standard domain node templates.
  * <p>
  *
  *
@@ -37,11 +37,11 @@ public interface INode extends Serializable {
 	 *
 	 * @return id - id of the node
 	 */
-	public Long getId();
+	Long getId();
 
 	/**
 	 *
-	 * @param id - id being set
+	 * @param id - being set
 	 */
-	public void setId(final Long id);
+	void setId(final Long id);
 }
