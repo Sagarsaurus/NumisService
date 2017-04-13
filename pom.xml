@@ -245,40 +245,40 @@
 			<version>${com.fasterxml.jackson.core.version}</version>
 		</dependency>
 		<!-- end::jackson -->
-    </dependencies>
+	</dependencies>
 
 	<!-- ========================================================== -->
 	<!-- Build -->
 	<!-- ========================================================== -->
 	<build>
-        <finalName>numis</finalName>
-        <pluginManagement>
-            <plugins>
-            	<!-- Config: Maven -->
-                <plugin>
-                    <groupId>org.apache.maven.plugins</groupId>
-                    <artifactId>maven-compiler-plugin</artifactId>
-                    <version>3.6.1</version>
-                    <!-- Config plugin directly to use Java 1.8 features -->
-                    <configuration>
-                        <source>1.8</source>
-                        <target>1.8</target>
-                    </configuration>
-                </plugin>
-            	<!-- Config: Tomcat -->
-                <plugin>
-                    <groupId>org.apache.tomcat.maven</groupId>
-                    <artifactId>tomcat-7-maven-plugin</artifactId>
-                    <version>2.3-SNAPSHOT</version>
-                    <configuration>
-                        <sytemPropertyVariables>
-                            <java.util.logging.config.file>
-                                src/main/resources/logging.properties
-                            </java.util.logging.config.file>
-                        </sytemPropertyVariables>
-                    </configuration>
-                </plugin>
-            </plugins>
-        </pluginManagement>
-    </build>
+		<finalName>numis</finalName>
+		<pluginManagement>
+			<plugins>
+				<!-- Config: Maven -->
+				<plugin>
+					<groupId>org.apache.maven.plugins</groupId>
+					<artifactId>maven-compiler-plugin</artifactId>
+					<version>3.6.1</version>
+					<!-- Config plugin directly to use Java 1.8 features -->
+					<configuration>
+						<source>1.8</source>
+						<target>1.8</target>
+					</configuration>
+				</plugin>
+				<!-- Config: Tomcat -->
+				<plugin>
+					<groupId>org.apache.tomcat.maven</groupId>
+					<artifactId>tomcat-7-maven-plugin</artifactId>
+					<version>2.3-SNAPSHOT</version>
+					<configuration>
+						<sytemPropertyVariables>
+							<java.util.logging.config.file>
+								src/main/resources/logging.properties
+							</java.util.logging.config.file>
+						</sytemPropertyVariables>
+					</configuration>
+				</plugin>
+			</plugins>
+		</pluginManagement>
+	</build>
 </project>

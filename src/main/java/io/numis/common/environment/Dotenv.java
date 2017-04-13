@@ -32,6 +32,15 @@ import io.numis.common.exceptions.DotenvException;
 public interface Dotenv {
 	
 	/**
+	 * Validates integrity of .env file.
+	 * Make sure that the file exists and key-value
+	 * pair entries are valid.
+	 * 
+	 * @throws DotenvException - .env file is corrupted or invalid
+	 */
+	void validateFileIntegrity() throws DotenvException;
+	
+	/**
 	 * Load environment variable from .env file locally.
 	 * 
 	 * Environment variable file should not be committed 
@@ -41,14 +50,5 @@ public interface Dotenv {
 	 * @return env - environment variable value or null
 	 * @throws DotenvException - Environment variable can't be loaded
 	 */
-	String loadEnvVar(String envVar) throws DotenvException;
-	
-	/**
-	 * Validates integrity of .env file.
-	 * Make sure that the file exists and key-value
-	 * pair entries are valid.
-	 * 
-	 * @throws DotenvException - .env file is corrupted or invalid
-	 */
-	void validateEnvFile() throws DotenvException;
+	String retrieveVariable(String envVar) throws DotenvException;
 }
