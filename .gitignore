@@ -1,4 +1,4 @@
-.env
+src/main/resources/numis.env
 target/
 pom.xml.tag
 pom.xml.releaseBackup
