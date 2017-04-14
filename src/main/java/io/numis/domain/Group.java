@@ -63,6 +63,10 @@ public class Group extends DomainNode {
 
 	@Property(name="type")
 	private int group_type;
+	
+	// Group Relationships
+	
+	
 
 	// Empty Constructor
 	public Group() {}
@@ -92,42 +96,72 @@ public class Group extends DomainNode {
 		this.id = id;
 	}
 
+	/**
+	 * @return group_name - name of the node
+	 */
 	public String getGroup_name() {
 		return group_name;
 	}
 
+	/**
+	 * @param grop_name the group_name to set
+	 */
 	public void setGroup_name(String group_name) {
 		this.group_name = group_name;
 	}
 
+	/**
+	 * @return amount - amount of the node
+	 */
 	public double getAmount() {
 		return amount;
 	}
 
+	/**
+	 * @param amount the amount to set
+	 */
 	public void setAmount(double amount) {
 		this.amount = amount;
 	}
 
+	/**
+	 * @return amount - amount of the node
+	 */
 	public String getPurpose() {
 		return purpose;
 	}
 
+	/**
+	 * @param amount the amount to set
+	 */
 	public void setPurpose(String purpose) {
 		this.purpose = purpose;
 	}
 
+	/**
+	 * @return description - description of the node
+	 */
 	public String getDescription() {
 		return description;
 	}
 
+	/**
+	 * @param description the description to set
+	 */
 	public void setDescription(String description) {
 		this.description = description;
 	}
 
+	/**
+	 * @return group_type - group_type of the node
+	 */
 	public int getGroup_type() {
 		return group_type;
 	}
 
+	/**
+	 * @param group_type the group_type to set
+	 */
 	public void setGroup_type(int group_type) {
 		this.group_type = group_type;
 	}

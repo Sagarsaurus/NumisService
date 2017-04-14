@@ -15,18 +15,22 @@
 */
 package io.numis.domain;
 
-import io.numis.common.DomainNode;
-
-import org.neo4j.ogm.annotation.GraphId;
-import org.neo4j.ogm.annotation.NodeEntity;
-import org.neo4j.ogm.annotation.Property;
-import org.neo4j.ogm.annotation.typeconversion.DateString;
-
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Properties;
+import java.util.Set;
+
+import org.neo4j.ogm.annotation.GraphId;
+import org.neo4j.ogm.annotation.NodeEntity;
+import org.neo4j.ogm.annotation.Property;
+import org.neo4j.ogm.annotation.Relationship;
+import org.neo4j.ogm.annotation.typeconversion.DateString;
+
+import com.fasterxml.jackson.annotation.JsonProperty;
+
+import io.numis.common.DomainNode;
 
 /**
 * <h1>User</h1>
@@ -51,40 +55,65 @@ public class User extends DomainNode {
 
 	// Annotated User Properties
 	@GraphId
+	@JsonProperty("id")
 	private Long id;
 	
 	@Property
+	@JsonProperty("username")
 	private String username;
 	
 	@Property(name="password")
+	@JsonProperty("password")
 	private String encrypted_password;
 	
 	@Property
+	@JsonProperty("email")
 	private String email;
 	
 	@Property(name="birthday")
 	@DateString("dd/mm/yyyy")
+	@JsonProperty("birthday")
 	private Date birth_date;
 	
 	@Property(name="name")
+	@JsonProperty("name")
 	private String first_name;
 	
 	@Property(name="surname")
+	@JsonProperty("surname")
 	private String last_name;
 	
 	@Property
+	@JsonProperty("phone_number")
 	private String phone_number;
 	
 	@Property
+	@JsonProperty("account_number")
 	private int account_number;
 	
 	@Property
+	@JsonProperty("routing_number")
 	private int routing_number;
 	
 	@Property
+	@JsonProperty("account_balance")
 	private double account_balance;
 	
 	private transient final int NO_ACCOUNT_NUMBER = -1;
+	
+	// User Relationships
+	
+	// User -> [IS_FRIENDS_WITH] -> User
+	@Relationship(type="IS_FRIENDS_WITH")
+	private Set<User> friends;
+	
+	// User -> [MEMBER_OF] -> Group
+	@Relationship(direction=Relationship.OUTGOING, type="MEMBER_OF")
+	private Set<Group> groups;
+	
+	// User -> [HAS_CONTRIBUTION] -> Contribution
+	@Relationship(direction=Relationship.OUTGOING, type="HAS_CONTRIBUTION")
+	private Set<Contribution> contributions;
 	
 	// Empty Constructor
 	public User() {}
