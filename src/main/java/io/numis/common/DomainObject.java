@@ -31,7 +31,7 @@ import java.lang.reflect.Field;
  * @version 0.0.1
  * @since 0.0.1
  */
-public abstract class DomainNode implements INode {
+public abstract class DomainObject implements INode {
 
 	/**
 	 * Serial ID

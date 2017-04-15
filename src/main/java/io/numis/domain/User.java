@@ -30,14 +30,14 @@ import org.neo4j.ogm.annotation.typeconversion.DateString;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 
-import io.numis.common.DomainNode;
+import io.numis.common.DomainObject;
 
 /**
 * <h1>User</h1>
 * 
 * User node class with respective properties.
 * <p>
-* Extends {@link DomainNode} which
+* Extends {@link DomainObject} which
 * makes the domain serializable.
 * <p>
 *
@@ -46,7 +46,7 @@ import io.numis.common.DomainNode;
 * @since 0.0.1
 */
 @NodeEntity
-public class User extends DomainNode {
+public class User extends DomainObject {
 
 	/**
 	 * Serial ID
@@ -55,7 +55,7 @@ public class User extends DomainNode {
 
 	// Annotated User Properties
 	@GraphId
-	@JsonProperty("id")
+	@JsonProperty("userID")
 	private Long id;
 	
 	@Property
@@ -99,12 +99,13 @@ public class User extends DomainNode {
 	@JsonProperty("account_balance")
 	private double account_balance;
 	
+	// non-existing account number default value
 	private transient final int NO_ACCOUNT_NUMBER = -1;
 	
 	// User Relationships
 	
 	// User -> [IS_FRIENDS_WITH] -> User
-	@Relationship(type="IS_FRIENDS_WITH")
+	@Relationship(direction=Relationship.UNDIRECTED, type="IS_FRIENDS_WITH")
 	private Set<User> friends;
 	
 	// User -> [MEMBER_OF] -> Group
@@ -115,7 +116,7 @@ public class User extends DomainNode {
 	@Relationship(direction=Relationship.OUTGOING, type="HAS_CONTRIBUTION")
 	private Set<Contribution> contributions;
 	
-	// Empty Constructor
+	// Empty Constructor to construct the use object
 	public User() {}
 
 	// Properties Constructor

@@ -19,7 +19,7 @@ import org.neo4j.ogm.annotation.GraphId;
 import org.neo4j.ogm.annotation.NodeEntity;
 import org.neo4j.ogm.annotation.Property;
 
-import io.numis.common.DomainNode;
+import io.numis.common.DomainObject;
 import io.numis.common.GroupType;
 
 import java.util.Properties;
@@ -29,7 +29,7 @@ import java.util.Properties;
  *
  * Group node class with respective properties.
  * <p>
- * Extends {@link DomainNode} which
+ * Extends {@link DomainObject} which
  * makes the domain serializable.
  * <p>
  *
@@ -38,7 +38,7 @@ import java.util.Properties;
  * @since 0.0.1
  */
 @NodeEntity
-public class Group extends DomainNode {
+public class Group extends DomainObject {
 
 	/**
 	 * Serial ID
@@ -68,7 +68,7 @@ public class Group extends DomainNode {
 	
 	
 
-	// Empty Constructor
+	// Empty Constructor to construct the use object
 	public Group() {}
 
 	// Properties Constructor

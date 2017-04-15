@@ -20,7 +20,7 @@
  * Contains the necessary classes for each
  * domain node in the class with their respective
  * object properties. Each node is represented
- * as a POJO. Each class extends {@link io.numis.domain.common.DomainNode}
+ * as a POJO. Each class extends {@link io.numis.domain.DomainObject.DomainNode}
  * <p>
  *
  * @author Numis

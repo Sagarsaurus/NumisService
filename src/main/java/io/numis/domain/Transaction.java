@@ -15,14 +15,14 @@
  */
 package io.numis.domain;
 
-import io.numis.common.DomainNode;
+import io.numis.common.DomainObject;
 
 /**
  * <h1>TransactionDomain</h1>
  * 
  * This class represents the TransactionDomain
  * node structure and properties of the
- * graph database. extends {@link DomainNode}
+ * graph database. extends {@link DomainObject}
  * <p>
  *
  * @author Numis
@@ -30,4 +30,7 @@ import io.numis.common.DomainNode;
  * @since 0.0.1
  */
 public class Transaction {
+	
+	// Empty Constructor to construct the use object
+	public Transaction() {}
 }

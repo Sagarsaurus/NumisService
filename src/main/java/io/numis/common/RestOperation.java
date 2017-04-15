@@ -48,14 +48,14 @@ public class RestOperation {
 	 * @param map - map object with passed in domain id and class
 	 * @return - node that is requested
 	 */
-	public static DomainNode getNodeObject(Map<String, Object> map) {
+	public static DomainObject getNodeObject(Map<String, Object> map) {
 		Long id = (Long) map.get("id");
 		// TODO: Handle unchecked cast on domainClass.
 		@SuppressWarnings("unchecked")
-		Class<DomainNode> domainClass = (Class<DomainNode>) map.get("class");
+		Class<DomainObject> domainClass = (Class<DomainObject>) map.get("class");
 
 		Transaction transaction = null;
-		DomainNode node = null;
+		DomainObject node = null;
 		org.neo4j.ogm.session.Session session;
 		try {
 			session = DriverFactory.getSessionFactory();
