@@ -21,9 +21,9 @@
  * the service, persistence, domain,
  * etc layers.
  * <p>
- * ServiceContract: Implemented by all domain service handlers
- *                  and contains standard REST operation method stubs
- *                  with request and response params.
+ * ServiceContract:     Implemented by all domain service handlers
+ *                      and contains standard REST operation method stubs
+ *                      with request and response params.
  *
  * PersistenceContract: Implemeneted by all domain persistence handlers
  *                      and contains standard REST operation method stubs

@@ -23,6 +23,7 @@ import java.lang.reflect.Field;
  * Abstract class that implements
  * {@link INode} interface.
  * <p>
+ * 
  * Extended by all primary domain node
  * classes to be serializable.
  * <p>

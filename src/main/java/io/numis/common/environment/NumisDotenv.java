@@ -15,6 +15,11 @@
  */
 package io.numis.common.environment;
 
+import java.util.logging.Level;
+import java.util.logging.Logger;
+
+import org.apache.commons.lang3.exception.ExceptionUtils;
+
 import io.numis.common.Variables;
 import io.numis.common.exceptions.DotenvException;
 
@@ -31,6 +36,9 @@ import io.numis.common.exceptions.DotenvException;
  */
 public class NumisDotenv {
 	
+	// Class Logger
+	private final static Logger LOGGER = Logger.getLogger(NumisDotenv.class.getName());
+	
 	// DotenvFactory Instance
 	private static Dotenv numisDotenv;
 	
@@ -45,11 +53,16 @@ public class NumisDotenv {
 	 */
 	public static Dotenv createDotenvInstance() {
 		try {
+			LOGGER.log(Level.INFO, "Create dotenv instance "
+					+ "with location to numis.env file.");
 			numisDotenv = new DotenvFactory()
 					.envLocation("src/main/resources")
 					.createInstance();
 			return numisDotenv;
 		} catch (DotenvException e) {
+			LOGGER.log(Level.SEVERE, 
+					"Did not find file.", 
+					ExceptionUtils.getStackTrace(e));
 			e.printStackTrace();
 			return null;
 		}
@@ -57,8 +70,8 @@ public class NumisDotenv {
 	
 	/**
 	 * 
-	 * @param env - cnfigured DotenvFactory Instance
-	 * @return - GRAPHENEDB_TEAL_URL value
+	 * @param env              - cnfigured DotenvFactory Instance
+	 * @return                 - GRAPHENEDB_TEAL_URL value
 	 * @throws DotenvException - invalid value
 	 */
 	public static String retrieveTealURL(Dotenv env) throws DotenvException {
@@ -77,8 +90,8 @@ public class NumisDotenv {
 	
 	/**
 	 * 
-	 * @param env - cnfigured DotenvFactory Instance
-	 * @return - GRAPHENEDB_TEAL_BOLT_USER value
+	 * @param env              - configured DotenvFactory Instance
+	 * @return                 - GRAPHENEDB_TEAL_BOLT_USER value
 	 * @throws DotenvException - invalid value
 	 */
 	public static String retrieveTealBoltUser(Dotenv env) throws DotenvException {
@@ -87,8 +100,8 @@ public class NumisDotenv {
 	
 	/**
 	 * 
-	 * @param env - cnfigured DotenvFactory Instance
-	 * @return - GRAPHENEDB_TEAL_BOLT_PASSWORD value
+	 * @param env              - configured DotenvFactory Instance
+	 * @return                 - GRAPHENEDB_TEAL_BOLT_PASSWORD value
 	 * @throws DotenvException - invalid value
 	 */
 	public static String retrieveTealBoltPassword(Dotenv env) throws DotenvException {
@@ -97,8 +110,8 @@ public class NumisDotenv {
 	
 	/**
 	 * 
-	 * @param env - cnfigured DotenvFactory Instance
-	 * @return - USERNAME value
+	 * @param env              - configured DotenvFactory Instance
+	 * @return                 - USERNAME value
 	 * @throws DotenvException - invalid value
 	 */
 	public static String retrieveUsername(Dotenv env) throws DotenvException {
@@ -107,8 +120,8 @@ public class NumisDotenv {
 	
 	/**
 	 * 
-	 * @param env - cnfigured DotenvFactory Instance
-	 * @return - PASSWORD value
+	 * @param env              - configured DotenvFactory Instance
+	 * @return                 - PASSWORD value
 	 * @throws DotenvException - invalid value
 	 */
 	public static String retrievePassword(Dotenv env) throws DotenvException {
@@ -117,8 +130,8 @@ public class NumisDotenv {
 	
 	/**
 	 * 
-	 * @param env - cnfigured DotenvFactory Instance
-	 * @return - DRIVER value
+	 * @param env              - configured DotenvFactory Instance
+	 * @return                 - DRIVER value
 	 * @throws DotenvException - invalid value
 	 */
 	public static String retrieveDriverName(Dotenv env) throws DotenvException {
@@ -127,8 +140,8 @@ public class NumisDotenv {
 	
 	/**
 	 * 
-	 * @param env - cnfigured DotenvFactory Instance
-	 * @return - URI value
+	 * @param env              - configured DotenvFactory Instance
+	 * @return                 - URI value
 	 * @throws DotenvException - invalid value
 	 */
 	public static String retrieveURI(Dotenv env) throws DotenvException {

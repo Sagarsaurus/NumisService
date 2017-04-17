@@ -25,10 +25,12 @@ import spark.Response;
  * Interface contract implemented by
  * all domain nodes.
  * <p>
- * Get: Get node object and properties (GET)
- * Create: Create node with properties (POST)
- * Delete: Destroy node and relationships (DELETE)
- * Update: Update node property(s) (PUT)
+ * 
+ * getAll:     Return a list of all node(s)   (GET)
+ * getNode:    Get node object and properties (GET)
+ * createNode: Create node with properties    (POST)
+ * updateNode: Destroy node and relationships (DELETE)
+ * deleteNode: Update node property(s)        (PUT)
  * <p>
  *
  * @author Numis
@@ -36,14 +38,22 @@ import spark.Response;
  * @since 0.0.1
  */
 public interface ServiceContract {
+	
+	/**
+	 * READ request
+	 * REST API call to get all nodes
+	 *
+	 * @return - List of all node(s)
+	 */
+	Iterable<INode> getAll();
 
 	/**
 	 * READ request
 	 * REST API call to get a node
 	 *
-	 * @param request - Get request
-	 * @param response - Get response body (node requested)
-	 * @return - Node object
+	 * @param request       - Get request
+	 * @param response      - Get response body (node requested)
+	 * @return INode object - Node object
 	 */
 	INode getNode(Request request, Response response);
 
@@ -51,7 +61,7 @@ public interface ServiceContract {
 	 * POST request
 	 * REST API call to create a node
 	 *
-	 * @param request - Create request
+	 * @param request  - Create request
 	 * @param response - Create response body
 	 */
 	void createNode(Request request, Response response);
@@ -64,7 +74,7 @@ public interface ServiceContract {
 	 * Warning: Must consider PUT because OGM SET operations are idempotent.
 	 * REST API call to update a node
 	 *
-	 * @param request - Update request
+	 * @param request  - Update request
 	 * @param response - Update response body
 	 */
 	void updateNode(Request request, Response response);
@@ -73,7 +83,7 @@ public interface ServiceContract {
 	 * DELETE request
 	 * REST API call to delete a node
 	 *
-	 * @param request - Delete request
+	 * @param request  - Delete request
 	 * @param response - Delete response body
 	 */
 	void deleteNode(Request request, Response response);

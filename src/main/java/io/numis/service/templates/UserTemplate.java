@@ -21,7 +21,8 @@ import io.numis.common.templates.ServiceContract;
  * <h1>UserTemplate</h1>
  * 
  * User Service template for
- * specific User node method transactions.
+ * specific User node method transactions
+ * that implements {@link io.numis.common.templates.ServiceContract}
  * <p>
  * 
  * @author Numis

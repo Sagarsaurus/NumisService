@@ -28,8 +28,6 @@ import org.neo4j.ogm.annotation.Property;
 import org.neo4j.ogm.annotation.Relationship;
 import org.neo4j.ogm.annotation.typeconversion.DateString;
 
-import com.fasterxml.jackson.annotation.JsonProperty;
-
 import io.numis.common.DomainObject;
 
 /**
@@ -55,48 +53,37 @@ public class User extends DomainObject {
 
 	// Annotated User Properties
 	@GraphId
-	@JsonProperty("userID")
 	private Long id;
 	
 	@Property
-	@JsonProperty("username")
 	private String username;
 	
 	@Property(name="password")
-	@JsonProperty("password")
 	private String encrypted_password;
 	
 	@Property
-	@JsonProperty("email")
 	private String email;
 	
 	@Property(name="birthday")
 	@DateString("dd/mm/yyyy")
-	@JsonProperty("birthday")
 	private Date birth_date;
 	
 	@Property(name="name")
-	@JsonProperty("name")
 	private String first_name;
 	
 	@Property(name="surname")
-	@JsonProperty("surname")
 	private String last_name;
 	
 	@Property
-	@JsonProperty("phone_number")
 	private String phone_number;
 	
 	@Property
-	@JsonProperty("account_number")
 	private int account_number;
 	
 	@Property
-	@JsonProperty("routing_number")
 	private int routing_number;
 	
 	@Property
-	@JsonProperty("account_balance")
 	private double account_balance;
 	
 	// non-existing account number default value
@@ -104,16 +91,16 @@ public class User extends DomainObject {
 	
 	// User Relationships
 	
-	// User -> [IS_FRIENDS_WITH] -> User
-	@Relationship(direction=Relationship.UNDIRECTED, type="IS_FRIENDS_WITH")
+	// User -> [:IS_FRIENDS_WITH] -> User
+	@Relationship(type="IS_FRIENDS_WITH", direction=Relationship.UNDIRECTED)
 	private Set<User> friends;
 	
-	// User -> [MEMBER_OF] -> Group
-	@Relationship(direction=Relationship.OUTGOING, type="MEMBER_OF")
+	// User -> [:MEMBER_OF] -> Group
+	@Relationship(type="MEMBER_OF", direction=Relationship.OUTGOING)
 	private Set<Group> groups;
 	
-	// User -> [HAS_CONTRIBUTION] -> Contribution
-	@Relationship(direction=Relationship.OUTGOING, type="HAS_CONTRIBUTION")
+	// User -> [:HAS_CONTRIBUTION] -> Contribution
+	@Relationship(type="HAS_CONTRIBUTION", direction=Relationship.OUTGOING)
 	private Set<Contribution> contributions;
 	
 	// Empty Constructor to construct the use object
@@ -134,7 +121,7 @@ public class User extends DomainObject {
 		setPhoneNumber(properties.getProperty("phone_number"));
 		// TODO: if accountbalance is 0 or routing number is invalid, test that. if it exists,
 		// using the getRoutingNumber, getAccountNumber and getAccountBalance methods.
-		setAccountBalance(Integer.parseInt(properties.getProperty("o")));
+		setAccountBalance(Integer.parseInt(properties.getProperty("0")));
 		setRoutingNumber(Integer.parseInt(properties.getProperty(String.valueOf(NO_ACCOUNT_NUMBER))));
 		setAccountNumber(Integer.parseInt(properties.getProperty(String.valueOf(NO_ACCOUNT_NUMBER))));
 	}

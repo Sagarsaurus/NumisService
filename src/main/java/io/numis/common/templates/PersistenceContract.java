@@ -26,6 +26,12 @@ import java.util.Properties;
  * method stubs and defintions applied
  * to all domain persistence classes.
  * <p>
+ * 
+ * retrieveNode:    Get node object and properties (GET)
+ * createNode:      Create node with properties    (POST)
+ * updateNode:      Destroy node and relationships (DELETE)
+ * deleteNode:      Update node property(s)        (PUT)
+ * <p>
  *
  * @author Numis
  * @version 0.0.1
@@ -38,8 +44,8 @@ public interface PersistenceContract {
 	 * Retrieve node and its properties.
 	 *
 	 * @param properties - Node properties
-	 * @return - true:  retrieve node
-	 *           false: exception thrown, failed to retrieve node
+	 * @return           - true:  retrieve node
+	 *                     false: exception thrown, failed to retrieve node
 	 */
 	INode retrieveNode(Properties properties);
 
@@ -48,8 +54,8 @@ public interface PersistenceContract {
 	 * Create new node with respective properties.
 	 *
 	 * @param properties - Node properties
-	 * @return - true:  new node created
-	 *           false: exception thrown, failed to create node
+	 * @return           - true:  new node created
+	 *                     false: exception thrown, failed to create node
 	 */
 	boolean createNode(Properties properties);
 
@@ -62,16 +68,16 @@ public interface PersistenceContract {
 	 * Update node property(s)
 	 *
 	 * @param properties - Node properties
-	 * @return - true:  Update node
-	 *           false: exception thrown, failed to update node
+	 * @return           - true:  Update node
+	 *                     false: exception thrown, failed to update node
 	 */
 	boolean updateNode(Properties properties);
 
 	/**
 	 *
 	 * @param properties - Node properties
-	 * @return - true:  delete node
-	 *           false: exception thrown, failed to delete node
+	 * @return           - true:  delete node
+	 *                     false: exception thrown, failed to delete node
 	 */
 	boolean deleteNode(Properties properties);
 }

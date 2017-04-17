@@ -23,6 +23,7 @@ import java.io.Serializable;
  * Serializable node class that extends
  * {@link java.io.Serializable}
  * <p>
+ * 
  * Used by standard domain node templates.
  * <p>
  *

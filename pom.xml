@@ -176,15 +176,6 @@
 		</dependency>
 		<!-- end::org.neo4j io -->
 		
-		<!-- tag::google-gson -->
-		<dependency>
-			<groupId>com.google.code.gson</groupId>
-			<artifactId>gson</artifactId>
-			<version>${com.google.code.gson.version}</version>
-			<scope>test</scope>
-		</dependency>
-		<!-- end::google-gson -->
-
 
 		<!-- ==================== -->
 		<!-- tag::util -->
@@ -245,6 +236,15 @@
 			<version>${com.fasterxml.jackson.core.version}</version>
 		</dependency>
 		<!-- end::jackson -->
+		
+		<!-- tag::google-gson -->
+		<dependency>
+			<groupId>com.google.code.gson</groupId>
+			<artifactId>gson</artifactId>
+			<version>${com.google.code.gson.version}</version>
+			<scope>compile</scope>
+		</dependency>
+		<!-- end::google-gson -->
 	</dependencies>
 
 	<!-- ========================================================== -->

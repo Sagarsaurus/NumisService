@@ -16,7 +16,6 @@
 package io.numis.service;
 
 import io.numis.common.INode;
-import io.numis.common.templates.ServiceContract;
 import io.numis.persistence.GenericPersistence;
 import io.numis.persistence.UserPersistence;
 import io.numis.service.templates.UserTemplate;
@@ -31,7 +30,7 @@ import java.util.logging.Logger;
  * <h1>UserService</h1>
  * 
  * Service class for User domain
- * that implements {@link ServiceContract}
+ * that extends {@link io.numis.service.templates.UserTemplate}
  * <p>
  *
  * @author Numis
@@ -48,11 +47,23 @@ public class UserService extends UserTemplate {
 
 	/**
 	 * READ request
+	 * REST API call to get all nodes
+	 *
+	 * @return - List of all node(s)
+	 */
+	@Override
+	public Iterable<INode> getAll() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+	
+	/**
+	 * READ request
 	 * REST API call to get a node
 	 *
 	 * @param request  - Get request
 	 * @param response - Get response body (node requested)
-	 * @return - Node object
+	 * @return         - Node object
 	 */
 	public INode getNode(Request request, Response response) {
 		INode userNode = persistence.retrieveNode(getProperties(request));
@@ -173,8 +184,8 @@ public class UserService extends UserTemplate {
 	/**
 	 * Private helper method to return a list of properties from a given request.
 	 *
-	 * @param request - the incoming request to extract all the parameters from
-	 * @return a properties object which has the updated query parameters from the request body
+	 * @param request     - the incoming request to extract all the parameters from
+	 * @return properties - updated properties param
 	 */
 	private Properties getProperties(Request request) {
 		Properties properties = new Properties();

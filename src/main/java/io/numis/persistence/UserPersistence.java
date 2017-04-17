@@ -39,7 +39,7 @@ public class UserPersistence extends GenericPersistence {
 	 * i.e: return Node properties
 	 *
 	 * @param properties - Node properties
-	 * @return node - the created object with its repsective properties
+	 * @return node      - the created object with its repsective properties
 	 */
 	@Override
 	public Object getNode(Properties properties) {
@@ -50,7 +50,7 @@ public class UserPersistence extends GenericPersistence {
 	 * Get node class id and name parameters.
 	 *
 	 * @param properties - Node properties
-	 * @return HashMap - class id and name
+	 * @return HashMap   - class id and name
 	 */
 	@Override
 	public HashMap<String, Object> getClassParameters(Properties properties) {
@@ -69,7 +69,7 @@ public class UserPersistence extends GenericPersistence {
 	 * s.birth_date = '02/13/1993', s.username = 'username' RETURN s;
 	 * <p> The user is selected based off of the id
 	 *
-	 * @param properties - Node properties
+	 * @param properties    - Node properties
 	 * @return update query - the update node cypher query
 	 */
 	@Override

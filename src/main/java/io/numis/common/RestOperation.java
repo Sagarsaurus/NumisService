@@ -45,43 +45,43 @@ public class RestOperation {
 	/**
 	 * Retrieves node object by referencing node id and class.
 	 *
-	 * @param map - map object with passed in domain id and class
-	 * @return - node that is requested
+	 * @param domainMap - map object with passed in domain id and class
+	 * @return          - node that is requested
 	 */
-	public static DomainObject getNodeObject(Map<String, Object> map) {
-		Long id = (Long) map.get("id");
+	public static DomainObject getNodeObject(Map<String, Object> domainMap) {
+		Long id = (Long) domainMap.get("id");
 		// TODO: Handle unchecked cast on domainClass.
 		@SuppressWarnings("unchecked")
-		Class<DomainObject> domainClass = (Class<DomainObject>) map.get("class");
+		Class<DomainObject> domainClass = (Class<DomainObject>) domainMap.get("class");
 
-		Transaction transaction = null;
-		DomainObject node = null;
+		Transaction tx = null;
+		DomainObject objectNode = null;
 		org.neo4j.ogm.session.Session session;
 		try {
 			session = DriverFactory.getSessionFactory();
 			LOGGER.log(Level.INFO, "Obtain and open session");
-			transaction = session.beginTransaction();
+			tx = session.beginTransaction();
 			LOGGER.log(Level.INFO, "Begin session transaction");
-			node = session.load(domainClass, id);
+			objectNode = session.load(domainClass, id);
 			LOGGER.log(Level.INFO, "Load node class and id into session");
 		} catch (Exception e) {
 			// TODO: Custom exception handling
 			LOGGER.log(Level.SEVERE, e.toString(), e);
 		} finally {
-			if (transaction != null) {
-				transaction.close();
-				LOGGER.log(Level.INFO, "Clase transaction instance");
+			if (tx != null) {
+				tx.close();
+				LOGGER.log(Level.INFO, "Close transaction instance");
 			}
 		}
-		return node;
+		return objectNode;
 	}
 
 	/**
 	 * Create node transaction with session and persist (save) node.
 	 *
 	 * @param node - node being persisted through transaction
-	 * @return - true:  Create transaction and save node
-	 *           false: exception caught in session
+	 * @return     - true:  Create transaction and save node
+	 *               false: exception caught in session
 	 */
 	public static boolean persistObject(Object node) {
 		Transaction transaction = null;
@@ -110,8 +110,8 @@ public class RestOperation {
 	 * Run cypher command query to be persisted to the database.
 	 *
 	 * @param cypherCommand - Cypher Query
-	 * @return - true:  Successfully executed statement
-	 *           false: exception, Session failed to run
+	 * @return              - true:  Successfully executed statement
+	 *                        false: exception, Session failed to run
 	 */
 	public static boolean executeCypherQuery(String cypherCommand) {
 		org.neo4j.driver.v1.Session session = null;
@@ -143,8 +143,8 @@ public class RestOperation {
 	 * Create object transaction with session and delete nod.
 	 *
 	 * @param objectNode - node being deleted
-	 * @return - true:  delete object node
-	 *           false: exception caught in session
+	 * @return           - true:  delete object node
+	 *                     false: exception caught in session
 	 */
 	public static boolean deleteObject(Object objectNode) {
 		Transaction tx = null;

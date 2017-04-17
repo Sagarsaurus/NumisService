@@ -18,11 +18,13 @@ package io.numis.domain;
 import org.neo4j.ogm.annotation.GraphId;
 import org.neo4j.ogm.annotation.NodeEntity;
 import org.neo4j.ogm.annotation.Property;
+import org.neo4j.ogm.annotation.Relationship;
 
 import io.numis.common.DomainObject;
 import io.numis.common.GroupType;
 
 import java.util.Properties;
+import java.util.Set;
 
 /**
  * <h1>User</h1>
@@ -66,7 +68,17 @@ public class Group extends DomainObject {
 	
 	// Group Relationships
 	
+	// Group <- [:OWNS] <- Contribution
+	@Relationship(type="OWNS", direction=Relationship.INCOMING)
+	private Set<Contribution> groupContributions;
 	
+	// Group -> [:LATEST_TRANSACTION] -> Transaction
+	@Relationship(type="LATEST_TRANSACTION", direction=Relationship.OUTGOING)
+	private Set<Transaction> groupTransactionLink;
+	
+	// Group <- [:MEMBER_OF] <- User
+	@Relationship(type="MEMBER_OF", direction=Relationship.INCOMING)
+	private Set<User> members;
 
 	// Empty Constructor to construct the use object
 	public Group() {}

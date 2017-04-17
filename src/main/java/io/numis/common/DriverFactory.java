@@ -94,7 +94,7 @@ class DriverFactory {
 	/**
 	 * Opens a session with the Application Service.
 	 *
-	 * @return sessionFactory - open new database session with SessionFactory
+	 * @return sessionFactory  - open new database session with SessionFactory
 	 * @throws DotenvException - failed to retrieve var from .env file
 	 */
 	static Session getSessionFactory() throws DotenvException {

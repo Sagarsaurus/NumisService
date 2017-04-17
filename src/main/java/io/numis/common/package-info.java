@@ -21,9 +21,10 @@
  * classes and interfaces integrated
  * throughout the application.
  * <p>
- * GroupType: Enum representing possible group types as integers.
  * 
- * Routes: Enum representing URI REST routes for all nodes.
+ * GroupType:     Enum representing possible group types as integers.
+ * 
+ * Routes:        Enum representing URI REST routes for all nodes.
  * 
  * DriverFactory: Factory class to establish connection
  * 				  with Graph Database through the URL's.
@@ -33,9 +34,9 @@
  *                  for all domain nodes. i.e PersistObject,
  *                  createObject, getObject, etc.
  * 
- * SNode: Primary Node interface class.
+ * SNode:         Primary Node interface class.
  * 
- * DomainNode: Abstract class with boilerplate class methods.
+ * DomainNode:    Abstract class with boilerplate class methods.
  * <p>
  *
  * @author Numis

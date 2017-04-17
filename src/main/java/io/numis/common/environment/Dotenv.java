@@ -46,8 +46,8 @@ public interface Dotenv {
 	 * Environment variable file should not be committed 
 	 * to the repository!
 	 * 
-	 * @param envVar - File environment variable name
-	 * @return env - environment variable value or null
+	 * @param envVar           - File environment variable name
+	 * @return env             - environment variable value or null
 	 * @throws DotenvException - Environment variable can't be loaded
 	 */
 	String retrieveVariable(String envVar) throws DotenvException;

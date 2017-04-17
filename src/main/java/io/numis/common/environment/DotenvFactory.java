@@ -56,7 +56,7 @@ public class DotenvFactory {
 	 * Finds the location of the .env file
 	 * in the directory starting from the root project.
 	 * 
-	 * @param location - preset location
+	 * @param location  - preset location
 	 * @return location - location of .env file
 	 */
 	public DotenvFactory envLocation(String location) {
@@ -70,7 +70,7 @@ public class DotenvFactory {
 	 * Used to create an instance of Dotenv.
 	 * 
 	 * @return DotenvDriver instance - Provided object with methods to extract information
-	 * @throws DotenvException - invalid .env file or cannot access file
+	 * @throws DotenvException       - invalid .env file or cannot access file
 	 */
 	public Dotenv createInstance() throws DotenvException {
 		return new DotenvDriver(location);
@@ -127,8 +127,6 @@ public class DotenvFactory {
 				String allContent = new String(Files.readAllBytes(Paths.get(location + "/numis.env")));
 				String[] orderedContent = allContent.split("\n");
 				for (String line : orderedContent) {
-//					if (line.startsWith("#") || line.startsWith("//"))
-//						continue;
 					String[] lineProp = line.split("=");
 					// Invalid format
 					if (lineProp.length != 2) {
@@ -151,8 +149,8 @@ public class DotenvFactory {
 		 * Environment variable file should not be committed 
 		 * to the repository!
 		 * 
-		 * @param envVar - File environment variable name
-		 * @return env - environment variable value or null
+		 * @param envVar           - File environment variable name
+		 * @return env             - environment variable value or null
 		 * @throws DotenvException - Environment variable can't be loaded
 		 */
 		@Override

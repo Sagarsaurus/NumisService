@@ -21,15 +21,13 @@ import io.numis.common.templates.PersistenceContract;
 
 import java.util.HashMap;
 import java.util.Properties;
-// import java.util.logging.Level;
-// import java.util.logging.Logger;
 
 /**
  * <h1>GenericPersistence</h1>
  * 
  * Abstract persistence implementation class that
  * modularizes between persistence interfaces
- * and model classes. Implements {@link PersistenceContract}
+ * and model classes. Implements {@link io.numis.common.templates.PersistenceContract}
  * <p>
  *
  * @author Numis
@@ -37,9 +35,6 @@ import java.util.Properties;
  * @since 0.0.1
  */
 public abstract class GenericPersistence implements PersistenceContract {
-
-	// Class Logger
-	// private final static Logger LOGGER = Logger.getLogger(GenericPersistence.class.getName());
 
 	// Empty Constructor
 	GenericPersistence() {}
@@ -49,8 +44,8 @@ public abstract class GenericPersistence implements PersistenceContract {
 	 * Retrieve node and its properties.
 	 *
 	 * @param properties - Node properties
-	 * @return - true:  retrieve node
-	 * 			 false: exception thrown, failed to retrieve node
+	 * @return           - true:  retrieve node
+	 * 			           false: exception thrown, failed to retrieve node
 	 */
 	public INode retrieveNode(Properties properties) {
 		return RestOperation.getNodeObject(getClassParameters(properties));
@@ -61,8 +56,8 @@ public abstract class GenericPersistence implements PersistenceContract {
 	 * Create new node with respective properties.
 	 *
 	 * @param properties - Node properties
-	 * @return - true:  new node created
-	 *           false: exception thrown, failed to create node
+	 * @return           - true:  new node created
+	 *                     false: exception thrown, failed to create node
 	 */
 	public boolean createNode(Properties properties) {
 		return RestOperation.persistObject(getNode(properties));
@@ -77,8 +72,8 @@ public abstract class GenericPersistence implements PersistenceContract {
 	 * Update node property(s)
 	 *
 	 * @param properties - Node properties
-	 * @return - true:  Update node
-	 * 			 false: exception thrown, failed to update node
+	 * @return           - true:  Update node
+	 * 			           false: exception thrown, failed to update node
 	 */
 	public boolean updateNode(Properties properties) {
 		return RestOperation.executeCypherQuery(updateStatement(properties));
@@ -87,8 +82,8 @@ public abstract class GenericPersistence implements PersistenceContract {
 	/**
 	 *
 	 * @param properties - Node properties
-	 * @return - true:  delete node
-	 * 			 false: exception thrown, failed to delete node
+	 * @return           - true:  delete node
+	 * 			           false: exception thrown, failed to delete node
 	 */
 	public boolean deleteNode(Properties properties) {
 		return RestOperation.
@@ -101,7 +96,7 @@ public abstract class GenericPersistence implements PersistenceContract {
 	 * i.e: return Node properties
 	 *
 	 * @param properties - Node properties
-	 * @return node - the created object with its repsective properties
+	 * @return node      - the created object with its repsective properties
 	 */
 	public abstract Object getNode(Properties properties);
 
@@ -109,7 +104,7 @@ public abstract class GenericPersistence implements PersistenceContract {
 	 * Get node class id and name parameters.
 	 *
 	 * @param properties - Node properties
-	 * @return HashMap - class id and name
+	 * @return HashMap   - class id and name
 	 */
 	public abstract HashMap<String, Object> getClassParameters(Properties properties);
 
@@ -122,7 +117,7 @@ public abstract class GenericPersistence implements PersistenceContract {
 	 * 		s.birth_date = '02/13/1993', s.username = 'username' RETURN s;
 	 * <p> The user is selected based off of the id
 	 *
-	 * @param properties - Node properties
+	 * @param properties    - Node properties
 	 * @return update query - the update node cypher query
 	 */
 	public abstract String updateStatement(Properties properties);
