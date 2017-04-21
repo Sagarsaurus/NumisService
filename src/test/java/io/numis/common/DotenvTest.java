@@ -66,6 +66,7 @@ public class DotenvTest {
 		String teal_url = "http://app58740712-RTZpup:om38CrfHWN2B81HzpY3s"
 				+ "@hobby-cicfalafjildgbkecenjfjol.dbs.graphenedb.com:24789";
 		String retrievedVar = NumisDotenv.retrieveTealURL(dotenvInstance);
+		System.out.println("teal_url: " +retrievedVar);
 		assertThat(retrievedVar, CoreMatchers.containsString(teal_url));
 	}
 	
@@ -81,6 +82,7 @@ public class DotenvTest {
 	public void test_teal_bolt_url_integrity() throws DotenvException {
 		String teal_bolt_url = "bolt://hobby-cicfalafjildgbkecenjfjol.dbs.graphenedb.com:24786";
 		String retrievedVar = NumisDotenv.retrieveTealBoltURL(dotenvInstance);
+		System.out.println("teal_bolt_url: " + retrievedVar);
 		assertThat(retrievedVar, CoreMatchers.containsString(teal_bolt_url));
 	}
 	
@@ -96,6 +98,7 @@ public class DotenvTest {
 	public void test_teal_bolt_user_integrity() throws DotenvException {
 		String teal_bolt_user = "app58740712-RTZpup";
 		String retrievedVar = NumisDotenv.retrieveTealBoltUser(dotenvInstance);
+		System.out.println("teal_bolt_user: " +retrievedVar);
 		assertThat(retrievedVar, CoreMatchers.containsString(teal_bolt_user));
 	}
 	
@@ -111,6 +114,7 @@ public class DotenvTest {
 	public void test_driver_integrity() throws DotenvException {
 		String driver = "org.neo4j.ogm.drivers.bolt.driver.BoltDriver";
 		String retrievedVar = NumisDotenv.retrieveDriverName(dotenvInstance);
+		System.out.println("driver: " +retrievedVar);
 		assertThat(retrievedVar, CoreMatchers.containsString(driver));
 	}
 	
@@ -126,6 +130,7 @@ public class DotenvTest {
 	public void uri_integrity() throws DotenvException {
 		String URI = "bolt://hobby-cicfalafjildgbkecenjfjol.dbs.graphenedb.com:24786";
 		String retrievedVar = NumisDotenv.retrieveURI(dotenvInstance);
+		System.out.println("URI: " +retrievedVar);
 		assertThat(retrievedVar, CoreMatchers.containsString(URI));
 	}
 	

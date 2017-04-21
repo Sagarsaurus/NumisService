@@ -46,11 +46,6 @@ import io.numis.common.DomainObject;
 @NodeEntity
 public class User extends DomainObject {
 
-	/**
-	 * Serial ID
-	 */
-	private static final long serialVersionUID = -2710424218500001648L;
-
 	// Annotated User Properties
 	@GraphId
 	private Long id;

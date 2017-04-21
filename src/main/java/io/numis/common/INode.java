@@ -15,8 +15,6 @@
  */
 package io.numis.common;
 
-import java.io.Serializable;
-
 /**
  * <h1>SNode</h1>
  * 
@@ -32,7 +30,7 @@ import java.io.Serializable;
  * @version 0.0.1
  * @since 0.0.1
  */
-public interface INode extends Serializable {
+public interface INode extends Comparable<INode> {
 
 	/**
 	 *

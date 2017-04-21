@@ -35,11 +35,6 @@ import java.lang.reflect.Field;
 public abstract class DomainObject implements INode {
 
 	/**
-	 * Serial ID
-	 */
-	private static final long serialVersionUID = 8202270071081977205L;
-
-	/**
 	 *
 	 * @return true if object is of DomainNode
 	 */
@@ -51,10 +46,10 @@ public abstract class DomainObject implements INode {
 
 	/**
 	 *
-	 * @param node to compare
-	 * @return comparison metric
+	 * @param node - node to compare
+	 * @return int - comparison metric
 	 */
-	private int compareTo(INode node) {
+	public int compareTo(INode node) {
 	    return this.getId().compareTo(node.getId());
 	}
 

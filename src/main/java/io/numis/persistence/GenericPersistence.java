@@ -15,7 +15,7 @@
  */
 package io.numis.persistence;
 
-import io.numis.common.RestOperation;
+import io.numis.common.GenericOperation;
 import io.numis.common.INode;
 import io.numis.common.templates.PersistenceContract;
 
@@ -48,7 +48,7 @@ public abstract class GenericPersistence implements PersistenceContract {
 	 * 			           false: exception thrown, failed to retrieve node
 	 */
 	public INode retrieveNode(Properties properties) {
-		return RestOperation.getNodeObject(getClassParameters(properties));
+		return GenericOperation.getNodeObject(getClassParameters(properties));
 	}
 
 	/**
@@ -60,7 +60,7 @@ public abstract class GenericPersistence implements PersistenceContract {
 	 *                     false: exception thrown, failed to create node
 	 */
 	public boolean createNode(Properties properties) {
-		return RestOperation.persistObject(getNode(properties));
+		return GenericOperation.persistObject(getNode(properties));
 	}
 
 	/**
@@ -76,7 +76,7 @@ public abstract class GenericPersistence implements PersistenceContract {
 	 * 			           false: exception thrown, failed to update node
 	 */
 	public boolean updateNode(Properties properties) {
-		return RestOperation.executeCypherQuery(updateStatement(properties));
+		return GenericOperation.executeCypherQuery(updateStatement(properties));
 	}
 
 	/**
@@ -86,8 +86,8 @@ public abstract class GenericPersistence implements PersistenceContract {
 	 * 			           false: exception thrown, failed to delete node
 	 */
 	public boolean deleteNode(Properties properties) {
-		return RestOperation.
-				deleteObject(RestOperation.
+		return GenericOperation.
+				deleteObject(GenericOperation.
 						getNodeObject(getClassParameters(properties)));
 	}
 

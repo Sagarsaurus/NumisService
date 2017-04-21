@@ -61,7 +61,7 @@ public class NumisDotenv {
 			return numisDotenv;
 		} catch (DotenvException e) {
 			LOGGER.log(Level.SEVERE, 
-					"Did not find file.", 
+					"Did not find file.",
 					ExceptionUtils.getStackTrace(e));
 			e.printStackTrace();
 			return null;

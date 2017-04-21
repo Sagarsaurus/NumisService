@@ -42,11 +42,6 @@ import java.util.Set;
 @NodeEntity
 public class Group extends DomainObject {
 
-	/**
-	 * Serial ID
-	 */
-	private static final long serialVersionUID = -3278260940525215854L;
-
 	// Annotated Group Properties
 	@GraphId
 	private Long id;

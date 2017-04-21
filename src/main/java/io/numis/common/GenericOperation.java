@@ -15,16 +15,15 @@
  */
 package io.numis.common;
 
-import org.neo4j.driver.v1.Driver;
-import org.neo4j.ogm.session.Session;
-import org.neo4j.ogm.transaction.Transaction;
-
 import java.util.Map;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
+import org.neo4j.ogm.session.Session;
+import org.neo4j.ogm.transaction.Transaction;
+
 /**
- * <h1>RestOperation</h1>
+ * <h1>GenericOperation</h1>
  * 
  * Contains method stubs and definitions
  * for each standard REST operation
@@ -37,11 +36,11 @@ import java.util.logging.Logger;
  * @version 0.0.1
  * @since 0.0.1
  */
-public class RestOperation {
+public class GenericOperation {
 
 	// Class Logger
-	private final static Logger LOGGER = Logger.getLogger(RestOperation.class.getName());
-
+	private final static Logger LOGGER = Logger.getLogger(GenericOperation.class.getName());
+	
 	/**
 	 * Retrieves node object by referencing node id and class.
 	 *
@@ -49,21 +48,20 @@ public class RestOperation {
 	 * @return          - node that is requested
 	 */
 	public static DomainObject getNodeObject(Map<String, Object> domainMap) {
-		Long id = (Long) domainMap.get("id");
-		// TODO: Handle unchecked cast on domainClass.
+		LOGGER.log(Level.INFO, "Start getting the node and it's properties.");
+		Long domainId = (Long) domainMap.get("id");
 		@SuppressWarnings("unchecked")
 		Class<DomainObject> domainClass = (Class<DomainObject>) domainMap.get("class");
-
 		Transaction tx = null;
 		DomainObject objectNode = null;
-		org.neo4j.ogm.session.Session session;
+		Session session;
 		try {
 			session = DriverFactory.getSessionFactory();
-			LOGGER.log(Level.INFO, "Obtain and open session");
+			LOGGER.log(Level.INFO, "Obtain and open session instance.");
 			tx = session.beginTransaction();
 			LOGGER.log(Level.INFO, "Begin session transaction");
-			objectNode = session.load(domainClass, id);
-			LOGGER.log(Level.INFO, "Load node class and id into session");
+			objectNode = session.load(domainClass, domainId);
+			LOGGER.log(Level.INFO, "Load node class and id");
 		} catch (Exception e) {
 			// TODO: Custom exception handling
 			LOGGER.log(Level.SEVERE, e.toString(), e);
@@ -75,7 +73,7 @@ public class RestOperation {
 		}
 		return objectNode;
 	}
-
+	
 	/**
 	 * Create node transaction with session and persist (save) node.
 	 *
@@ -83,29 +81,29 @@ public class RestOperation {
 	 * @return     - true:  Create transaction and save node
 	 *               false: exception caught in session
 	 */
-	public static boolean persistObject(Object node) {
-		Transaction transaction = null;
+	public static boolean persistObject(Object domainNode) {
+		Transaction tx = null;
 		Session session;
 		try {
 			session = DriverFactory.getSessionFactory();
 			LOGGER.log(Level.INFO, "Obtain and open session");
-			transaction = session.beginTransaction();
+			session.beginTransaction();
 			LOGGER.log(Level.INFO, "Begin session transaction");
-			session.save(node);
+			session.save(domainNode);
 			LOGGER.log(Level.INFO, "Save node into session");
 			return true;
-		} catch (Exception e) {
+		} catch(Exception e) {
 			// TODO: Custom exception handling
 			LOGGER.log(Level.SEVERE, e.toString(), e);
-		    return false;
+			return false;
 		} finally {
-			if (transaction != null) {
-				transaction.close();
+			if (tx != null) {
+				tx.close();
 				LOGGER.log(Level.INFO, "Close transaction instance");
 			}
 		}
 	}
-
+	
 	/**
 	 * Run cypher command query to be persisted to the database.
 	 *
@@ -114,31 +112,9 @@ public class RestOperation {
 	 *                        false: exception, Session failed to run
 	 */
 	public static boolean executeCypherQuery(String cypherCommand) {
-		org.neo4j.driver.v1.Session session = null;
-		try {
-			Driver driver = DriverFactory.getDriverInstance();
-			LOGGER.log(Level.INFO, "Obtain driver instance from DriverFactory");
-			session = driver.session();
-			LOGGER.log(Level.INFO, "Obtain driver session");
-			session.run(cypherCommand);
-			LOGGER.log(Level.INFO, "Run session statement: " + session.run(cypherCommand));
-			// TODO: Insert logging!
-			return true;
-		} catch (Exception e) {
-			// TODO: Custom exception handling
-			LOGGER.log(Level.SEVERE, e.toString(), e);
-			e.printStackTrace();
-			return false;
-		} finally {
-			if (session != null) {
-				session.close();
-				LOGGER.log(Level.INFO, "Close session");
-				DriverFactory.closeConnection();
-				LOGGER.log(Level.INFO, "Close DriverFactory connection");
-			}
-		}
+		return false;
 	}
-
+	
 	/**
 	 * Create object transaction with session and delete nod.
 	 *
@@ -147,26 +123,6 @@ public class RestOperation {
 	 *                     false: exception caught in session
 	 */
 	public static boolean deleteObject(Object objectNode) {
-		Transaction tx = null;
-		org.neo4j.ogm.session.Session session;
-		try {
-			session = DriverFactory.getSessionFactory();
-			LOGGER.log(Level.INFO, "Obtain and open session");
-			tx = session.beginTransaction();
-			LOGGER.log(Level.INFO, "Begin session transaction");
-			session.delete(objectNode);
-			LOGGER.log(Level.INFO, "Delete node in session");
-			tx.commit();
-			LOGGER.log(Level.INFO, "Cmmit to transaction");
-			return true;
-			// TODO: Custom exception handling
-		} catch (Exception e) {
-			// TODO: Custom exception handling
-			LOGGER.log(Level.SEVERE, e.toString(), e);
-			return false;
-		} finally {
-			if (tx != null)
-				tx.close();
-		}
+		return false;
 	}
 }
