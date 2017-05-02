@@ -27,23 +27,23 @@ package io.numis.common;
  * @since 0.0.1
  */
 public enum Variables {
-	// Variable Definitions
-	GRAPHENEDB_TEAL_URL("GRAPHENEDB_TEAL_URL"),
-	GRAPHENEDB_TEAL_BOLT_USER("GRAPHENEDB_TEAL_BOLT_USER"),
-	GRAPHENEDB_TEAL_BOLT_URL("GRAPHENEDB_TEAL_BOLT_URL"),
-	GRAPHENEDB_TEAL_BOLT_PASSWORD("GRAPHENEDB_TEAL_BOLT_PASSWORD"),
-	USERNAME("username"),
-	PASSWORD("password"),
-	DRIVER("driver"),
-	URI("URI");
+    // Variable Definitions
+    GRAPHENEDB_TEAL_URL("GRAPHENEDB_TEAL_URL"),
+    GRAPHENEDB_TEAL_BOLT_USER("GRAPHENEDB_TEAL_BOLT_USER"),
+    GRAPHENEDB_TEAL_BOLT_URL("GRAPHENEDB_TEAL_BOLT_URL"),
+    GRAPHENEDB_TEAL_BOLT_PASSWORD("GRAPHENEDB_TEAL_BOLT_PASSWORD"),
+    USERNAME("username"),
+    PASSWORD("password"),
+    DRIVER("driver"),
+    URI("URI");
 
-	private String value;
+    private String value;
 
-	Variables(String value) {
-		this.value = value;
-	}
+    Variables(String value) {
+        this.value = value;
+    }
 
-	public String getValue() {
-		return value;
-	}
+    public String getValue() {
+        return value;
+    }
 }

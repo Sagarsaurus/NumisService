@@ -27,32 +27,32 @@ package io.numis.common;
  * @since 0.0.1
  */
 public enum Routes {
-	// User URI
-	GETUSER("/api/v1/users/get"),
-	CREATEUSER("/api/v1/users/new"),
-	UPDATEUSER("/api/v1/user/udpate"),
-	DELETEUSER("/api/v1/user/delete"),
-	// User URI
+    // User URI
+    GETUSER("/api/v1/users/get"),
+    CREATEUSER("/api/v1/users/new"),
+    UPDATEUSER("/api/v1/user/udpate"),
+    DELETEUSER("/api/v1/user/delete"),
+    // User URI
 
-	// Group URI
-	GETGROUP("/api/v1/groups/get"),
-	// Group URI
+    // Group URI
+    GETGROUP("/api/v1/groups/get"),
+    // Group URI
 
-	// Contribution URI
-	GETCONTRIBUTION("/api/v1/contributions/get"),
-	// Contribution URI
+    // Contribution URI
+    GETCONTRIBUTION("/api/v1/contributions/get"),
+    // Contribution URI
 
-	// Transaction URI
-	GETTRANSACTION("/api/v1/transactions/get");
-	// Transaction URI
+    // Transaction URI
+    GETTRANSACTION("/api/v1/transactions/get");
+    // Transaction URI
 
-	private String URI;
+    private String URI;
 
-	Routes(String URI) {
-		this.URI = URI;
-	}
+    Routes(String URI) {
+        this.URI = URI;
+    }
 
-	public String URI() {
-		return URI;
-	}
+    public String URI() {
+        return URI;
+    }
 }

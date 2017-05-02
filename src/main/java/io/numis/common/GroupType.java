@@ -27,18 +27,18 @@ package io.numis.common;
  * @since 0.0.1
  */
 public enum GroupType {
-	DEFAULT(0),
-	TRAVEL(1),
-	COMMON(2),
-	GOAL(3);
+    DEFAULT(0),
+    TRAVEL(1),
+    COMMON(2),
+    GOAL(3);
 
-	private int type;
+    private int type;
 
-	GroupType(int type) {
-		this.type = type;
-	}
+    GroupType(int type) {
+        this.type = type;
+    }
 
-	public int getType() {
-		return type;
-	}
+    public int getType() {
+        return type;
+    }
 }

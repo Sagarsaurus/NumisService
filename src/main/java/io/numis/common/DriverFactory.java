@@ -42,91 +42,91 @@ import io.numis.common.exceptions.DotenvException;
  */
 class DriverFactory {
 
-	// DriverFactory instance
-	private static DriverFactory driverFactory;
+    // DriverFactory instance
+    private static DriverFactory driverFactory;
 
-	// NumisDotenv Instance
-	private static Dotenv envInstance;
+    // NumisDotenv Instance
+    private static Dotenv envInstance;
 
-	// Private Empty Constructor
-	private DriverFactory() {}
+    // Private Empty Constructor
+    private DriverFactory() {}
 
-	/**
-	 * Creates driver object to setup a
-	 * connection through BOLT databse URI.
-	 *
-	 * @return driver - Established connection to the bolt database URI.
-	 * @throws SQLException           - invalid SQL
-	 * @throws URISyntaxException     - URI syntax invalid
-	 * @throws IllegalAccessException - Unauthorized access
-	 * @throws InstantiationException - Could not load access
-	 * @throws ClassNotFoundException - Could not find bolt driver
-	 * @throws DotenvException        - failed to retrieve var from .env file
-	 */
-	private Driver createConnection() throws URISyntaxException, SQLException,
-			ClassNotFoundException, InstantiationException, IllegalAccessException, DotenvException {
-		// Prepare dotenv instance var
-		envInstance = NumisDotenv.createDotenvInstance();
-		// Set variables
-		String graphDbURL      = NumisDotenv.retrieveTealBoltURL(envInstance);
-		String graphDbUser     = NumisDotenv.retrieveTealBoltUser(envInstance);
-		String graphDbPassword = NumisDotenv.retrieveTealBoltPassword(envInstance);
-		// Return GraphDatabase driver instance
-		return GraphDatabase.driver(graphDbURL, AuthTokens.basic(graphDbUser, graphDbPassword));
-	}
+    /**
+     * Creates driver object to setup a
+     * connection through BOLT databse URI.
+     *
+     * @return driver - Established connection to the bolt database URI.
+     * @throws SQLException           - invalid SQL
+     * @throws URISyntaxException     - URI syntax invalid
+     * @throws IllegalAccessException - Unauthorized access
+     * @throws InstantiationException - Could not load access
+     * @throws ClassNotFoundException - Could not find bolt driver
+     * @throws DotenvException        - failed to retrieve var from .env file
+     */
+    private Driver createConnection() throws URISyntaxException, SQLException,
+            ClassNotFoundException, InstantiationException, IllegalAccessException, DotenvException {
+        // Prepare dotenv instance var
+        envInstance = NumisDotenv.createDotenvInstance();
+        // Set variables
+        String graphDbURL      = NumisDotenv.retrieveTealBoltURL(envInstance);
+        String graphDbUser     = NumisDotenv.retrieveTealBoltUser(envInstance);
+        String graphDbPassword = NumisDotenv.retrieveTealBoltPassword(envInstance);
+        // Return GraphDatabase driver instance
+        return GraphDatabase.driver(graphDbURL, AuthTokens.basic(graphDbUser, graphDbPassword));
+    }
 
-	/**
-	 * Create driver and establish connection by calling
-	 * createConnection() method.
-	 *
-	 * @throws SQLException           - invalid SQL
-	 * @throws URISyntaxException     - URI syntax invalid
-	 * @throws IllegalAccessException - Unauthorized access
-	 * @throws InstantiationException - Could not load access
-	 * @throws ClassNotFoundException - Could not find bolt driver
-	 * @throws DotenvException        - failed to retrieve var from .env file
-	 */
-	static Driver getDriverInstance() throws ClassNotFoundException, InstantiationException,
-			IllegalAccessException, URISyntaxException, SQLException, DotenvException {
-		if (driverFactory == null) driverFactory = new DriverFactory();
-		return driverFactory.createConnection();
-	}
+    /**
+     * Create driver and establish connection by calling
+     * createConnection() method.
+     *
+     * @throws SQLException           - invalid SQL
+     * @throws URISyntaxException     - URI syntax invalid
+     * @throws IllegalAccessException - Unauthorized access
+     * @throws InstantiationException - Could not load access
+     * @throws ClassNotFoundException - Could not find bolt driver
+     * @throws DotenvException        - failed to retrieve var from .env file
+     */
+    static Driver getDriverInstance() throws ClassNotFoundException, InstantiationException,
+            IllegalAccessException, URISyntaxException, SQLException, DotenvException {
+        if (driverFactory == null) driverFactory = new DriverFactory();
+        return driverFactory.createConnection();
+    }
 
-	/**
-	 * Opens a session with the Numis Service.
-	 *
-	 * @return sessionFactory  - open new database session with SessionFactory
-	 * @throws DotenvException - failed to retrieve var from .env file
-	 */
-	static Session getSessionFactory() throws DotenvException {
-		// Prepare dotenv instance var
-		envInstance = NumisDotenv.createDotenvInstance();
-		// Create Configuration
-		Configuration sessionConfig = new Configuration();
-		// Set variables
-		String URI = NumisDotenv.retrieveURI(envInstance);
-		String username = NumisDotenv.retrieveUsername(envInstance);
-		String password = NumisDotenv.retrievePassword(envInstance);
-		String driverClassName = NumisDotenv.retrieveDriverName(envInstance);
-		// Set parameters
-		sessionConfig.driverConfiguration().setDriverClassName(driverClassName)
-				.setURI(URI).setCredentials(username, password);
-		// Create new session with package name and configuration.
-		SessionFactory sessionFactory = new SessionFactory(sessionConfig, "io.numis");
-		return sessionFactory.openSession();
-	}
+    /**
+     * Opens a session with the Numis Service.
+     *
+     * @return sessionFactory  - open new database session with SessionFactory
+     * @throws DotenvException - failed to retrieve var from .env file
+     */
+    static Session getSessionFactory() throws DotenvException {
+        // Prepare dotenv instance var
+        envInstance = NumisDotenv.createDotenvInstance();
+        // Create Configuration
+        Configuration sessionConfig = new Configuration();
+        // Set variables
+        String URI = NumisDotenv.retrieveURI(envInstance);
+        String username = NumisDotenv.retrieveUsername(envInstance);
+        String password = NumisDotenv.retrievePassword(envInstance);
+        String driverClassName = NumisDotenv.retrieveDriverName(envInstance);
+        // Set parameters
+        sessionConfig.driverConfiguration().setDriverClassName(driverClassName)
+                .setURI(URI).setCredentials(username, password);
+        // Create new session with package name and configuration.
+        SessionFactory sessionFactory = new SessionFactory(sessionConfig, "io.numis");
+        return sessionFactory.openSession();
+    }
 
-	/**
-	 * Close driver instance session with DriverFactory.
-	 */
-	static void closeConnection() {
-		try {
-			Driver driver = getDriverInstance();
-			driver.close();
-		} catch (ClassNotFoundException | InstantiationException
-				| IllegalAccessException | URISyntaxException
-				| SQLException | DotenvException e) {
-			e.printStackTrace();
-		}
-	}
+    /**
+     * Close driver instance session with DriverFactory.
+     */
+    static void closeConnection() {
+        try {
+            Driver driver = getDriverInstance();
+            driver.close();
+        } catch (ClassNotFoundException | InstantiationException
+                | IllegalAccessException | URISyntaxException
+                | SQLException | DotenvException e) {
+            e.printStackTrace();
+        }
+    }
 }

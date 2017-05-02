@@ -16,6 +16,7 @@
 package io.numis.service;
 
 import io.numis.common.Routes;
+import spark.servlet.SparkApplication;
 
 import static spark.Spark.*;
 
@@ -25,7 +26,7 @@ import java.util.logging.Logger;
 /**
  * <h1>Numis</h1>
  *
- * Primary entry point for Numis Numis
+ * Primary entry point for Numis
  * service context
  * <p>
  * Contains the routing methods for
@@ -38,7 +39,7 @@ import java.util.logging.Logger;
  * @version 0.0.1
  * @since 0.0.1
  */
-public class Numis {
+public class Numis implements SparkApplication {
 
     // Class Logger
     private final static Logger LOGGER = Logger.getLogger(Numis.class.getName());
@@ -46,81 +47,12 @@ public class Numis {
     // Domain Service Handlers
     private static UserService userService = new UserService();
 
-    // Primary
-    public static void main(String[] args) {
+    /**
+     * Invoked from the SparkFilter. Add routes here.
+     */
+    @Override
+    public void init() {
         // test
-        // get("/hello", ((request, response) -> "Hello World"));
-
-        //========================
-        // User Routes
-        //========================
-
-        /**
-         * GET user referenced at id
-         * <p>
-         *
-         * @param path - /api/v1/users/get
-         */
-        get(Routes.GETUSER.URI(), ((request, response) -> {
-            // TODO: Append node ID
-            LOGGER.log(Level.INFO, "Retrieve User");
-            userService.getNode(request, response);
-            return response.body();
-        }));
-
-        /**
-         * CREATE user from request
-         * <p>
-         *
-         * @param path - /api/v1/user/new
-         */
-        post(Routes.CREATEUSER.URI(), ((request, response) -> {
-            LOGGER.log(Level.INFO, "Create User");
-            userService.createNode(request, response);
-            return response.body();
-        }));
-
-        /**
-         * UPDATE user properties referenced from id
-         * <p>
-         *
-         * @param path - /api/v1/user/update
-         */
-        put(Routes.UPDATEUSER.URI(), ((request, response) -> {
-            LOGGER.log(Level.INFO, "Update User");
-            userService.updateNode(request, response);
-            return response.body();
-        }));
-
-        /**
-         * DELETE user referenced from id
-         * <p>
-         *
-         * @param path - /api/v1/user/delete
-         */
-        delete(Routes.DELETEUSER.URI(), ((request, response) -> {
-            LOGGER.log(Level.INFO, "Delete User");
-            userService.deleteNode(request, response);
-            return response.body();
-        }));
-
-
-        //========================
-        // Group Routes
-        //========================
-
-        get(Routes.GETGROUP.URI(), ((request, response) -> "Hello World"));
-
-        //========================
-        // Contribution Routes
-        //========================
-
-        get(Routes.GETCONTRIBUTION.URI(), ((request, response) -> "Hello World"));
-
-        //========================
-        // Transaction Routes
-        //========================
-
-        get(Routes.GETTRANSACTION.URI(), ((request, response) -> "Hello World"));
+        get("/hello", ((request, response) -> "Hello World"));
     }
 }

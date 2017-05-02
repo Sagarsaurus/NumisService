@@ -16,9 +16,9 @@
 package io.numis.common;
 
 /**
- * <h1>SNode</h1>
+ * <h1>INode</h1>
  *
- * Serializable node class that extends
+ * Comparable node class that extends
  * {@link Comparable<INode>}
  * <p>
  * Used by standard domain node templates.
@@ -31,9 +31,9 @@ package io.numis.common;
  */
 public interface INode extends Comparable<INode> {
 
-	/**
-	 *
-	 * @return id - id of the node
-	 */
-	Long getId();
+    /**
+     *
+     * @return id - id of the node
+     */
+    Long getId();
 }

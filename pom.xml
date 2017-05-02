@@ -16,15 +16,6 @@
 	<url>http://maven.apache.org</url>
 
 	<!-- ========================================================== -->
-	<!-- Parent -->
-	<!-- ========================================================== -->
-	<parent>
-		<groupId>org.springframework.boot</groupId>
-		<artifactId>spring-boot-starter-parent</artifactId>
-		<version>1.5.3.RELEASE</version>
-	</parent>
-
-	<!-- ========================================================== -->
 	<!-- Properties -->
 	<!-- ========================================================== -->
 	<properties>
@@ -35,9 +26,7 @@
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 
 		<!-- Core -->
-		<boot.version>1.5.3.RELEASE</boot.version>
-		<spring.neo4j.version>4.2.3.RELEASE</spring.neo4j.version>
-		<com.sparkjava.version>2.5.5</com.sparkjava.version>
+		<com.sparkjava.version>2.6.0.RC0</com.sparkjava.version>
 
 		<!-- Database -->
 		<org.neo4j.version>3.0.7</org.neo4j.version>
@@ -72,36 +61,6 @@
 		<!-- tag::core -->
 		<!-- ==================== -->
 
-		<!-- tag::springframework.boot -->
-		<dependency>
-			<groupId>org.springframework.boot</groupId>
-			<artifactId>spring-boot-starter-data-rest</artifactId>
-			<version>${boot.version}</version>
-		</dependency>
-		<!-- end::springframework.boot -->
-
-		<!-- tag::springframework.data -->
-		<dependency>
-			<groupId>org.springframework.data</groupId>
-			<artifactId>spring-data-neo4j</artifactId>
-			<version>${spring.neo4j.version}</version>
-		</dependency>
-		<!-- end::springframework.data -->
-
-		<!-- tag::hibernate -->
-		<dependency>
-			<groupId>org.hibernate</groupId>
-			<artifactId>hibernate-validator</artifactId>
-		</dependency>
-		<!-- end::hibernate -->
-
-		<!-- tag::springboot.starter -->
-		<dependency>
-			<groupId>org.springframework.boot</groupId>
-			<artifactId>spring-boot-starter-test</artifactId>
-		</dependency>
-		<!-- end::springboot.starter -->
-
 		<!-- tag::spark-core -->
 		<dependency>
 			<groupId>com.sparkjava</groupId>
@@ -109,14 +68,6 @@
 			<version>${com.sparkjava.version}</version>
 		</dependency>
 		<!-- end::spark-core -->
-
-		<!-- tag::velocity-spark -->
-		<dependency>
-			<groupId>com.sparkjava</groupId>
-			<artifactId>spark-template-velocity</artifactId>
-			<version>${com.sparkjava.version}</version>
-		</dependency>
-		<!-- end::velocity-spark -->
 
 
 		<!-- ==================== -->
@@ -305,11 +256,6 @@
 							</java.util.logging.config.file>
 						</sytemPropertyVariables>
 					</configuration>
-				</plugin>
-				<!-- Config: Springframework boot -->
-				<plugin>
-					<groupId>org.springframework.boot</groupId>
-					<artifactId>spring-boot-maven-plugin</artifactId>
 				</plugin>
 			</plugins>
 		</pluginManagement>
