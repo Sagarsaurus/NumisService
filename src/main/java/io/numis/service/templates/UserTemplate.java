@@ -1,12 +1,12 @@
 /**
  * Copyright {2017} Numis.io
- * 
+ *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
- * 
+ *
  * http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -19,16 +19,15 @@ import io.numis.common.templates.ServiceContract;
 
 /**
  * <h1>UserTemplate</h1>
- * 
+ *
  * User Service template for
  * specific User node method transactions
  * that implements {@link io.numis.common.templates.ServiceContract}
  * <p>
- * 
+ *
  * @author Numis
  * @version 0.0.1
  * @since 0.0.1
  */
 public abstract class UserTemplate implements ServiceContract {
-
 }

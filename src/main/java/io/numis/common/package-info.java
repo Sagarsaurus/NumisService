@@ -1,12 +1,12 @@
 /**
  * Copyright {2017} Numis.io
- * 
+ *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
- * 
+ *
  * http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -16,16 +16,15 @@
 
 /**
  * <h1>io.numis.common</h1>
- * 
+ *
  * Util package contains contract
  * classes and interfaces integrated
  * throughout the application.
  * <p>
- * 
  * GroupType:     Enum representing possible group types as integers.
- * 
+ *
  * Routes:        Enum representing URI REST routes for all nodes.
- * 
+ *
  * DriverFactory: Factory class to establish connection
  * 				  with Graph Database through the URL's.
  *
@@ -33,9 +32,9 @@
  *                  for each standard REST operation
  *                  for all domain nodes. i.e PersistObject,
  *                  createObject, getObject, etc.
- * 
+ *
  * SNode:         Primary Node interface class.
- * 
+ *
  * DomainNode:    Abstract class with boilerplate class methods.
  * <p>
  *

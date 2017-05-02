@@ -44,7 +44,7 @@ class DriverFactory {
 
 	// DriverFactory instance
 	private static DriverFactory driverFactory;
-	
+
 	// NumisDotenv Instance
 	private static Dotenv envInstance;
 
@@ -84,7 +84,7 @@ class DriverFactory {
 	 * @throws IllegalAccessException - Unauthorized access
 	 * @throws InstantiationException - Could not load access
 	 * @throws ClassNotFoundException - Could not find bolt driver
-	 * @throws DotenvException        - failed to retrieve var from .env file 
+	 * @throws DotenvException        - failed to retrieve var from .env file
 	 */
 	static Driver getDriverInstance() throws ClassNotFoundException, InstantiationException,
 			IllegalAccessException, URISyntaxException, SQLException, DotenvException {
@@ -93,7 +93,7 @@ class DriverFactory {
 	}
 
 	/**
-	 * Opens a session with the Application Service.
+	 * Opens a session with the Numis Service.
 	 *
 	 * @return sessionFactory  - open new database session with SessionFactory
 	 * @throws DotenvException - failed to retrieve var from .env file
@@ -120,16 +120,13 @@ class DriverFactory {
 	 * Close driver instance session with DriverFactory.
 	 */
 	static void closeConnection() {
-		Driver driver;
 		try {
-			driver = getDriverInstance();
+			Driver driver = getDriverInstance();
 			driver.close();
 		} catch (ClassNotFoundException | InstantiationException
 				| IllegalAccessException | URISyntaxException
 				| SQLException | DotenvException e) {
 			e.printStackTrace();
-		} finally {
-			driver = null;
 		}
 	}
 }

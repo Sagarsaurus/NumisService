@@ -1,12 +1,12 @@
 /**
  * Copyright {2017} Numis.io
- * 
+ *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
- * 
+ *
  * http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -17,7 +17,7 @@ package io.numis.common;
 
 /**
  * <h1>Routes</h1>
- * 
+ *
  * File to hold all the REST api
  * routes for each node.
  * <p>
@@ -31,8 +31,20 @@ public enum Routes {
 	GETUSER("/api/v1/users/get"),
 	CREATEUSER("/api/v1/users/new"),
 	UPDATEUSER("/api/v1/user/udpate"),
-	DELETEUSER("/api/v1/user/delete");
+	DELETEUSER("/api/v1/user/delete"),
 	// User URI
+
+	// Group URI
+	GETGROUP("/api/v1/groups/get"),
+	// Group URI
+
+	// Contribution URI
+	GETCONTRIBUTION("/api/v1/contributions/get"),
+	// Contribution URI
+
+	// Transaction URI
+	GETTRANSACTION("/api/v1/transactions/get");
+	// Transaction URI
 
 	private String URI;
 

@@ -1,12 +1,12 @@
 /**
  * Copyright {2017} Numis.io
- * 
+ *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
- * 
+ *
  * http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -21,12 +21,11 @@ import java.util.Properties;
 
 /**
  * <h1>PersistenceContract</h1>
- * 
+ *
  * Contains standard CRUD operation
  * method stubs and defintions applied
  * to all domain persistence classes.
  * <p>
- * 
  * retrieveNode:    Get node object and properties (GET)
  * createNode:      Create node with properties    (POST)
  * updateNode:      Destroy node and relationships (DELETE)
@@ -42,6 +41,7 @@ public interface PersistenceContract {
 	/**
 	 * GET request
 	 * Retrieve node and its properties.
+	 * <p>
 	 *
 	 * @param properties - Node properties
 	 * @return           - true:  retrieve node
@@ -52,12 +52,13 @@ public interface PersistenceContract {
 	/**
 	 * POST request
 	 * Create new node with respective properties.
+	 * <p>
 	 *
 	 * @param properties - Node properties
 	 * @return           - true:  new node created
 	 *                     false: exception thrown, failed to create node
 	 */
-	boolean createNode(Properties properties);
+	boolean createDomainNode(Properties properties);
 
 	/**
 	 * POST request
@@ -71,13 +72,17 @@ public interface PersistenceContract {
 	 * @return           - true:  Update node
 	 *                     false: exception thrown, failed to update node
 	 */
-	boolean updateNode(Properties properties);
+	boolean updateDomainNode(Properties properties);
 
 	/**
+	 * DELETE request
+	 * Delete the node and properties as well
+	 * as rspective relationships.
+	 * <p>
 	 *
 	 * @param properties - Node properties
 	 * @return           - true:  delete node
 	 *                     false: exception thrown, failed to delete node
 	 */
-	boolean deleteNode(Properties properties);
+	boolean deleteDomainNode(Properties properties);
 }
